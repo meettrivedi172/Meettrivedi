@@ -1,0 +1,49 @@
+.main-container {
+  height: calc(100vh - 64px); /* Subtract header height */
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* Syncfusion Splitter pane styles */
+::ng-deep .e-splitter .e-pane {
+  overflow: hidden !important;
+}
+
+::ng-deep .e-splitter .e-pane-content {
+  height: 100% !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.pane-content {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.schema-sidebar {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-main {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure body and html take full height */
+:host {
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+}
+

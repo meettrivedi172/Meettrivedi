@@ -1,0 +1,99 @@
+<div class="schema-container">
+  <div class="schema-header">
+    <h3>Database Schema</h3>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M10 10L13 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <input 
+      type="text" 
+      class="search-input"
+      placeholder="Search objects and fields..."
+      [(ngModel)]="searchTerm"
+      (input)="searchSchema()"
+    />
+    @if (searchTerm) {
+      <button class="clear-search" (click)="clearSearch()" title="Clear search">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    }
+  </div>
+
+  <!-- Loading Spinner -->
+  @if (isLoading) {
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <span>Loading schema...</span>
+    </div>
+  }
+
+  <!-- Tree View -->
+  <div class="tree-container">
+    @for (node of treeNodes; track node.id) {
+      <div class="tree-node">
+        <!-- AppObject Node -->
+        <div 
+          class="node-item object-node"
+          [class.expanded]="node.isExpanded"
+        >
+          <svg 
+            class="chevron" 
+            width="12" 
+            height="12" 
+            viewBox="0 0 12 12" 
+            fill="none"
+            (click)="toggleNode(node)"
+          >
+            <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span 
+            class="table-name-draggable"
+            draggable="true"
+            (dragstart)="onTableDragStart($event, node)"
+            (dragend)="onTableDragEnd($event)"
+          >
+            <span class="node-icon">{{ node.icon }}</span>
+            <span class="node-name object-name">{{ node.displayName }}</span>
+          </span>
+        </div>
+
+        <!-- Fields -->
+        @if (node.isExpanded && node.children) {
+          <div class="children-container">
+            @for (field of node.children; track field.id) {
+              <div 
+                class="node-item field-node"
+                draggable="true"
+                (dragstart)="onFieldDragStart($event, field)"
+                (dragend)="onFieldDragEnd($event)"
+                [title]="getFieldTooltip(field)"
+              >
+                <span class="node-icon field-icon">{{ field.icon }}</span>
+                <span class="node-name field-name">{{ field.name }}</span>
+                <span class="field-type">{{ field.dataType }}</span>
+                @if (field.isLookup && field.lookupTarget) {
+                  <span class="lookup-arrow">→ {{ field.lookupTarget }}</span>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Empty State -->
+  @if (!isLoading && treeNodes.length === 0) {
+    <div class="empty-state">
+      <span class="empty-icon">📭</span>
+      <span>No schema data found</span>
+    </div>
+  }
+</div>
+

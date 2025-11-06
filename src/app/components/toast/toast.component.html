@@ -1,0 +1,18 @@
+<div class="toast-container">
+  @for (toast of toasts; track toast.id) {
+    <div class="toast" [class]="'toast-' + toast.type" [attr.data-id]="toast.id">
+      <div class="toast-content">
+        @if (toast.title) {
+          <div class="toast-title">{{ toast.title }}</div>
+        }
+        <div class="toast-message">{{ toast.message }}</div>
+      </div>
+      <button class="toast-close" (click)="remove(toast.id)" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  }
+</div>
+

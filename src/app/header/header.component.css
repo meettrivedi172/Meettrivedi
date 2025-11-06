@@ -1,0 +1,149 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.square-top,
+.square-bottom {
+  position: absolute;
+  border: 2px solid #C4B5FD;
+  border-radius: 4px;
+}
+
+.square-top {
+  width: 18px;
+  height: 18px;
+  top: 0;
+  left: 0;
+  background-color: #8B5CF6;
+}
+
+.square-bottom {
+  width: 18px;
+  height: 18px;
+  bottom: 0;
+  right: 0;
+  background-color: #7C3AED;
+  border-color: #8B5CF6;
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title {
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+}
+
+.pro-badge {
+  background-color: #A78BFA;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1.5px solid #C4B5FD;
+  background-color: #8B5CF6;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header-button:hover {
+  background-color: #7C3AED;
+  border-color: #A78BFA;
+  transform: translateY(-1px);
+}
+
+.header-button:active {
+  transform: translateY(0);
+}
+
+.header-button .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.header-button.primary {
+  background-color: #10B981;
+  border-color: #34D399;
+}
+
+.header-button.primary:hover {
+  background-color: #059669;
+  border-color: #10B981;
+}
+
+.header-button.settings {
+  padding: 8px;
+  min-width: 32px;
+}
+
+.header-button.settings .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 12px 16px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .header-button span {
+    display: none;
+  }
+
+  .header-button {
+    padding: 8px;
+    min-width: 32px;
+  }
+
+  .pro-badge {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+}
+

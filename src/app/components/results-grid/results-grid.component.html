@@ -1,0 +1,229 @@
+<div class="results-grid-container">
+  <!-- Results Toolbar -->
+  <div class="results-toolbar">
+    <div class="toolbar-left">
+      <div class="metadata">
+        <span class="meta-item">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 3H13V13H3V3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 3V13M10 3V13" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3 6H13M3 10H13" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          {{ filteredData.length }} {{ filteredData.length === 1 ? 'row' : 'rows' }}
+        </span>
+        @if (metadata) {
+          <span class="meta-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 4V8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Executed in {{ metadata.executionTime }}s
+          </span>
+        }
+        <span class="status-indicator success">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 13C10.3137 13 13 10.3137 13 7C13 3.68629 10.3137 1 7 1C3.68629 1 1 3.68629 1 7C1 10.3137 3.68629 13 7 13Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 7L6 8L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Success
+        </span>
+      </div>
+    </div>
+    <div class="toolbar-right">
+      <button class="toolbar-action-btn" (click)="refresh()" title="Refresh">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3C3 3 5 1 8 1C11 1 13 3 13 3M13 13C13 13 11 15 8 15C5 15 3 13 3 13M1 8H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 1V5M8 11V15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Refresh
+      </button>
+      <button class="toolbar-action-btn" (click)="copyToClipboard()" title="Copy to Clipboard">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M5 5H3C2.44772 5 2 5.44772 2 6V13C2 13.5523 2.44772 14 3 14H10C10.5523 14 11 13.5523 11 13V11" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        Copy
+      </button>
+      <button class="toolbar-action-btn" (click)="exportCSV()" title="Export CSV">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3H13V13H3V3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 6H11M5 8H11M5 10H9" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        CSV
+      </button>
+      <button class="toolbar-action-btn" (click)="exportExcel()" title="Export Excel">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3H13V13H3V3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 5L8 8L11 5M5 11H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Excel
+      </button>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <!-- <div class="grid-container">
+    <table class="results-grid-table">
+      <thead>
+        <tr>
+          <th class="checkbox-column">
+            <input type="checkbox" [checked]="selectAll" (change)="toggleSelectAll()" />
+          </th>
+          @for (column of gridColumns; track column.field) {
+            <th class="sortable" [class.active-sort]="getSortIcon(column.field)" [class.grouped]="isGrouped(column.field)">
+              <div class="column-header">
+                <span class="column-title" (click)="onSort(column.field)">
+                  {{ column.header }}
+                  @if (getSortIcon(column.field)) {
+                    <span class="sort-icon">{{ getSortIcon(column.field) }}</span>
+                  }
+                </span>
+                <div class="column-actions">
+                  @if (enableGrouping && column.groupable) {
+                    <button 
+                      class="action-btn group-btn" 
+                      [class.active]="isGrouped(column.field)"
+                      (click)="onGroup(column.field)"
+                      title="Group by {{ column.header }}"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M3 3H11V11H3V3Z" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M3 3L7 7M7 7L11 3M7 7V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                  }
+                  @if (enableFiltering && column.filterable) {
+                    <button 
+                      class="action-btn filter-btn" 
+                      [class.active]="filters.has(column.field)"
+                      (click)="toggleFilterMenu(column.field)"
+                      title="Filter {{ column.header }}"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M2 4H12M4 7H10M6 10H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                  }
+                </div>
+                @if (showFilterMenu.get(column.field)) {
+                  <div class="filter-menu" (click)="$event.stopPropagation()">
+                    <input 
+                      type="text" 
+                      class="filter-input"
+                      [value]="filters.get(column.field) || ''"
+                      (input)="onFilterChange(column.field, $any($event.target).value)"
+                      placeholder="Filter {{ column.header }}..."
+                    />
+                    @if (filters.has(column.field)) {
+                      <button class="clear-filter-btn" (click)="clearFilter(column.field)">
+                        Clear
+                      </button>
+                    }
+                  </div>
+                }
+              </div>
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @if (displayedData.length === 0) {
+          <tr class="empty-row">
+            <td [attr.colspan]="gridColumns.length + 1">
+              <div class="empty-state">
+                <p>No data to display</p>
+              </div>
+            </td>
+          </tr>
+        } @else {
+          @for (row of displayedData; track $index; let i = $index) {
+            <tr [class.selected]="isRowSelected(i)">
+              <td class="checkbox-column">
+                <input 
+                  type="checkbox" 
+                  [checked]="isRowSelected(i)"
+                  (change)="toggleRowSelection(i)"
+                />
+              </td>
+              @for (column of gridColumns; track column.field) {
+                <td [class]="'type-' + column.type">
+                  {{ formatValue(row[column.field], column.type) }}
+                </td>
+              }
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div> -->
+
+  <!-- Pagination -->
+  <!-- @if (totalPages > 1) {
+    <div class="pagination">
+      <button class="page-btn" [disabled]="currentPage === 1" (click)="previousPage()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M9 11L5 7L9 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Previous
+      </button>
+      <div class="page-info">
+        Page {{ currentPage }} of {{ totalPages }}
+      </div>
+      <button class="page-btn" [disabled]="currentPage === totalPages" (click)="nextPage()">
+        Next
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M5 3L9 7L5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  } -->
+
+  <!-- Syncfusion Grid -->
+  <div class="syncfusion-grid-container" style="border-top: 2px solid #4b5563;">
+    <!-- <h3 style="color: #d1d5db; margin-bottom: 15px; font-size: 18px; font-weight: 600;">
+      Syncfusion Data Grid
+      @if (syncfusionGridData.length > 0) {
+        <span style="font-size: 14px; font-weight: 400; color: #9ca3af; margin-left: 10px;">
+          ({{ syncfusionGridData.length }} {{ syncfusionGridData.length === 1 ? 'row' : 'rows' }})
+        </span>
+      }
+    </h3> -->
+         @if (syncfusionGridData.length > 0 && syncfusionGridColumns.length > 0) {
+        <ejs-grid 
+          #syncfusionGrid
+          [dataSource]="syncfusionGridData" 
+          [columns]="syncfusionGridColumns"
+          [allowPaging]="false"
+          [allowSorting]="true"
+          [sortSettings]="gridSortSettings"
+          [allowFiltering]="true"
+          [filterSettings]="gridFilterSettings"
+          [allowGrouping]="true"
+          [groupSettings]="gridGroupSettings"
+          [allowReordering]="true"
+          [toolbar]="gridToolbar"
+          height="500"
+          style="width: 100%;"
+          (actionComplete)="onGridActionComplete($event)"
+          (filtering)="onGridFiltering($event)"
+          (sorted)="onGridSorted($event)"
+          (grouping)="onGridGrouping($event)"
+        >
+        </ejs-grid>
+    } @else {
+      <div style="padding: 40px; text-align: center; color: #9ca3af; background-color: #1f2937; border-radius: 8px;">
+        <p style="font-size: 14px;">
+          @if (data && data.length > 0) {
+            Loading grid data...
+          } @else {
+            No data available. Execute a query to see results in the Syncfusion Grid.
+          }
+        </p>
+        <p style="font-size: 12px; margin-top: 10px; color: #6b7280;">
+          Debug: Data rows: {{ data?.length || 0 }}, Grid rows: {{ syncfusionGridData?.length || 0 }}, Columns: {{ syncfusionGridColumns?.length || 0 }}
+        </p>
+      </div>
+    }
+  </div>
+</div>
+
