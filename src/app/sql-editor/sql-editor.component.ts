@@ -12,6 +12,7 @@ import { SqlCompletionProvider } from './monaco-sql-provider';
 import { SplitterModule } from '@syncfusion/ej2-angular-layouts';
 // Import SQL language support
 import * as monacoSqlLanguages from 'monaco-sql-languages';
+import { format } from 'sql-formatter';
 
 interface QueryParameter {
   name: string;
@@ -47,6 +48,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTab: 'sql' | 'visual' | 'json' = 'sql';
   sqlQuery: string = '';
   formattedQuery: string = '';
+  jsonInput: string = '';
   parameters: QueryParameter[] = [];
   isExecuting: boolean = false;
   hasValidationErrors: boolean = false;
@@ -718,31 +720,26 @@ LIMIT 100`;
   }
 
   formatQuery(): void {
-    // Simple SQL formatting
-    let formatted = this.sqlQuery;
-    
-    // Uppercase keywords
-    const keywords = ['SELECT', 'FROM', 'WHERE', 'JOIN', 'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'ON', 'GROUP BY', 'ORDER BY', 'LIMIT', 'HAVING', 'AND', 'OR', 'AS'];
-    keywords.forEach(keyword => {
-      const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
-      formatted = formatted.replace(regex, keyword);
-    });
-    
-    // Add line breaks after keywords (simple implementation)
-    formatted = formatted.replace(/(SELECT|FROM|WHERE|JOIN|INNER JOIN|LEFT JOIN|RIGHT JOIN|ON|GROUP BY|ORDER BY|LIMIT|HAVING)/gi, '\n$1');
-    
-    // Clean up multiple newlines
-    formatted = formatted.replace(/\n{3,}/g, '\n\n');
-    
-    // Trim
-    formatted = formatted.trim();
-    
-    this.sqlQuery = formatted;
-    // Update Monaco editor
-    if (this.editor) {
-      this.editor.setValue(formatted);
+    try {
+      // Use sql-formatter library for professional SQL formatting
+      const formatted = format(this.sqlQuery, {
+        language: 'sql',
+        tabWidth: 4, // Number of spaces for indentation
+        keywordCase: 'upper', // Uppercase SQL keywords
+        linesBetweenQueries: 2 // Number of line breaks between queries
+      });
+      
+      this.sqlQuery = formatted;
+      // Update Monaco editor
+      if (this.editor) {
+        this.editor.setValue(formatted);
+      }
+      this.onQueryChange();
+    } catch (error) {
+      console.error('Error formatting SQL query:', error);
+      // Fallback to original query if formatting fails
+      this.toastService.error('Failed to format SQL query. Please check your SQL syntax.');
     }
-    this.onQueryChange();
   }
 
   executeQuery(): void {
@@ -1232,10 +1229,15 @@ LIMIT 100`;
     }
     
     if (tab === 'json') {
-      // Generate structured JSON representation using parser
-      // Query name will be extracted from comment if available
-      const structuredQuery = this.sqlParserService.parseQuery(this.sqlQuery);
-      this.formattedQuery = JSON.stringify(structuredQuery, null, 2);
+      // Generate JSON representation in the format: QueryObjectID, ResultField_AppfieldIds, WhereClause, etc.
+      try {
+        const jsonQuery = this.sqlParserService.sqlToJson(this.sqlQuery);
+        this.jsonInput = JSON.stringify(jsonQuery, null, 2);
+        this.formattedQuery = '';
+      } catch (error: any) {
+        this.jsonInput = '';
+        this.formattedQuery = `Error converting SQL to JSON: ${error.message}`;
+      }
     }
   }
 
@@ -1302,5 +1304,58 @@ LIMIT 100`;
     if (!position) return '';
     
     return `Ln ${position.lineNumber}, Col ${position.column}`;
+  }
+
+  /**
+   * Convert JSON query object to SQL and update the SQL editor
+   */
+  convertJsonToSql(): void {
+    if (!this.jsonInput || this.jsonInput.trim() === '') {
+      this.toastService.warning('Please paste a JSON query object', 'No JSON Input');
+      return;
+    }
+
+    try {
+      const jsonQuery = JSON.parse(this.jsonInput);
+      const sqlQuery = this.sqlParserService.jsonToSql(jsonQuery);
+      
+      // Update SQL query
+      this.sqlQuery = sqlQuery;
+      
+      // Update Monaco editor
+      if (this.editor) {
+        this.editor.setValue(sqlQuery);
+      }
+      
+      // Update formatted query display
+      this.formattedQuery = sqlQuery;
+      
+      // Trigger change detection
+      this.onQueryChange();
+      
+      // Switch to SQL tab to show the converted query
+      this.activeTab = 'sql';
+      
+      this.toastService.success('JSON converted to SQL successfully', 'Conversion Success');
+    } catch (error: any) {
+      this.toastService.error(`Error converting JSON to SQL: ${error.message}`, 'Conversion Error');
+      this.formattedQuery = `Error: ${error.message}`;
+    }
+  }
+
+  /**
+   * Load JSON representation from current SQL query
+   */
+  loadJsonFromSql(): void {
+    try {
+      const jsonQuery = this.sqlParserService.sqlToJson(this.sqlQuery);
+      this.jsonInput = JSON.stringify(jsonQuery, null, 2);
+      this.formattedQuery = '';
+      this.toastService.success('JSON loaded from SQL successfully', 'Load Success');
+    } catch (error: any) {
+      this.toastService.error(`Error loading JSON from SQL: ${error.message}`, 'Load Error');
+      this.jsonInput = '';
+      this.formattedQuery = `Error: ${error.message}`;
+    }
   }
 }

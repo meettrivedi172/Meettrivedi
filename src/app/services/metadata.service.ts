@@ -104,8 +104,7 @@ export class MetadataService {
   private dummySchema: SchemaData;
   
   constructor() {
-    const rawApiData = [
-    {
+     const rawApiData = [ {
       "ID": "0fc9b4a0-0362-4804-9721-3920ce57eded",
       "ObjectName": "TABD_ReferenceLinks",
       "DisplayName": "TABD_ReferenceLinks",
@@ -17019,8 +17018,15484 @@ export class MetadataService {
         "IsSystemRecord": false,
         "AppId": "92a3f57f-eb81-42d9-bcbb-dcaf9420d3d3"
       }
-    }
-    ];
+    },
+    {
+      "ID": "77b30ad6-ed2e-4fbb-956e-703c40a2b07a",
+      "ObjectName": "TABMD_FieldType",
+      "DisplayName": "TABMD_FieldType",
+      "Description": "TABMD_FieldType",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "8fc4153d-c2e2-4856-b24c-0f2f4981fff4",
+          "ObjectID": null,
+          "ObjectID_Tosave": "77b30ad6-ed2e-4fbb-956e-703c40a2b07a",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "76e5a21b-7d3e-470d-bd0f-b6cc32df92ae",
+          "ObjectID": null,
+          "ObjectID_Tosave": "77b30ad6-ed2e-4fbb-956e-703c40a2b07a",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "77B30AD6-ED2E-4FBB-956E-703C40A2B07A",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "ed8129cf-db19-422b-9ff8-cd251d005f95",
+          "ObjectID": null,
+          "ObjectID_Tosave": "77b30ad6-ed2e-4fbb-956e-703c40a2b07a",
+          "FieldName": "DataType",
+          "DisplayName": "DataType",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "DataType",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "eab3c3d5-6a04-4028-bec6-e7af73988ee5",
+          "ObjectID": null,
+          "ObjectID_Tosave": "77b30ad6-ed2e-4fbb-956e-703c40a2b07a",
+          "FieldName": "RelationalOperator",
+          "DisplayName": "RelationalOperator",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RelationalOperator",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "d6d579f3-8e28-4dcb-a21b-1483992cca2e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "77b30ad6-ed2e-4fbb-956e-703c40a2b07a",
+          "QueryName": "Detail_TABMD_FieldType",
+          "DisplayName": "Detail_TABMD_FieldType",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "0f46a1c5-1f6d-4e00-9428-a9f488f25670",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "76e5a21b-7d3e-470d-bd0f-b6cc32df92ae"
+            },
+            {
+              "ID": "8a34bd1f-40f2-4187-9ef1-b9433a81ee35",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed8129cf-db19-422b-9ff8-cd251d005f95"
+            },
+            {
+              "ID": "505f7d3c-fa2b-4959-a921-c7232a6a5348",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8fc4153d-c2e2-4856-b24c-0f2f4981fff4"
+            },
+            {
+              "ID": "1b1190c9-d560-4392-89b8-cc4ba24db838",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "eab3c3d5-6a04-4028-bec6-e7af73988ee5"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "299c1a4c-020b-4836-98df-9178815c0a88",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "8fc4153d-c2e2-4856-b24c-0f2f4981fff4"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "13ecf6b7-6af6-469c-a68d-543d23d216ed",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "d6d579f3-8e28-4dcb-a21b-1483992cca2e",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "893805f4-6d90-40f2-83ae-772627c3dc76",
+          "ObjectID": null,
+          "ObjectID_Tosave": "77b30ad6-ed2e-4fbb-956e-703c40a2b07a",
+          "QueryName": "DEV_TABMD_FieldType",
+          "DisplayName": "DEV_TABMD_FieldType",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "3dc2eb46-eacf-4fa6-b039-65ab225e6828",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8fc4153d-c2e2-4856-b24c-0f2f4981fff4"
+            },
+            {
+              "ID": "07475266-8943-4954-b288-710fa027c0a5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed8129cf-db19-422b-9ff8-cd251d005f95"
+            },
+            {
+              "ID": "05e45749-d08c-4a52-95f7-75cb5c646883",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "76e5a21b-7d3e-470d-bd0f-b6cc32df92ae"
+            },
+            {
+              "ID": "4bd1981f-daad-4ae0-93c2-da30899a651e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "eab3c3d5-6a04-4028-bec6-e7af73988ee5"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "a4392eda-0d60-40f0-9571-7c071964326f",
+          "ObjectID": null,
+          "ObjectID_Tosave": "77b30ad6-ed2e-4fbb-956e-703c40a2b07a",
+          "QueryName": "Default_TABMD_FieldType",
+          "DisplayName": "Default_TABMD_FieldType",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "b164087e-7f1c-4f53-bfe7-03385d77b1b7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "76e5a21b-7d3e-470d-bd0f-b6cc32df92ae"
+            },
+            {
+              "ID": "770592fe-22c5-4fe9-b691-157e6e6593b9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed8129cf-db19-422b-9ff8-cd251d005f95"
+            },
+            {
+              "ID": "10c39e48-b9b7-4ab6-878f-4ce8eda11979",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8fc4153d-c2e2-4856-b24c-0f2f4981fff4"
+            },
+            {
+              "ID": "8e5f0b4f-403c-4e0d-aa26-9e01e0de293a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "eab3c3d5-6a04-4028-bec6-e7af73988ee5"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "1af791bd-70d7-4c1c-a818-967937da5ec9",
+          "ObjectID": null,
+          "ObjectID_Tosave": "77b30ad6-ed2e-4fbb-956e-703c40a2b07a",
+          "QueryName": "List_TABMD_FieldType",
+          "DisplayName": "List_TABMD_FieldType",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "aee9517e-58a0-4837-91c6-88d2e760bcab",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8fc4153d-c2e2-4856-b24c-0f2f4981fff4"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABMD_FieldType",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "77b30ad6-ed2e-4fbb-956e-703c40a2b07a",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": false,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "8ccb12d3-3a42-4871-8494-1b541a796ca2",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": null,
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": null,
+        "IsSystemRecord": true,
+        "AppId": "92a3f57f-eb81-42d9-bcbb-dcaf9420d3d3"
+      }
+    },
+    {
+      "ID": "84952391-903c-4a21-bfcc-20321ae451a9",
+      "ObjectName": "TABMD_Menu_Items",
+      "DisplayName": "TABMD_Menu_Items",
+      "Description": "TABMD_Menu_Items",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "be6a3e18-9813-499f-b4e6-0ebe6fa5c8e5",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "MenuName",
+          "DisplayName": "MenuName",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "MenuName",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "a7bb9498-5168-4977-a806-4a73c3788655",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "3b7e736d-c963-47fe-94e3-528c41aff85e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "Url",
+          "DisplayName": "Url",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Url",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "0cee1558-88c3-4266-bb4f-6affbde7879e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "Icon",
+          "DisplayName": "Icon",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Icon",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "ebe8041a-f573-4ba9-a243-ba5169f15623",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "Sequence",
+          "DisplayName": "Sequence",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Sequence",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "49eaa500-d69b-47ef-95ff-c40948d7a788",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "ScreenID",
+          "DisplayName": "ScreenID",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ScreenID",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABMD_AppScreen",
+            "LookupField": "Id",
+            "DisplayField": "Name",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "bfe6660f-487d-41f3-964d-c4f7600ec637",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "ShortCut",
+          "DisplayName": "ShortCut",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ShortCut",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "c43ccaa0-97b7-438e-8a20-cb2cf7b4addd",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "DisplayName",
+          "DisplayName": "DisplayName",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "DisplayName",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "5ff2bab6-2245-475b-9e75-f7f3e89b6b91",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "CategoryId",
+          "DisplayName": "CategoryId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "CategoryId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "89810210-edcb-4444-b243-fd933625a3b1",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "ParentID",
+          "DisplayName": "ParentID",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ParentID",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "51c20dd4-2596-4c89-aa95-fff153c7c500",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "84952391-903C-4A21-BFCC-20321AE451A9",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "d72fb90b-e13c-4c4b-b192-2990e97dcc65",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "QueryName": "Default_TABMD_Menu_Items",
+          "DisplayName": "Default_TABMD_Menu_Items",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "a2ea132c-91c8-44a0-a0ad-207e71b03c70",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0cee1558-88c3-4266-bb4f-6affbde7879e"
+            },
+            {
+              "ID": "0d2075bf-aa5f-4778-9134-20c940fac217",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "51c20dd4-2596-4c89-aa95-fff153c7c500"
+            },
+            {
+              "ID": "359b3424-c760-4bb8-a89c-307fa88c1a48",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ebe8041a-f573-4ba9-a243-ba5169f15623"
+            },
+            {
+              "ID": "65c34422-8ee4-455c-91b2-4310f7b3b908",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "be6a3e18-9813-499f-b4e6-0ebe6fa5c8e5"
+            },
+            {
+              "ID": "79ed56d0-b2c6-4c2a-8a9e-562555bdebf0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c43ccaa0-97b7-438e-8a20-cb2cf7b4addd"
+            },
+            {
+              "ID": "cc105615-3521-418a-b0e4-61d00b4f0354",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3b7e736d-c963-47fe-94e3-528c41aff85e"
+            },
+            {
+              "ID": "82018787-7dc1-4a19-9cd4-b493bccb1564",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a7bb9498-5168-4977-a806-4a73c3788655"
+            },
+            {
+              "ID": "ebfd6d6d-0998-4e07-a1e9-c36c4558c69f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bfe6660f-487d-41f3-964d-c4f7600ec637"
+            },
+            {
+              "ID": "ec6fd825-ef75-4a17-a5a3-c9cef7034c6f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "89810210-edcb-4444-b243-fd933625a3b1"
+            },
+            {
+              "ID": "3bf17e1d-f128-49f0-94dd-f2b60f2cf4f1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5ff2bab6-2245-475b-9e75-f7f3e89b6b91"
+            },
+            {
+              "ID": "d118a7d7-5a84-4ce2-8c66-fc8426f94bcc",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "49eaa500-d69b-47ef-95ff-c40948d7a788"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "83faef42-7232-4d5d-ab03-f56ab4ad563c",
+              "ParameterName": "AppId",
+              "DataSourceQueryID": "d72fb90b-e13c-4c4b-b192-2990e97dcc65",
+              "MappingFieldName": "AppId",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "94abc830-7b30-4b6a-8544-2b1a5e99d918",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "QueryName": "Appwise_TABMD_Menu_Items",
+          "DisplayName": "Appwise_TABMD_Menu_Items",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "ea761953-f7c9-435e-93b4-122906856b9b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0cee1558-88c3-4266-bb4f-6affbde7879e"
+            },
+            {
+              "ID": "a09207d0-84db-4c76-aeae-2d02b3d187d9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "49eaa500-d69b-47ef-95ff-c40948d7a788"
+            },
+            {
+              "ID": "73509630-1151-4a38-9b38-323a244332cd",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5ff2bab6-2245-475b-9e75-f7f3e89b6b91"
+            },
+            {
+              "ID": "f86cb0c6-aa04-42f5-894f-33fa9b266c9f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "be6a3e18-9813-499f-b4e6-0ebe6fa5c8e5"
+            },
+            {
+              "ID": "c2b8bef8-7519-4aa4-aff8-6a7bfd88b267",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3b7e736d-c963-47fe-94e3-528c41aff85e"
+            },
+            {
+              "ID": "8f8796b8-8010-4d07-b43f-86eed9087b1e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "89810210-edcb-4444-b243-fd933625a3b1"
+            },
+            {
+              "ID": "ef631d06-26f7-42bd-9568-9832dddb3852",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a7bb9498-5168-4977-a806-4a73c3788655"
+            },
+            {
+              "ID": "00cc76fe-ac09-4d37-b238-b5ba65f97c7a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bfe6660f-487d-41f3-964d-c4f7600ec637"
+            },
+            {
+              "ID": "7503478f-f867-47f5-8379-e7bd87c3a3f7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c43ccaa0-97b7-438e-8a20-cb2cf7b4addd"
+            },
+            {
+              "ID": "d80ca927-01a8-4fdc-91d2-f43becd4bcc8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ebe8041a-f573-4ba9-a243-ba5169f15623"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "AppId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": "RecordInfo.AppId",
+                "FieldType": 2,
+                "FieldID": "8451b996-3355-48d7-bb71-f0a0c8753308"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "20bbca0c-f0b7-486e-a7f9-d4fa5089d969",
+              "ParameterName": "AppId",
+              "DataSourceQueryID": "94abc830-7b30-4b6a-8544-2b1a5e99d918",
+              "MappingFieldName": "AppId",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "d4ebbe6f-554f-4235-9880-96b0b32e6016",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "QueryName": "Appwise_Associated_Screen__TABMD_Menu_Items",
+          "DisplayName": "Appwise_Associated_Screen__TABMD_Menu_Items",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "a07fa607-ba17-413f-abd7-308a9aade3bb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "ScreenID.Id",
+              "AppFieldID": "f8e6a507-0a6c-43c7-8366-61bf0859bf3b"
+            },
+            {
+              "ID": "60fe23e2-07fc-44c2-887e-434f2894e744",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a7bb9498-5168-4977-a806-4a73c3788655"
+            },
+            {
+              "ID": "57edac6d-e376-47c8-a8fb-71eeff24e78e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "ScreenID.Name",
+              "AppFieldID": "9d777171-fb4f-4030-a441-d40eecacd6ca"
+            },
+            {
+              "ID": "de823087-e58b-4b9e-b72f-780d0c47d9f4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c43ccaa0-97b7-438e-8a20-cb2cf7b4addd"
+            },
+            {
+              "ID": "9c43fe77-7268-4527-97da-861142a052ef",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "be6a3e18-9813-499f-b4e6-0ebe6fa5c8e5"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "8adf2a14-4d6d-e1ef-256e-b8d811ba55de",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "AppId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": "RecordInfo.AppId",
+                "FieldType": 2,
+                "FieldID": "8451b996-3355-48d7-bb71-f0a0c8753308"
+              },
+              {
+                "ID": "e7b62252-3bbb-dd14-25cd-506f46af08b1",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 7,
+                "ValueType": 0,
+                "value": "",
+                "Sequence": 2,
+                "GroupID": 1,
+                "LookupDetail": "ScreenID.Id",
+                "FieldType": 2,
+                "FieldID": "f8e6a507-0a6c-43c7-8366-61bf0859bf3b"
+              },
+              {
+                "ID": "b25cb7ec-449f-f258-243c-a8ee7a3c1c0e",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 7,
+                "ValueType": 0,
+                "value": "",
+                "Sequence": 3,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "5ff2bab6-2245-475b-9e75-f7f3e89b6b91"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "50e48128-d80a-4f59-9800-3fa3c15e30bd",
+              "ParameterName": "AppId",
+              "DataSourceQueryID": "d4ebbe6f-554f-4235-9880-96b0b32e6016",
+              "MappingFieldName": "AppId",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "7b6734a2-692d-49a8-bbbf-96f257149796",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "QueryName": "Header_TABMD_Menu_Items",
+          "DisplayName": "Header_TABMD_Menu_Items",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "144dbce5-6cf1-4943-b918-0f7a7e39f48e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "49eaa500-d69b-47ef-95ff-c40948d7a788"
+            },
+            {
+              "ID": "cbd2b18d-8d6e-4711-9b56-3feb1e4c8417",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a7bb9498-5168-4977-a806-4a73c3788655"
+            },
+            {
+              "ID": "77727ca8-e8d7-4f8f-84df-530d02cff071",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3b7e736d-c963-47fe-94e3-528c41aff85e"
+            },
+            {
+              "ID": "a5ca6d5f-6662-47c4-856d-5dd2737a902a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "51c20dd4-2596-4c89-aa95-fff153c7c500"
+            },
+            {
+              "ID": "5921b643-9b85-4110-9a40-65730495f8e0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c43ccaa0-97b7-438e-8a20-cb2cf7b4addd"
+            },
+            {
+              "ID": "9b0e7a1d-fbb8-45d0-bbbe-673e1c723ec8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "be6a3e18-9813-499f-b4e6-0ebe6fa5c8e5"
+            },
+            {
+              "ID": "1b6567d2-c6ee-4f33-b730-97db49210c25",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ebe8041a-f573-4ba9-a243-ba5169f15623"
+            },
+            {
+              "ID": "7ecc63f4-cd74-4f19-a481-b21687a952a5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "89810210-edcb-4444-b243-fd933625a3b1"
+            },
+            {
+              "ID": "fa628152-1972-4a50-b3c8-b5b8007412ed",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5ff2bab6-2245-475b-9e75-f7f3e89b6b91"
+            },
+            {
+              "ID": "811df405-38e9-45e7-8d76-d91e3923807d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0cee1558-88c3-4266-bb4f-6affbde7879e"
+            },
+            {
+              "ID": "766a7821-b13f-440f-9404-f5dce24aaf3a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bfe6660f-487d-41f3-964d-c4f7600ec637"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 4,
+                "ValueType": 2,
+                "value": "CategoryId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "5ff2bab6-2245-475b-9e75-f7f3e89b6b91"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "e977f9ec-f465-47e8-aa83-e75d7ce29264",
+              "ParameterName": "CategoryId",
+              "DataSourceQueryID": "7b6734a2-692d-49a8-bbbf-96f257149796",
+              "MappingFieldName": "CategoryId",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "4395b550-da80-4f20-b06f-9c1f0f919cff",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "QueryName": "DEV_TABMD_Menu_Items",
+          "DisplayName": "DEV_TABMD_Menu_Items",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "563197c9-fbe9-4945-b6f3-0e872a41122e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c43ccaa0-97b7-438e-8a20-cb2cf7b4addd"
+            },
+            {
+              "ID": "a4d782c7-dbfb-4421-b491-222799e3174d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "be6a3e18-9813-499f-b4e6-0ebe6fa5c8e5"
+            },
+            {
+              "ID": "9e652cc7-8c96-400f-9963-3dea66fb465f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0cee1558-88c3-4266-bb4f-6affbde7879e"
+            },
+            {
+              "ID": "68d45977-f50f-4fd7-b613-45387f812414",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "51c20dd4-2596-4c89-aa95-fff153c7c500"
+            },
+            {
+              "ID": "19efdc53-359c-4157-81b7-8d8c1cc8b7f5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3b7e736d-c963-47fe-94e3-528c41aff85e"
+            },
+            {
+              "ID": "5bc3fca0-018f-4b4a-b2a1-b088d08d4968",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "89810210-edcb-4444-b243-fd933625a3b1"
+            },
+            {
+              "ID": "188f6303-50d7-4e75-9eac-eb4b6c32633d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ebe8041a-f573-4ba9-a243-ba5169f15623"
+            },
+            {
+              "ID": "455c32b0-1435-43eb-95ec-eea83a5f3214",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a7bb9498-5168-4977-a806-4a73c3788655"
+            },
+            {
+              "ID": "08ac35f2-ecd3-4599-834a-f182c634aa68",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bfe6660f-487d-41f3-964d-c4f7600ec637"
+            },
+            {
+              "ID": "ace7ce09-10d2-49d6-9f2b-f548cf283601",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "49eaa500-d69b-47ef-95ff-c40948d7a788"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "f9d0ab6f-5ac3-4c5f-baf3-addfd352533e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "QueryName": "Detail_TABMD_Menu_Items",
+          "DisplayName": "Detail_TABMD_Menu_Items",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "3ff94146-37d8-442b-a5b7-05758c67b5b9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByLastName",
+              "AppFieldID": "69727469-ed5e-48e0-b52a-874f430810bd"
+            },
+            {
+              "ID": "6ff4546f-7fb4-42d7-a580-29d829e4bc3f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedOn",
+              "AppFieldID": "ebcf22cb-9e6e-49cf-a069-5b2af3dc7ea3"
+            },
+            {
+              "ID": "ca11cefa-dbb1-4073-8e77-3312d32c5e8b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Tags",
+              "AppFieldID": "c73fb52f-ef29-4229-9f07-df27b6ab3d22"
+            },
+            {
+              "ID": "0fd193dd-90d1-4468-be86-3cf6752aa557",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByFirstName",
+              "AppFieldID": "5b5a0372-b741-4d2c-a319-f62950d07325"
+            },
+            {
+              "ID": "97f65bd1-58af-407f-a5b8-4a0e630322da",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedBy",
+              "AppFieldID": "261e456c-dba2-45f4-bbdf-fe351ecd9a89"
+            },
+            {
+              "ID": "da34cc8c-7e60-449f-829e-567f473c78d6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a7bb9498-5168-4977-a806-4a73c3788655"
+            },
+            {
+              "ID": "a4ea3071-41e0-46b6-8f74-5f6bca6d3d74",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bfe6660f-487d-41f3-964d-c4f7600ec637"
+            },
+            {
+              "ID": "fa3aa823-f076-4f09-a277-671e1763bc2f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5ff2bab6-2245-475b-9e75-f7f3e89b6b91"
+            },
+            {
+              "ID": "bdc21fbc-d59c-47d7-b915-6c67b74b1baa",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsSystemRecord",
+              "AppFieldID": "7c3e041e-6086-48f0-9ba8-61da0e241b29"
+            },
+            {
+              "ID": "4adc62b5-4108-40aa-aa51-6d072b7ba819",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedOn",
+              "AppFieldID": "985391df-21b5-414d-9ebb-07e95ae448ba"
+            },
+            {
+              "ID": "e8c57d03-06d1-4778-8f05-75effe0a3825",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByUserName",
+              "AppFieldID": "51901e1e-d2e8-4372-9173-47601b2ef3cc"
+            },
+            {
+              "ID": "545b20de-5d03-4ab1-8247-778b623d7c25",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsActive",
+              "AppFieldID": "7fede379-4b82-4ba6-ac6c-da9c5bd3db9b"
+            },
+            {
+              "ID": "d6419640-e938-4e58-afa2-7ba5345689ae",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByFirstName",
+              "AppFieldID": "bfac404a-c645-4472-a183-cfa4510346fd"
+            },
+            {
+              "ID": "3103f3e4-bfb9-41e0-b673-983adaca23b6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.RecordId",
+              "AppFieldID": "d3661c2c-e872-4f5a-9030-4c8f97c704c5"
+            },
+            {
+              "ID": "4c5a2d56-fadc-4b28-830a-98adb1ee3e86",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c43ccaa0-97b7-438e-8a20-cb2cf7b4addd"
+            },
+            {
+              "ID": "877f1319-0d67-4103-abef-99dc1bd970d5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "49eaa500-d69b-47ef-95ff-c40948d7a788"
+            },
+            {
+              "ID": "f84185ba-a4ad-4989-a0df-9d86c5f0ad4e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3b7e736d-c963-47fe-94e3-528c41aff85e"
+            },
+            {
+              "ID": "8bc07bfc-1c44-436a-9834-a1f05c40a5f9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByLastName",
+              "AppFieldID": "4447d5d5-552b-4e65-96b1-a6701e6efc02"
+            },
+            {
+              "ID": "f84d3fea-7310-4c55-8b1c-b212eb37f00b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0cee1558-88c3-4266-bb4f-6affbde7879e"
+            },
+            {
+              "ID": "da41c80c-ba53-4cfd-89c2-b4e4673e1045",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "89810210-edcb-4444-b243-fd933625a3b1"
+            },
+            {
+              "ID": "9723cec2-7c2f-4135-92eb-c31f61e49e5d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Title",
+              "AppFieldID": "f9b2d96f-8a99-4927-b590-3fd4af2af318"
+            },
+            {
+              "ID": "e408e8f5-ac38-428a-beea-c550cb3cba5b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedBy",
+              "AppFieldID": "23111808-8f75-41b1-abd7-a050a35213a7"
+            },
+            {
+              "ID": "da62001c-4b66-4d85-ab8e-cf3806ddfd53",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "be6a3e18-9813-499f-b4e6-0ebe6fa5c8e5"
+            },
+            {
+              "ID": "943adf65-5f98-43b3-a96c-dd64126c1bae",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByUserName",
+              "AppFieldID": "e61f13a2-6b85-46a6-a7fd-ce094fc3936c"
+            },
+            {
+              "ID": "ec94dfe0-fbf7-4ce9-9f43-f258ceda112f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ebe8041a-f573-4ba9-a243-ba5169f15623"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "0cf97334-5169-4b12-acb9-cb8ab3bab65d",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "a7bb9498-5168-4977-a806-4a73c3788655"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "f5a78f4d-9f2d-42c0-b821-3ca07c25d1c9",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "f9d0ab6f-5ac3-4c5f-baf3-addfd352533e",
+              "MappingFieldName": "Id",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "ed70d9ed-14f4-44c8-9359-b86593da0a1a",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "QueryName": "List_TABMD_Menu_Items",
+          "DisplayName": "List_TABMD_Menu_Items",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "395c4d1f-2438-45e7-93e7-9b633842ce63",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "be6a3e18-9813-499f-b4e6-0ebe6fa5c8e5"
+            },
+            {
+              "ID": "d17a301c-0f44-4e6f-b45b-c836052f0757",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c43ccaa0-97b7-438e-8a20-cb2cf7b4addd"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "90a6182b-c32a-4746-9b56-dfef2778352b",
+          "ObjectID": null,
+          "ObjectID_Tosave": "84952391-903c-4a21-bfcc-20321ae451a9",
+          "QueryName": "Tenant_App_TABMD_Menu_Items",
+          "DisplayName": "Tenant_App_TABMD_Menu_Items",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "0fa2f5dc-b8b2-4fc8-ad36-1a705dd304db",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c43ccaa0-97b7-438e-8a20-cb2cf7b4addd"
+            },
+            {
+              "ID": "17a76514-e133-4ae6-9a53-3d40bf80f3a8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "be6a3e18-9813-499f-b4e6-0ebe6fa5c8e5"
+            },
+            {
+              "ID": "9433132d-fb22-4b3a-b0d1-441a541cea20",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.AppId",
+              "AppFieldID": "8451b996-3355-48d7-bb71-f0a0c8753308"
+            },
+            {
+              "ID": "b715afe5-ad25-4e17-8b79-86bbb05d5198",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.TenantId",
+              "AppFieldID": "f9a5bee3-f20c-47db-bbd4-ac0d972985f5"
+            },
+            {
+              "ID": "adb1a6e1-9f73-47f9-bbbb-bda9d37ef58e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.RecordId",
+              "AppFieldID": "d3661c2c-e872-4f5a-9030-4c8f97c704c5"
+            },
+            {
+              "ID": "1a66cd93-7233-4469-8798-c4dc2d9df6a4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a7bb9498-5168-4977-a806-4a73c3788655"
+            },
+            {
+              "ID": "c2d2dd39-850e-4edc-9b85-e1eea6d5c529",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.PrimaryKey",
+              "AppFieldID": "1765e7e6-c1f1-454d-abcf-2584ed643720"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "ApplicationId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": "RecordInfo.AppId",
+                "FieldType": 2,
+                "FieldID": "8451b996-3355-48d7-bb71-f0a0c8753308"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 2,
+                "RelationalOperator": 3,
+                "ValueType": 1,
+                "value": "92A3F57F-EB81-42D9-BCBB-DCAF9420D3D3",
+                "Sequence": 1,
+                "GroupID": 2,
+                "LookupDetail": "{{GETCURRENTAPP}}",
+                "FieldType": 3,
+                "FieldID": "a7bb9498-5168-4977-a806-4a73c3788655"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 6,
+                "ValueType": 0,
+                "value": "",
+                "Sequence": 2,
+                "GroupID": 2,
+                "LookupDetail": "RecordInfo.AppId",
+                "FieldType": 2,
+                "FieldID": "8451b996-3355-48d7-bb71-f0a0c8753308"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "e1d85190-6316-439b-8d12-ce566dfaee5a",
+              "ParameterName": "ApplicationId",
+              "DataSourceQueryID": "90a6182b-c32a-4746-9b56-dfef2778352b",
+              "MappingFieldName": "ApplicationId",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABMD_Menu_Items",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "84952391-903c-4a21-bfcc-20321ae451a9",
+      "AppObjectConfiguration": "{\"RecordInfoTitleConfiguration\":\"{{MenuName}}\",\"GlobalSearch\":{\"IsElasticSearchEnable\":\"False\"}}",
+      "AllowVersioning": false,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "8ccb12d3-3a42-4871-8494-1b541a796ca2",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": "dffc12fc-dc51-4272-b6ee-bf83f936a522",
+        "CreatedOn": "2024-06-25T12:17:43",
+        "UpdatedOn": "2024-12-16T06:59:25",
+        "IsSystemRecord": true,
+        "AppId": "92a3f57f-eb81-42d9-bcbb-dcaf9420d3d3"
+      }
+    },
+    {
+      "ID": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+      "ObjectName": "TABD_Blueprint_SLASchemeDetails",
+      "DisplayName": "TABD_Blueprint_SLASchemeDetails",
+      "Description": "TABD_Blueprint_SLASchemeDetails",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "2ababc78-d94b-4ddb-895a-2d2ee6cc415d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "FieldName": "SLATime",
+          "DisplayName": "SLATime",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "SLATime",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "1568f084-d701-40a8-aa50-3f7e8fa80cfd",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "FieldName": "SLASchemeID",
+          "DisplayName": "SLASchemeID",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "SLASchemeID",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "b3a657de-e9a3-44e0-87b0-936ae5fc8a3f",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "17A2524A-68C3-413A-B3E7-8E0683DDF729",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "667618f3-9dcc-4435-8acb-9767a0c12fb1",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "FieldName": "TransitionID",
+          "DisplayName": "TransitionID",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "TransitionID",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "b31209db-4a1e-4e6b-a74e-e128eb139552",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "d04ba3be-9b55-412e-9b31-021bac38e33f",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "QueryName": "SLASchemes_TABD_Blueprint_SLASchemeDetails",
+          "DisplayName": "SLASchemes_TABD_Blueprint_SLASchemeDetails",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "1e28e2a6-a7d0-489d-adb6-91f1d07fbcad",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "SLASchemeID",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "f5b12bde-0c0b-4ac2-820d-1336d29ae4ec"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "b10937d2-58ae-4fdb-bc66-1c486b582d04",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "QueryName": "DEV_TABD_Blueprint_SLASchemeDetails",
+          "DisplayName": "DEV_TABD_Blueprint_SLASchemeDetails",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "d37ab825-9c56-4b02-ab75-34c48b544c47",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2ababc78-d94b-4ddb-895a-2d2ee6cc415d"
+            },
+            {
+              "ID": "39bc6e50-57f0-4647-b274-3794d7891436",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b3a657de-e9a3-44e0-87b0-936ae5fc8a3f"
+            },
+            {
+              "ID": "9df6738e-8f58-4fdd-b1cf-84f755bdd5ea",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b31209db-4a1e-4e6b-a74e-e128eb139552"
+            },
+            {
+              "ID": "c0de1b58-ec11-4db7-9791-a55274274e20",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "667618f3-9dcc-4435-8acb-9767a0c12fb1"
+            },
+            {
+              "ID": "9a62022f-b3a2-4700-91b6-b361f76665ed",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1568f084-d701-40a8-aa50-3f7e8fa80cfd"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "4125fb48-4a72-40f1-bd3d-25550016c109",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "QueryName": "Default_TABD_Blueprint_SLASchemeDetails",
+          "DisplayName": "Default_TABD_Blueprint_SLASchemeDetails",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "20ec18a2-0868-428b-9eec-148e7ad3a489",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b3a657de-e9a3-44e0-87b0-936ae5fc8a3f"
+            },
+            {
+              "ID": "44feb695-91bc-4ecc-8e60-22947bb8c0fe",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "667618f3-9dcc-4435-8acb-9767a0c12fb1"
+            },
+            {
+              "ID": "d2a3f3ce-cd75-406e-b76c-5d294ae5b6bd",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1568f084-d701-40a8-aa50-3f7e8fa80cfd"
+            },
+            {
+              "ID": "99c0a695-a26a-4b01-a8bd-77312eb69f88",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b31209db-4a1e-4e6b-a74e-e128eb139552"
+            },
+            {
+              "ID": "b89169e1-b949-49cc-a9aa-ada4dfebad72",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2ababc78-d94b-4ddb-895a-2d2ee6cc415d"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "03bcf79f-a6b7-41f5-9237-28575761bb42",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "QueryName": "List_TABD_Blueprint_SLASchemeDetails",
+          "DisplayName": "List_TABD_Blueprint_SLASchemeDetails",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "47bf1835-37b1-429e-8d13-ac5c19b4c224",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b31209db-4a1e-4e6b-a74e-e128eb139552"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "acb8a64b-4bbd-480a-a79d-55c70a4ba3d3",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "QueryName": "TABD_Blueprint_SLASchemes_TABD_Blueprint_SLASchemeDetails",
+          "DisplayName": "TABD_Blueprint_SLASchemes_TABD_Blueprint_SLASchemeDetails",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "fc525d03-d74d-45be-aaf1-61b9363df6bb",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "QueryName": "FK_TABD_Blueprint_SLASchemeDetails_TABD_Blueprint_SLASchemes",
+          "DisplayName": "FK_TABD_Blueprint_SLASchemeDetails_TABD_Blueprint_SLASchemes",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "9533e3df-597c-41cf-9efb-3d09d7c6918e",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "f5b12bde-0c0b-4ac2-820d-1336d29ae4ec"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "a27d662c-4021-4294-9636-8fbfdf45f2ca",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "QueryName": "Detail_TABD_Blueprint_SLASchemeDetails",
+          "DisplayName": "Detail_TABD_Blueprint_SLASchemeDetails",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "05bf756f-1932-4e7d-97f2-4c3c7cc03e7a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b3a657de-e9a3-44e0-87b0-936ae5fc8a3f"
+            },
+            {
+              "ID": "d367c28d-f304-4d54-9624-5017fdc8eadf",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "667618f3-9dcc-4435-8acb-9767a0c12fb1"
+            },
+            {
+              "ID": "c957d625-c1e3-42a6-873c-60e9a9d8a67b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b31209db-4a1e-4e6b-a74e-e128eb139552"
+            },
+            {
+              "ID": "7f8fb0d9-78af-406b-9727-c0a725efd2ae",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2ababc78-d94b-4ddb-895a-2d2ee6cc415d"
+            },
+            {
+              "ID": "9daa56ca-2114-4457-888a-e81f2019a761",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1568f084-d701-40a8-aa50-3f7e8fa80cfd"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "3a1f8206-b442-4339-a467-9df0b849db0e",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "b31209db-4a1e-4e6b-a74e-e128eb139552"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "e7fde939-494c-48ce-9b1b-94e9a491b899",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "a27d662c-4021-4294-9636-8fbfdf45f2ca",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "62bc716a-23f0-4945-be4f-a76736b51674",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "QueryName": "Get_SLASchemeDetail_List",
+          "DisplayName": "Get_SLASchemeDetail_List",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "a1f07645-ecd0-47be-97ef-132c685b5554",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1568f084-d701-40a8-aa50-3f7e8fa80cfd"
+            },
+            {
+              "ID": "5acb8470-259a-4750-be90-468e53a37b02",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "667618f3-9dcc-4435-8acb-9767a0c12fb1"
+            },
+            {
+              "ID": "2230c2e9-970a-4a1c-bd32-585e65998d8e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b31209db-4a1e-4e6b-a74e-e128eb139552"
+            },
+            {
+              "ID": "2bc8b8d5-57e5-4269-b6ea-756ef73c40ad",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2ababc78-d94b-4ddb-895a-2d2ee6cc415d"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "SLASchemeID",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "1568f084-d701-40a8-aa50-3f7e8fa80cfd"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "TransitionID",
+                "Sequence": 2,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "667618f3-9dcc-4435-8acb-9767a0c12fb1"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "0a7c55b3-8e43-41f9-b8bf-1a7659890b29",
+              "ParameterName": "TransitionID",
+              "DataSourceQueryID": "62bc716a-23f0-4945-be4f-a76736b51674",
+              "MappingFieldName": "TransitionID",
+              "IsMandatory": false
+            },
+            {
+              "ID": "ef5cd2f9-230b-4b53-8026-f4d7512bc8be",
+              "ParameterName": "SLASchemeID",
+              "DataSourceQueryID": "62bc716a-23f0-4945-be4f-a76736b51674",
+              "MappingFieldName": "SLASchemeID",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "371dde99-0bb6-41cb-b59f-c8cd937858fb",
+          "ObjectID": null,
+          "ObjectID_Tosave": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+          "QueryName": "FK_TABD_Blueprint_SLASchemeDetails_TABD_Transitions",
+          "DisplayName": "FK_TABD_Blueprint_SLASchemeDetails_TABD_Transitions",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "ee1f3a7f-d810-4156-a46c-04e271448bef",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "f4b12b75-d4de-457b-b449-107efe11b227"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_Blueprint_SLASchemeDetails",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "17a2524a-68c3-413a-b3e7-8e0683ddf729",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": true,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": null,
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": "2025-01-27T08:18:07",
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+      "ObjectName": "TABD_Blueprint_SLASchemes",
+      "DisplayName": "TABD_Blueprint_SLASchemes",
+      "Description": "TABD_Blueprint_SLASchemes",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "fe536fef-11cc-4e16-af8b-872dfd606774",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "FieldName": "BlueprintId",
+          "DisplayName": "BlueprintId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "BlueprintId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_BluePrints",
+            "LookupField": "Id",
+            "DisplayField": "Name",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "9eb75de0-dfd2-42a8-baf3-9419c8630c13",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "FieldName": "SchemeName",
+          "DisplayName": "SchemeName",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "SchemeName",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": true,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": "{\"Validations\":[{}]}"
+        },
+        {
+          "ID": "2a84ed57-5040-4b33-8214-bcd60fc41642",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "B4887D4D-BB1E-4D52-A7E8-2F943D69E44C",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "f7afd2ec-1915-4df0-9408-e6d2354b3541",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "FieldName": "ApplyCriteria",
+          "DisplayName": "ApplyCriteria",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ApplyCriteria",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "965445a0-5cb3-461b-a9a7-f80c592f70b2",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "FieldName": "SLASetting",
+          "DisplayName": "SLASetting",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "SLASetting",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "73e590d0-c4eb-464d-abf9-01943e30ae09",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "QueryName": "Get_SLASchemes_List",
+          "DisplayName": "Get_SLASchemes_List",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "7b07ac68-299a-44a4-9938-db68ecb535ab",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9eb75de0-dfd2-42a8-baf3-9419c8630c13"
+            },
+            {
+              "ID": "8a27ad62-5210-446d-9f0e-de38505a881b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "BlueprintId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "fe536fef-11cc-4e16-af8b-872dfd606774"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "47feb0d1-576f-4575-a686-f0c74d23150f",
+              "ParameterName": "BlueprintId",
+              "DataSourceQueryID": "73e590d0-c4eb-464d-abf9-01943e30ae09",
+              "MappingFieldName": "BlueprintId",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "d450e568-6967-48cc-b3a7-0a34c4bbe945",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "QueryName": "DEV_TABD_Blueprint_SLASchemes",
+          "DisplayName": "DEV_TABD_Blueprint_SLASchemes",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "1184cbf8-bc90-4479-959a-0976ed298e9c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9eb75de0-dfd2-42a8-baf3-9419c8630c13"
+            },
+            {
+              "ID": "dc4553eb-8a0e-4294-84c6-111518269636",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+            },
+            {
+              "ID": "8a3e0188-b6e4-435d-aea6-1e163884cd22",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f7afd2ec-1915-4df0-9408-e6d2354b3541"
+            },
+            {
+              "ID": "723c7c0c-d554-4628-b5e4-63b360f576cf",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "965445a0-5cb3-461b-a9a7-f80c592f70b2"
+            },
+            {
+              "ID": "793ae789-4363-47c4-99ff-6f9415ede495",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "fe536fef-11cc-4e16-af8b-872dfd606774"
+            },
+            {
+              "ID": "cb27bc62-fd3f-4486-9e4e-73df79c99f3d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2a84ed57-5040-4b33-8214-bcd60fc41642"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "62a9551b-72c1-4228-9b55-14d24c47cd77",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "QueryName": "Detail_TABD_Blueprint_SLASchemes",
+          "DisplayName": "Detail_TABD_Blueprint_SLASchemes",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "b21cdf89-3247-4d3e-8d9f-0378c0e775f0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedBy",
+              "AppFieldID": "23111808-8f75-41b1-abd7-a050a35213a7"
+            },
+            {
+              "ID": "2e201ee5-4628-420b-9da8-0ed56cd4c489",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+            },
+            {
+              "ID": "b482c3bd-2c6d-441c-895c-2fb81c64a4e0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9eb75de0-dfd2-42a8-baf3-9419c8630c13"
+            },
+            {
+              "ID": "961f91e2-ed03-4af4-96c9-38f44e1df1a8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsSystemRecord",
+              "AppFieldID": "7c3e041e-6086-48f0-9ba8-61da0e241b29"
+            },
+            {
+              "ID": "33f83bee-af9e-48f5-896e-3a1f4cde54b9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.RecordId",
+              "AppFieldID": "d3661c2c-e872-4f5a-9030-4c8f97c704c5"
+            },
+            {
+              "ID": "8e753d1f-28e4-429c-b64d-4783912bd6db",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedBy",
+              "AppFieldID": "261e456c-dba2-45f4-bbdf-fe351ecd9a89"
+            },
+            {
+              "ID": "05f956bb-a313-4cd6-9514-5d690e6fa345",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsActive",
+              "AppFieldID": "7fede379-4b82-4ba6-ac6c-da9c5bd3db9b"
+            },
+            {
+              "ID": "5f532975-d27f-4edf-a84f-61e1bbe8495f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByLastName",
+              "AppFieldID": "69727469-ed5e-48e0-b52a-874f430810bd"
+            },
+            {
+              "ID": "a3a59e2c-ddf2-431e-b250-93a4c2088925",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Tags",
+              "AppFieldID": "c73fb52f-ef29-4229-9f07-df27b6ab3d22"
+            },
+            {
+              "ID": "ecb5d461-2e07-401d-872a-9baf6b97a072",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "fe536fef-11cc-4e16-af8b-872dfd606774"
+            },
+            {
+              "ID": "40a731c8-b443-452c-af6e-a172186bff26",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByLastName",
+              "AppFieldID": "4447d5d5-552b-4e65-96b1-a6701e6efc02"
+            },
+            {
+              "ID": "873c9be3-1a7c-4316-b5ab-a91790cac6d4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f7afd2ec-1915-4df0-9408-e6d2354b3541"
+            },
+            {
+              "ID": "1d33abea-d1e3-4065-ac4b-ac05bfd1314f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedOn",
+              "AppFieldID": "985391df-21b5-414d-9ebb-07e95ae448ba"
+            },
+            {
+              "ID": "73365781-95f4-4b06-a358-b6e8eae30d2e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByFirstName",
+              "AppFieldID": "bfac404a-c645-4472-a183-cfa4510346fd"
+            },
+            {
+              "ID": "5989b911-2599-4b4e-97cf-cd305fce02e0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedOn",
+              "AppFieldID": "ebcf22cb-9e6e-49cf-a069-5b2af3dc7ea3"
+            },
+            {
+              "ID": "53e8d2d3-412c-4031-a221-e7e191d27d05",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByFirstName",
+              "AppFieldID": "5b5a0372-b741-4d2c-a319-f62950d07325"
+            },
+            {
+              "ID": "6ea121d1-5402-4cc1-b4c8-ee069820ca73",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "965445a0-5cb3-461b-a9a7-f80c592f70b2"
+            },
+            {
+              "ID": "b3bf993d-2d50-4fd8-ba3e-f9a142e3e73e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Title",
+              "AppFieldID": "f9b2d96f-8a99-4927-b590-3fd4af2af318"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "d658a12d-a46e-40ca-bd20-76127d221e44",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "f6c6521a-f442-49bc-917b-d949478bb6b5",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "62a9551b-72c1-4228-9b55-14d24c47cd77",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "fd742470-e91e-4bc1-893f-2e0e9e0336d7",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "QueryName": "List_TABD_Blueprint_SLASchemes",
+          "DisplayName": "List_TABD_Blueprint_SLASchemes",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "1657449a-8041-4980-b321-2af2a84fe403",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9eb75de0-dfd2-42a8-baf3-9419c8630c13"
+            },
+            {
+              "ID": "df916e68-6011-4921-a0bf-d74e53049855",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "708b9ead-c47a-4b36-b7e4-40e1adbaf4b3",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "QueryName": "TransitionDetail_TABD_Blueprint_SLASchemes",
+          "DisplayName": "TransitionDetail_TABD_Blueprint_SLASchemes",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "644f7e52-4867-4ca0-a45d-4363332f57a0",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "52a1ac8c-4b42-4e82-925c-cd0d79be18f5"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "31742c3f-43b0-42b7-97eb-6b2043192dce",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "QueryName": "Default_TABD_Blueprint_SLASchemes",
+          "DisplayName": "Default_TABD_Blueprint_SLASchemes",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "2952b831-f34e-48e6-8315-0be41e315e0a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9eb75de0-dfd2-42a8-baf3-9419c8630c13"
+            },
+            {
+              "ID": "904974e8-dceb-4e51-81d8-34ac345fb2d3",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "965445a0-5cb3-461b-a9a7-f80c592f70b2"
+            },
+            {
+              "ID": "52a37bfd-41cf-402a-822e-9c4f127e1763",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+            },
+            {
+              "ID": "6f05af3d-c232-487b-8c37-b31d104de47a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f7afd2ec-1915-4df0-9408-e6d2354b3541"
+            },
+            {
+              "ID": "a63dcedd-d595-4b8c-bbb8-d1d5e65b6e1f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "fe536fef-11cc-4e16-af8b-872dfd606774"
+            },
+            {
+              "ID": "101af4cc-939b-4456-9517-f82cc7888373",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2a84ed57-5040-4b33-8214-bcd60fc41642"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "de72af04-4596-4040-b1b8-954a63ba97cf",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "QueryName": "FK_TABD_Blueprint_SLASchemes_TABD_BluePrints",
+          "DisplayName": "FK_TABD_Blueprint_SLASchemes_TABD_BluePrints",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "cc359458-0685-41da-a055-0253a33b66ed",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2a84ed57-5040-4b33-8214-bcd60fc41642"
+            },
+            {
+              "ID": "1d48c612-f4ed-4eaa-a109-26ffea8d9246",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9eb75de0-dfd2-42a8-baf3-9419c8630c13"
+            },
+            {
+              "ID": "975fc118-5cde-40ee-9417-36a4b40fb9e9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f7afd2ec-1915-4df0-9408-e6d2354b3541"
+            },
+            {
+              "ID": "eca28f93-094e-4a83-b349-71b0419f0a1c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+            },
+            {
+              "ID": "e5c4a363-b9bc-4f67-ae79-722c9383f3aa",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "fe536fef-11cc-4e16-af8b-872dfd606774"
+            },
+            {
+              "ID": "895a907c-a49c-460b-a278-a3addc118a88",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "965445a0-5cb3-461b-a9a7-f80c592f70b2"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "5835360f-3d4d-4b58-8965-bc0f13526ee4",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "fe536fef-11cc-4e16-af8b-872dfd606774"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "09b4a4dc-ea3a-4bc8-8b16-2665065f3c07",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "de72af04-4596-4040-b1b8-954a63ba97cf",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "cbfdff6b-e3e6-44f5-b50e-c08cb0f77e71",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "QueryName": "Get_SLASchemes_Detail",
+          "DisplayName": "Get_SLASchemes_Detail",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "b5161b2c-5264-4c64-8823-429baac6df97",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "965445a0-5cb3-461b-a9a7-f80c592f70b2"
+            },
+            {
+              "ID": "0a6b59ec-cbc1-4d70-8e3c-70cd221dca5f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9eb75de0-dfd2-42a8-baf3-9419c8630c13"
+            },
+            {
+              "ID": "c5c1c9f0-4348-477e-b1c9-7a2143f0a9cd",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "965445a0-5cb3-461b-a9a7-f80c592f70b2"
+            },
+            {
+              "ID": "77660714-25e9-45b8-a9c4-9d4a225ebe24",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+            },
+            {
+              "ID": "bd82513d-b395-4f77-ba26-a1d9cb89462c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+            },
+            {
+              "ID": "ad72847b-67d9-4ad8-bc6f-be7db0e82b8e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+            },
+            {
+              "ID": "3b2bf725-163c-4ca3-becc-c4e2bd5c08b0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "fe536fef-11cc-4e16-af8b-872dfd606774"
+            },
+            {
+              "ID": "33b1149a-0cb1-4be5-8af4-e5ddac61da37",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "965445a0-5cb3-461b-a9a7-f80c592f70b2"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "a6f4ed25-4903-4ebc-b6de-eb3b8ff1edea"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "19b3aef1-c8e9-4061-b46c-aca39b62642e",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "cbfdff6b-e3e6-44f5-b50e-c08cb0f77e71",
+              "MappingFieldName": "Id",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "3c6a1499-7bbc-4768-88fd-e2aca4d6e739",
+          "ObjectID": null,
+          "ObjectID_Tosave": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+          "QueryName": "ListView_TABD_Blueprint_SLASchemes",
+          "DisplayName": "ListView_TABD_Blueprint_SLASchemes",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_Blueprint_SLASchemes",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "b4887d4d-bb1e-4d52-a7e8-2f943d69e44c",
+      "AppObjectConfiguration": "{\"RecordInfoTitleConfiguration\":\"{{SchemeName}}\",\"GlobalSearch\":{\"IsElasticSearchEnable\":\"False\"}}",
+      "AllowVersioning": true,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": "d052a189-a33f-4acd-8012-f66f9cc07cd3",
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": "2025-02-27T14:21:08",
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+      "ObjectName": "TABD_Blueprint_Transitions",
+      "DisplayName": "TABD_Blueprint_Transitions",
+      "Description": "TABD_Blueprint_Transitions",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "2f5c9015-84ac-48da-8de8-1529b5bf7f9a",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "FieldName": "BluePrintId",
+          "DisplayName": "BluePrintId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "BluePrintId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "de2f6b91-1eb0-41ca-87ea-192c0cffd716",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "FieldName": "ToStatus",
+          "DisplayName": "ToStatus",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ToStatus",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_BlueprintStatus",
+            "LookupField": "Id",
+            "DisplayField": "Name",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "22aacb03-8d1d-449b-b60e-3e675f9a2a7c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "EC127870-79B4-4CCB-9478-E1AB8A87EC0F",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "7e335d77-e383-46b0-9f46-9e45f0e0b2d0",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "FieldName": "FromStatus",
+          "DisplayName": "FromStatus",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "FromStatus",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_BlueprintStatus",
+            "LookupField": "Id",
+            "DisplayField": "Name",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "6fdfe63f-2416-4866-b2c5-c12dfe79a398",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "FieldName": "Name",
+          "DisplayName": "Name",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Name",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": true,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": "{\"Validations\":[{}]}"
+        },
+        {
+          "ID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "a07ce0ca-8357-4d7f-ad32-eb64ae199097",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "FieldName": "Transition_Criteria",
+          "DisplayName": "Transition_Criteria",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Transition_Criteria",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "83fdc2ea-d1cc-4212-87f3-11008e114fe2",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "QueryName": "DEV_TABD_Blueprint_Transitions",
+          "DisplayName": "DEV_TABD_Blueprint_Transitions",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "530dca63-b3df-4a87-b4f6-063530729e72",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fdfe63f-2416-4866-b2c5-c12dfe79a398"
+            },
+            {
+              "ID": "eeea85d8-9249-4954-aadd-260a2879fe1d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+            },
+            {
+              "ID": "87b9e76c-6b81-4319-8a52-3f1f01862987",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a07ce0ca-8357-4d7f-ad32-eb64ae199097"
+            },
+            {
+              "ID": "599a5c6e-395c-4fc3-93b3-6847f526284b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7e335d77-e383-46b0-9f46-9e45f0e0b2d0"
+            },
+            {
+              "ID": "8dc65f70-ea48-4d91-891c-7c3bda9de6d8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2f5c9015-84ac-48da-8de8-1529b5bf7f9a"
+            },
+            {
+              "ID": "cf83b901-1257-4a4d-a540-a2a7e4869763",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "22aacb03-8d1d-449b-b60e-3e675f9a2a7c"
+            },
+            {
+              "ID": "43b33e41-24d4-4c33-99b0-caf2e2347083",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "de2f6b91-1eb0-41ca-87ea-192c0cffd716"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "91e74e34-5fd0-4b2e-85a1-5496c753698a",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "QueryName": "Default_TABD_Blueprint_Transitions",
+          "DisplayName": "Default_TABD_Blueprint_Transitions",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "c23b01fe-de41-4182-89b4-3b4f03dcab61",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "de2f6b91-1eb0-41ca-87ea-192c0cffd716"
+            },
+            {
+              "ID": "66648513-119c-4143-8060-5e1badb97ba7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a07ce0ca-8357-4d7f-ad32-eb64ae199097"
+            },
+            {
+              "ID": "de62ac86-c2b3-4825-a69b-8c6c31e0f01b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7e335d77-e383-46b0-9f46-9e45f0e0b2d0"
+            },
+            {
+              "ID": "9585214d-3f89-46b5-a064-c55c1433974f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fdfe63f-2416-4866-b2c5-c12dfe79a398"
+            },
+            {
+              "ID": "498d4d81-a7cd-47e7-b891-c66f304d5e1a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "22aacb03-8d1d-449b-b60e-3e675f9a2a7c"
+            },
+            {
+              "ID": "cfb4e42c-3426-49d2-a1fa-d4f6114257ed",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+            },
+            {
+              "ID": "194f7f4e-b063-4005-82df-f2a3fcb92ac6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2f5c9015-84ac-48da-8de8-1529b5bf7f9a"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "96fc5707-84b1-4945-974b-58aac1f72884",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "QueryName": "List_TABD_Blueprint_Transitions",
+          "DisplayName": "List_TABD_Blueprint_Transitions",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "2057c658-a2d6-4254-a493-7008eec5c2c1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+            },
+            {
+              "ID": "fa953c25-270a-4b53-8c06-d86358030807",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fdfe63f-2416-4866-b2c5-c12dfe79a398"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "74c396b8-f2f5-4de6-96ba-6931072aa03e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "QueryName": "Get_Detail_Transitions",
+          "DisplayName": "Get_Detail_Transitions",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "bd7be444-d8bb-4b51-b105-064910d411f2",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromStatus.Name",
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            },
+            {
+              "ID": "71e4714e-934f-49af-adb4-15efb8c5bccb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromStatus.Id",
+              "AppFieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+            },
+            {
+              "ID": "a77d5dec-ba7f-49ee-99b1-280e8141f883",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a07ce0ca-8357-4d7f-ad32-eb64ae199097"
+            },
+            {
+              "ID": "b6435b64-75d8-4ca1-a032-4ce70729fb3a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+            },
+            {
+              "ID": "f586d0db-b884-4b30-a813-64f54ff2f0ae",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fdfe63f-2416-4866-b2c5-c12dfe79a398"
+            },
+            {
+              "ID": "8255c99a-3687-43ca-88e3-753eec2fcfae",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "ToStatus.Id",
+              "AppFieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+            },
+            {
+              "ID": "4f658596-3629-40c7-837b-e21f9878308e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "ToStatus.Name",
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "BluePrintId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "2f5c9015-84ac-48da-8de8-1529b5bf7f9a"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 2,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "0f85885b-192f-4d84-8774-5e0d15041b06",
+              "ParameterName": "BluePrintId",
+              "DataSourceQueryID": "74c396b8-f2f5-4de6-96ba-6931072aa03e",
+              "MappingFieldName": "BluePrintId",
+              "IsMandatory": false
+            },
+            {
+              "ID": "a52e520b-61f7-4017-a81e-bffd04035a90",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "74c396b8-f2f5-4de6-96ba-6931072aa03e",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "7e19034c-f4a5-472d-a429-7aba04aee35b",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "QueryName": "Get_TransitionDetail",
+          "DisplayName": "Get_TransitionDetail",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "c606b5d6-e2e2-48d2-bc10-2972dfacffc9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fdfe63f-2416-4866-b2c5-c12dfe79a398"
+            },
+            {
+              "ID": "257dcf2d-f941-401a-8d2c-b6651905ffd9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+            },
+            {
+              "ID": "fcdf8253-d246-4259-a36a-ca5515eed29f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a07ce0ca-8357-4d7f-ad32-eb64ae199097"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "BlueprintId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "2f5c9015-84ac-48da-8de8-1529b5bf7f9a"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "FromStatus",
+                "Sequence": 2,
+                "GroupID": 1,
+                "LookupDetail": "FromStatus.Id",
+                "FieldType": 2,
+                "FieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "ToStatus",
+                "Sequence": 3,
+                "GroupID": 1,
+                "LookupDetail": "ToStatus.Id",
+                "FieldType": 2,
+                "FieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "c1d37347-dc4a-4698-b5ad-46e2de9b0502",
+              "ParameterName": "FromStatus",
+              "DataSourceQueryID": "7e19034c-f4a5-472d-a429-7aba04aee35b",
+              "MappingFieldName": "FromStatus",
+              "IsMandatory": true
+            },
+            {
+              "ID": "c7dafcf0-d1af-4869-b43f-5fc6f5a2d7b1",
+              "ParameterName": "BlueprintId",
+              "DataSourceQueryID": "7e19034c-f4a5-472d-a429-7aba04aee35b",
+              "MappingFieldName": "BlueprintId",
+              "IsMandatory": true
+            },
+            {
+              "ID": "2b940288-8e05-4f03-90ff-b9f82dee8b03",
+              "ParameterName": "ToStatus",
+              "DataSourceQueryID": "7e19034c-f4a5-472d-a429-7aba04aee35b",
+              "MappingFieldName": "ToStatus",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "efacc7f3-18d1-4a9d-9c27-a0401610b3f2",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "QueryName": "List_Blueprint_Transitions_Details",
+          "DisplayName": "List_Blueprint_Transitions_Details",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "a573f925-450a-43ba-be35-450778b5e108",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "de2f6b91-1eb0-41ca-87ea-192c0cffd716"
+            },
+            {
+              "ID": "b909d379-4c4a-4ddd-9ff7-49b72ce2e501",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a07ce0ca-8357-4d7f-ad32-eb64ae199097"
+            },
+            {
+              "ID": "7eb7b2d5-d28f-46c3-b31d-5b4b2a2bedd4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+            },
+            {
+              "ID": "d0253875-c57f-45e3-8ab2-9063e80ab90a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7e335d77-e383-46b0-9f46-9e45f0e0b2d0"
+            },
+            {
+              "ID": "3740aeb4-f7bd-4ae6-9316-b4a1b9abf656",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fdfe63f-2416-4866-b2c5-c12dfe79a398"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "BluePrintId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "2f5c9015-84ac-48da-8de8-1529b5bf7f9a"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "6061e039-6894-4f5b-b834-847276778ff0",
+              "ParameterName": "BluePrintId",
+              "DataSourceQueryID": "efacc7f3-18d1-4a9d-9c27-a0401610b3f2",
+              "MappingFieldName": "BluePrintId",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "4de706a5-0b87-429a-94e9-afe5a8fabfc4",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "QueryName": "List_TABD_Transitions",
+          "DisplayName": "List_TABD_Transitions",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "7cf5ff59-48bb-4f16-a0e2-5520934a8fb3",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fdfe63f-2416-4866-b2c5-c12dfe79a398"
+            },
+            {
+              "ID": "1609f7e2-68ee-41ca-9a5c-86ff98ad6b15",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+            },
+            {
+              "ID": "adae1690-b058-4709-b818-c2f9dd1784a4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "ToStatus.Name",
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            },
+            {
+              "ID": "7834203d-9633-4cc5-b0af-f83ee7f111f7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromStatus.Name",
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "BluePrintId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "2f5c9015-84ac-48da-8de8-1529b5bf7f9a"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "0b4c22fa-2a7f-4c00-83e5-43529d3e3267",
+              "ParameterName": "BluePrintId",
+              "DataSourceQueryID": "4de706a5-0b87-429a-94e9-afe5a8fabfc4",
+              "MappingFieldName": "BluePrintId",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "dd2fdd51-025a-46b9-a29b-c202657b21be",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "QueryName": "Detail_TABD_Blueprint_Transitions",
+          "DisplayName": "Detail_TABD_Blueprint_Transitions",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "37dfb68f-5e85-4b24-91c4-1c5ee2009c75",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "22aacb03-8d1d-449b-b60e-3e675f9a2a7c"
+            },
+            {
+              "ID": "f9b25406-df9d-48a9-9414-27cf41e6587d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+            },
+            {
+              "ID": "477310c8-8104-4128-af11-3571c70fb414",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fdfe63f-2416-4866-b2c5-c12dfe79a398"
+            },
+            {
+              "ID": "6e27deaa-4295-4970-be4f-4d73d78c9d84",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "de2f6b91-1eb0-41ca-87ea-192c0cffd716"
+            },
+            {
+              "ID": "072870ee-ba65-4cc3-8807-94314ae2c13b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2f5c9015-84ac-48da-8de8-1529b5bf7f9a"
+            },
+            {
+              "ID": "b6ea7687-861f-4dee-baf1-be2b40c55c78",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7e335d77-e383-46b0-9f46-9e45f0e0b2d0"
+            },
+            {
+              "ID": "46999d41-d95e-4250-b4a0-d26663f7a650",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a07ce0ca-8357-4d7f-ad32-eb64ae199097"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "bb408bcb-fccb-4d3e-8c0b-65c443c0f21f",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "c21fd696-2308-4c68-a8cd-ab218e067a94",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "dd2fdd51-025a-46b9-a29b-c202657b21be",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "3cf4e8a8-4622-459f-9135-fc2164893059",
+          "ObjectID": null,
+          "ObjectID_Tosave": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+          "QueryName": "Get_Approved_L1_TABD_Blueprint_Transitions",
+          "DisplayName": "Get_Approved_L1_TABD_Blueprint_Transitions",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "00f94344-630c-4217-92ac-d894eebfeefd",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "f1fe39d3-489d-a704-0a38-589545c8ed4c",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 1,
+                "value": "{{Settings.TimeSheet_Settings.TimesheetRequest_Approved_L1Statuses}}",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": "ToStatus.Name",
+                "FieldType": 2,
+                "FieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+              },
+              {
+                "ID": "b18a5afe-586f-4d82-cafe-3b3b728f439b",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "TransitionId",
+                "Sequence": 2,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "f2d1af94-ae68-48a8-8fa8-d6897833ef84"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "9bdc1f2a-22bb-4904-8727-c3c480a5323e",
+              "ParameterName": "TransitionId",
+              "DataSourceQueryID": "3cf4e8a8-4622-459f-9135-fc2164893059",
+              "MappingFieldName": "TransitionId",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_Blueprint_Transitions",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "ec127870-79b4-4ccb-9478-e1ab8a87ec0f",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": true,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": null,
+        "CreatedOn": "2024-08-06T18:33:39.603",
+        "UpdatedOn": null,
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+      "ObjectName": "TABD_BluePrints",
+      "DisplayName": "TABD_BluePrints",
+      "Description": "TABD_BluePrints",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "7460b18d-28a6-483a-9907-3def0d2fb038",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "FieldName": "Description",
+          "DisplayName": "Description",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Description",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "e0e180e6-c1bb-47b6-a833-9666c599e45d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "FieldName": "AppObjectId",
+          "DisplayName": "AppObjectId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "AppObjectId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "702ddb3a-1381-46b7-ba58-98705625405e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "FieldName": "Criteria",
+          "DisplayName": "Criteria",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Criteria",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "3ea2c270-db8e-4100-a171-d82e47a706aa",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "FieldName": "Name",
+          "DisplayName": "Name",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Name",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": true,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": "{\"Validations\":[{}]}"
+        },
+        {
+          "ID": "9485d699-7732-47a8-a2ba-f8a3d0c4d2b9",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "740C1E27-2AE1-4F2E-BAFC-0AC0B4B5A0E1",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": [
+        {
+          "childDetails": {
+            "LookupObject": "TABD_BlueprintStatusRelationship",
+            "LookupField": "BlueprintId",
+            "DisplayField": null,
+            "selectQuery": null
+          },
+          "LocalId": "Id"
+        },
+        {
+          "childDetails": {
+            "LookupObject": "TABD_Blueprint_Transitions",
+            "LookupField": "BluePrintId",
+            "DisplayField": null,
+            "selectQuery": null
+          },
+          "LocalId": "Id"
+        }
+      ],
+      "DataSourceQueries": [
+        {
+          "ID": "a714b854-9506-4e8b-96f4-03bf8ec1104c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "DEV_TABD_BluePrints",
+          "DisplayName": "DEV_TABD_BluePrints",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "bda15d13-ae30-4bb4-a9fc-021090d77078",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9485d699-7732-47a8-a2ba-f8a3d0c4d2b9"
+            },
+            {
+              "ID": "75ccaa47-d582-4cce-9995-028032a23fee",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "702ddb3a-1381-46b7-ba58-98705625405e"
+            },
+            {
+              "ID": "25306963-2fa7-4cde-97d2-44134533fbae",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3ea2c270-db8e-4100-a171-d82e47a706aa"
+            },
+            {
+              "ID": "5ae910d4-1bd0-4b7c-a945-a6461b027937",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7460b18d-28a6-483a-9907-3def0d2fb038"
+            },
+            {
+              "ID": "e6275275-5bd7-4126-b3a6-b1c4c2d4a3d5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e0e180e6-c1bb-47b6-a833-9666c599e45d"
+            },
+            {
+              "ID": "6a50e346-0046-4aa0-9a27-fa2fa190741a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "12cbc097-91e9-447c-b632-06c6b04c762e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "Blueprint_History_Detail",
+          "DisplayName": "Blueprint_History_Detail",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "65880455-3b5c-4da4-80fe-1db741cf3643",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7460b18d-28a6-483a-9907-3def0d2fb038"
+            },
+            {
+              "ID": "2a88bcee-9cd4-4116-981e-355bf5607458",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "702ddb3a-1381-46b7-ba58-98705625405e"
+            },
+            {
+              "ID": "ad132fb7-fd41-4991-a91c-6488f6e6b8ef",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+            },
+            {
+              "ID": "06bb4f02-64f6-4eaa-9616-6ac0e28e7cc9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 6,
+              "FieldDetails": "#TABD_Blueprint_Transitions:Get_Detail_Transitions",
+              "AppFieldID": "2c4efe47-9eee-a005-6463-10abe020df7b"
+            },
+            {
+              "ID": "3cdec77c-1c54-4836-b11d-7afe89912f2b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 6,
+              "FieldDetails": "#TABD_BlueprintStatusRelationship:Detail_TABD_BlueprintStatusRelationship",
+              "AppFieldID": "4ab6aea4-90f0-58ca-bab0-feb3eb3668bd"
+            },
+            {
+              "ID": "d3fb593d-233b-4cb2-8117-f4ad5c3f63ec",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e0e180e6-c1bb-47b6-a833-9666c599e45d"
+            },
+            {
+              "ID": "b5e05bb7-fd07-4edb-8430-faf5b1161103",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3ea2c270-db8e-4100-a171-d82e47a706aa"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "e261d30b-a89a-1282-15f7-b869d4d46ba7",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "dfdd3fde-67f0-4045-adb4-6fcebeeaada0",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "12cbc097-91e9-447c-b632-06c6b04c762e",
+              "MappingFieldName": "Id",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "f9505b1d-9b1c-4ed2-b92c-6dc36175b80e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "List_TABD_BluePrints",
+          "DisplayName": "List_TABD_BluePrints",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "f37aa3b1-8f89-4ef2-82a3-4ffdf937571c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3ea2c270-db8e-4100-a171-d82e47a706aa"
+            },
+            {
+              "ID": "17ff12f1-f2ad-47c7-a1c7-6e6a203ef1f2",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "06c10bd8-3ed5-43df-a12c-7ac57c5efd4a",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "FK_TABD_BluePrints_TABD_BlueprintStatus",
+          "DisplayName": "FK_TABD_BluePrints_TABD_BlueprintStatus",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "3851b066-584e-4b08-b5c5-35957949771d",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "5b01de1f-73bc-42e5-9e90-0e75aa2021a2"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "ea1287c2-b262-43e2-b2a9-7b8fdd1c4635",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "Get_BluePrint_List",
+          "DisplayName": "Get_BluePrint_List",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "4b73eab9-4a19-43cc-8f07-529d13cb417c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3ea2c270-db8e-4100-a171-d82e47a706aa"
+            },
+            {
+              "ID": "cfe4658d-a2e7-494f-8ff0-d1dbf6845b46",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e0e180e6-c1bb-47b6-a833-9666c599e45d"
+            },
+            {
+              "ID": "959cb2d9-5cfc-4fc7-bdcb-e18cdd47f7c8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "12bcfe0d-4289-4072-a995-8e8eee01659c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "Default_TABD_BluePrints",
+          "DisplayName": "Default_TABD_BluePrints",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "2a64cc01-0571-4548-bacf-5837054dc748",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7460b18d-28a6-483a-9907-3def0d2fb038"
+            },
+            {
+              "ID": "6f6b968f-f95f-42a6-ad07-62918d6459db",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "702ddb3a-1381-46b7-ba58-98705625405e"
+            },
+            {
+              "ID": "2ad7ce9d-0bb5-4785-bbd2-c1518db0afe6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9485d699-7732-47a8-a2ba-f8a3d0c4d2b9"
+            },
+            {
+              "ID": "630e474d-090f-4512-86b3-c211bc055e4c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e0e180e6-c1bb-47b6-a833-9666c599e45d"
+            },
+            {
+              "ID": "4fa5079b-1e97-4aaa-9f4d-cf0e14703fe0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+            },
+            {
+              "ID": "078cdd73-fbea-4342-9934-e8fac3fe8bde",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3ea2c270-db8e-4100-a171-d82e47a706aa"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "0b53aa73-2290-463d-bf00-a46d097cafb7",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "Detail_SLA_TABD_BluePrints",
+          "DisplayName": "Detail_SLA_TABD_BluePrints",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "42d84492-c68f-4c16-9b8c-a5f1f5d8ae02",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "FK_TABD_BluePrints_TABMD_AppObject",
+          "DisplayName": "FK_TABD_BluePrints_TABMD_AppObject",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "db689ff4-f587-4c7d-9b51-92c1e1766c66",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "86c56c1f-ce3c-48a1-8770-b906b994259e",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "ID",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "0f422a8f-6acc-4a78-862b-dd37f799696e"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "1b6b9968-4f3b-4383-8106-ba5813af3008",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "Detail_TABD_BluePrints",
+          "DisplayName": "Detail_TABD_BluePrints",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "e35586db-74bd-462f-93af-0632baabecc4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3ea2c270-db8e-4100-a171-d82e47a706aa"
+            },
+            {
+              "ID": "30eab011-fda1-4d13-a511-12468b9996b8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.RecordId",
+              "AppFieldID": "d3661c2c-e872-4f5a-9030-4c8f97c704c5"
+            },
+            {
+              "ID": "301dfad5-440e-48d5-9432-37a96ca6c73e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7460b18d-28a6-483a-9907-3def0d2fb038"
+            },
+            {
+              "ID": "b386eaa5-bf71-4b13-9a1a-44e5ff7073c4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e0e180e6-c1bb-47b6-a833-9666c599e45d"
+            },
+            {
+              "ID": "679daedb-e8c9-4169-8113-5378f3d0fa14",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.PrimaryKey",
+              "AppFieldID": "1765e7e6-c1f1-454d-abcf-2584ed643720"
+            },
+            {
+              "ID": "96fd454b-02db-40be-80f2-58fd18acabd2",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByLastName",
+              "AppFieldID": "69727469-ed5e-48e0-b52a-874f430810bd"
+            },
+            {
+              "ID": "880390be-01b5-4c19-83dc-5eb48ea80a5e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+            },
+            {
+              "ID": "43e9d268-a8a7-4f4a-8e18-77c9c9cd4200",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.OwnerFirstName",
+              "AppFieldID": "641b8455-61fe-4196-b231-c9acbdbb9513"
+            },
+            {
+              "ID": "0e961343-c578-46f1-bb18-a4d21d70b5a1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedOn",
+              "AppFieldID": "ebcf22cb-9e6e-49cf-a069-5b2af3dc7ea3"
+            },
+            {
+              "ID": "ad7f584f-d29d-410b-8ad4-ab31cc742ecb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.AppObjectID",
+              "AppFieldID": "497cbcb0-e5eb-4fcd-84d3-bebc4348069e"
+            },
+            {
+              "ID": "fd3907b0-703f-4377-af8e-d3ddb3d555f8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsActive",
+              "AppFieldID": "7fede379-4b82-4ba6-ac6c-da9c5bd3db9b"
+            },
+            {
+              "ID": "da22507b-44aa-4a2a-a375-d489fdce0d60",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Tags",
+              "AppFieldID": "c73fb52f-ef29-4229-9f07-df27b6ab3d22"
+            },
+            {
+              "ID": "6448fbfb-ecd9-420c-b2b4-d9ed31f3d427",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.OwnerLastName",
+              "AppFieldID": "be0d04e9-0ce8-429d-af97-6119d799e108"
+            },
+            {
+              "ID": "66f3cecb-4110-424c-bc79-eba1b04167e1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedOn",
+              "AppFieldID": "985391df-21b5-414d-9ebb-07e95ae448ba"
+            },
+            {
+              "ID": "808a01fa-7f1a-4ecc-a5ff-ecc85b2ae938",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "702ddb3a-1381-46b7-ba58-98705625405e"
+            },
+            {
+              "ID": "55684770-1d19-4121-82ed-ef25c90f754e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByLastName",
+              "AppFieldID": "4447d5d5-552b-4e65-96b1-a6701e6efc02"
+            },
+            {
+              "ID": "93d15b9d-0c75-4f92-9b0e-f447e4b7660f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByFirstName",
+              "AppFieldID": "5b5a0372-b741-4d2c-a319-f62950d07325"
+            },
+            {
+              "ID": "2364dd9f-8d9a-48a7-a508-f4c859950f6d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByFirstName",
+              "AppFieldID": "bfac404a-c645-4472-a183-cfa4510346fd"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "d1b50934-2969-4771-9e0e-6f7c9e1f78bc",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "f5ade4c6-00de-48bf-846d-ded64e9aaabc",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "1b6b9968-4f3b-4383-8106-ba5813af3008",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "b86c969f-5aaa-4286-a9c7-fe5e6013bf9d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "Get_BluePrint_RecordInfo_Detail",
+          "DisplayName": "Get_BluePrint_RecordInfo_Detail",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "99047ae6-4f29-4cd0-824f-0569142e38e2",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.PrimaryKey",
+              "AppFieldID": "1765e7e6-c1f1-454d-abcf-2584ed643720"
+            },
+            {
+              "ID": "2203dc4b-4882-4e7e-85d4-09d480293608",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByLastName",
+              "AppFieldID": "4447d5d5-552b-4e65-96b1-a6701e6efc02"
+            },
+            {
+              "ID": "f35d99e8-c8dd-457c-ba79-157708eb1222",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedOn",
+              "AppFieldID": "ebcf22cb-9e6e-49cf-a069-5b2af3dc7ea3"
+            },
+            {
+              "ID": "2ec5972c-4baf-4bef-9c01-1ebd5129222d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedOn",
+              "AppFieldID": "985391df-21b5-414d-9ebb-07e95ae448ba"
+            },
+            {
+              "ID": "e0a89bcb-d7b3-47aa-beee-23881f0bbd7b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedBy",
+              "AppFieldID": "23111808-8f75-41b1-abd7-a050a35213a7"
+            },
+            {
+              "ID": "987939f5-75a6-408c-93f0-3f170a4ae501",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByFirstName",
+              "AppFieldID": "bfac404a-c645-4472-a183-cfa4510346fd"
+            },
+            {
+              "ID": "02ec1bf7-9b32-4c8c-91f4-452873779f62",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Tags",
+              "AppFieldID": "c73fb52f-ef29-4229-9f07-df27b6ab3d22"
+            },
+            {
+              "ID": "5a2c1d77-265e-4f8c-bcd7-5a593d1b94e4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedBy",
+              "AppFieldID": "261e456c-dba2-45f4-bbdf-fe351ecd9a89"
+            },
+            {
+              "ID": "4f48985c-d623-4a5e-ad93-70d1165df1ff",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+            },
+            {
+              "ID": "4de7c351-037a-4709-8e8c-7f05fe925f34",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsActive",
+              "AppFieldID": "7fede379-4b82-4ba6-ac6c-da9c5bd3db9b"
+            },
+            {
+              "ID": "b0dd7f3b-5094-4a85-8dce-81341871e1e0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.AppObjectID",
+              "AppFieldID": "497cbcb0-e5eb-4fcd-84d3-bebc4348069e"
+            },
+            {
+              "ID": "2a92ad3a-fca3-4d9e-bc2c-a996f1296576",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Icon",
+              "AppFieldID": "29671db8-c66f-4639-b1cd-11e1535088dd"
+            },
+            {
+              "ID": "ad6c550b-e58c-44e4-8fe2-bbfe9044a86e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Title",
+              "AppFieldID": "f9b2d96f-8a99-4927-b590-3fd4af2af318"
+            },
+            {
+              "ID": "a46f615a-bfac-4884-bbe2-c5abd3047c70",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByLastName",
+              "AppFieldID": "69727469-ed5e-48e0-b52a-874f430810bd"
+            },
+            {
+              "ID": "f3aa9623-3aae-4f86-90f8-d01f4d8ca7da",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.RecordId",
+              "AppFieldID": "d3661c2c-e872-4f5a-9030-4c8f97c704c5"
+            },
+            {
+              "ID": "65441fb4-9a9c-4ee2-b5ab-d0a2e68c241c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.TenantId",
+              "AppFieldID": "f9a5bee3-f20c-47db-bbd4-ac0d972985f5"
+            },
+            {
+              "ID": "babcf2f2-4647-4149-95c8-d4d478a72596",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsSystemRecord",
+              "AppFieldID": "7c3e041e-6086-48f0-9ba8-61da0e241b29"
+            },
+            {
+              "ID": "73c63d21-235c-4cb5-85e5-ef4686e3db8c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByFirstName",
+              "AppFieldID": "5b5a0372-b741-4d2c-a319-f62950d07325"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "d1b50934-2969-4771-9e0e-6f7c9e1f78bc",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "62bac678-755e-41ab-8ba9-71d5ec1655ba",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "b86c969f-5aaa-4286-a9c7-fe5e6013bf9d",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "42969f62-0a16-4831-a26a-e3d8c06dcf53",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "Test_TABD_BluePrints_1",
+          "DisplayName": "Test_TABD_BluePrints_1",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "de283a8e-c35b-481a-88a5-0a9c532b4464",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3ea2c270-db8e-4100-a171-d82e47a706aa"
+            },
+            {
+              "ID": "05b0514e-1d0e-4769-a6ea-14cacee5fc23",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "702ddb3a-1381-46b7-ba58-98705625405e"
+            },
+            {
+              "ID": "7747dddd-719e-4e06-9134-a795e9534eb0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+            },
+            {
+              "ID": "10582651-bb92-495a-ad18-e885149575d1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7460b18d-28a6-483a-9907-3def0d2fb038"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "87f79bb5-0d40-46e8-8f4a-f998d234275e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+          "QueryName": "Test_TABD_BluePrints",
+          "DisplayName": "Test_TABD_BluePrints",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "e68f611a-e0de-414a-a763-35e71212fbdb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3ea2c270-db8e-4100-a171-d82e47a706aa"
+            },
+            {
+              "ID": "4765b474-0c7e-472a-8af7-4e825fde55a8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d3c74beb-fe5b-4df1-aafb-841c1255fd9f"
+            },
+            {
+              "ID": "67258bf2-84c5-428e-a70d-7323a7c38c7e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e0e180e6-c1bb-47b6-a833-9666c599e45d"
+            },
+            {
+              "ID": "a019537e-4846-4daf-907d-f548ec081f29",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7460b18d-28a6-483a-9907-3def0d2fb038"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_BluePrints",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "740c1e27-2ae1-4f2e-bafc-0ac0b4b5a0e1",
+      "AppObjectConfiguration": "{\"RecordInfoTitleConfiguration\":\"{{Name}}\",\"GlobalSearch\":{\"IsElasticSearchEnable\":\"False\",\"DSQId\":\"\",\"TemplateId\":\"\",\"RedirectionScreenId\":\"\"},\"History\":{\"DSQId\":\"12cbc097-91e9-447c-b632-06c6b04c762e\"},\"ScreenConfiguration\":{\"detailScreenId\":\"\",\"addScreenId\":\"\",\"editScreenId\":\"\",\"previewScreenId\":\"\",\"listScreenId\":\"\"}}",
+      "AllowVersioning": true,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": true,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": "d052a189-a33f-4acd-8012-f66f9cc07cd3",
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": "2025-05-19T14:40:38",
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+      "ObjectName": "TABD_BlueprintStatus",
+      "DisplayName": "TABD_BlueprintStatus",
+      "Description": "TABD_BlueprintStatus",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": true,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "27336e18-755d-4b17-bd3d-abdf90d75625",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "FieldName": "Name",
+          "DisplayName": "Name",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Name",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": true,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": "{\"Validations\":[{}]}"
+        },
+        {
+          "ID": "408c852e-28bb-403f-9e6b-eeef062e4a10",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "D531A98A-64A4-4A12-A3B3-D0995A5FA147",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "cf46de89-5063-4d30-9b5a-0ff8b93b97ab",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "QueryName": "FK_TABD_BlueprintStatus_TABD_BluePrints",
+          "DisplayName": "FK_TABD_BlueprintStatus_TABD_BluePrints",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "92c3051f-2c93-498f-a0bc-00eab10785b2",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+            },
+            {
+              "ID": "aea7f092-b00b-407b-ac10-44c275444917",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            },
+            {
+              "ID": "ad0f510c-5687-4797-83e7-97e85625d2ca",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "408c852e-28bb-403f-9e6b-eeef062e4a10"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "8b1a4603-e57c-4707-bb66-bd549938a606",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "8d838615-6edb-437b-a476-f62d6e140204"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "396f26d1-7617-49ad-9617-3cfa8cbd5c89",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "cf46de89-5063-4d30-9b5a-0ff8b93b97ab",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "37ddf12b-2c98-400d-b84a-176e34804dfb",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "QueryName": "get_Issues_StatusList",
+          "DisplayName": "get_Issues_StatusList",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "0a19996b-8f93-458f-8389-4603751636f3",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 1,
+                "value": "6d1764fe-5f09-4920-915e-2e8b65a28181",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "96526031-ec75-4c0b-8528-3cf4aa199808"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "25c0f7c2-5ec6-4f16-80f1-1f3ae08d5fd1",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "QueryName": "DEV_TABD_BlueprintStatus",
+          "DisplayName": "DEV_TABD_BlueprintStatus",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "e43078a4-b112-4cca-959a-45f336a40f89",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            },
+            {
+              "ID": "b71f0f30-e8c6-45a6-a605-78256413a2e4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+            },
+            {
+              "ID": "b7d8d721-5556-4af6-9519-7fae3a196438",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "408c852e-28bb-403f-9e6b-eeef062e4a10"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "2bbf590e-3b45-4b8d-9b59-30d576a860ba",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "QueryName": "Default_TABD_BlueprintStatus",
+          "DisplayName": "Default_TABD_BlueprintStatus",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "bd1785ec-1fe4-476d-8612-2d2216f1dff3",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+            },
+            {
+              "ID": "c00b3da1-f26b-4d78-92b9-611e6f998f1d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "408c852e-28bb-403f-9e6b-eeef062e4a10"
+            },
+            {
+              "ID": "e4812434-2962-4e31-a4f1-af72d50d0b58",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "49b4d834-1aa5-4f26-a019-56e20c9b091d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "QueryName": "Get_Lead_BlueprintStatusList",
+          "DisplayName": "Get_Lead_BlueprintStatusList",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "5c7f8eae-1ab6-4e13-816e-b2204059efb1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+            },
+            {
+              "ID": "e1dba130-7825-4ce1-ac3d-e35aaae8d20a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 1,
+                "value": "554c0ffa-263f-40b6-9376-48d3db94bb6d",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "8d838615-6edb-437b-a476-f62d6e140204"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "a58180da-34c9-4314-9c4d-6f1edb73a177",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "QueryName": "Get_AllBlueprintStatus_List_Id",
+          "DisplayName": "Get_AllBlueprintStatus_List_Id",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "39428df4-765f-4ce9-97ab-16cbd0489e30",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            },
+            {
+              "ID": "4ed4c600-f2d1-446c-8fc2-590629e8c4f6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "5f3bdd65-6071-44c4-8b4e-74c35787deb7",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "QueryName": "Detail_TABD_BlueprintStatus",
+          "DisplayName": "Detail_TABD_BlueprintStatus",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "7b92dfb8-7085-40f3-a456-638cfcdaaf7b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            },
+            {
+              "ID": "4ba7b532-8307-4ec4-a68a-651450fdf576",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+            },
+            {
+              "ID": "4cd92f7b-a30e-4f30-b48c-a76dbfd48595",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "408c852e-28bb-403f-9e6b-eeef062e4a10"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "91652b82-f051-473f-a8c1-dbf20e8b1115",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "c0a07640-3d23-4a31-bce3-e587ec9a23d5",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "5f3bdd65-6071-44c4-8b4e-74c35787deb7",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "05d0e61a-4ba3-4b71-b92f-af65516cc708",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "QueryName": "get_BlueprintWise_StatusList",
+          "DisplayName": "get_BlueprintWise_StatusList",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "bdd7c3ac-a28b-40f9-b25e-41599e944aa9",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "BluePrintId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "8d838615-6edb-437b-a476-f62d6e140204"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "1597421b-e263-433c-a5f7-e8355de8c568",
+              "ParameterName": "BluePrintId",
+              "DataSourceQueryID": "05d0e61a-4ba3-4b71-b92f-af65516cc708",
+              "MappingFieldName": "BluePrintId",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "df637847-fd37-4baf-b3d4-cd699a593c55",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "QueryName": "List_TABD_BlueprintStatus",
+          "DisplayName": "List_TABD_BlueprintStatus",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "10ef1228-bb30-45df-a277-203c273ee2ce",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+            },
+            {
+              "ID": "3bff42d9-92b3-493a-92c4-b147b43a0e48",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "408c852e-28bb-403f-9e6b-eeef062e4a10"
+            },
+            {
+              "ID": "0ac1b523-9b3e-4fa2-b09b-f4352f14c1d4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "BluePrintId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "8d838615-6edb-437b-a476-f62d6e140204"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "409fedcb-c3e2-431f-9c18-5c18702d94bb",
+              "ParameterName": "BluePrintId",
+              "DataSourceQueryID": "df637847-fd37-4baf-b3d4-cd699a593c55",
+              "MappingFieldName": "BluePrintId",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "578eae60-1940-4f62-b857-ecca3fc1b276",
+          "ObjectID": null,
+          "ObjectID_Tosave": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+          "QueryName": "List_Blueprint_Status_Details",
+          "DisplayName": "List_Blueprint_Status_Details",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "06f89d9a-ba43-407e-b2c1-cb26f104a17f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "27336e18-755d-4b17-bd3d-abdf90d75625"
+            },
+            {
+              "ID": "98b03902-1fb4-4dcd-984a-ccff175c2001",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a9eb37cc-15ac-427a-b0a4-a76df7dafe00"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "BluePrintId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "8d838615-6edb-437b-a476-f62d6e140204"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "a53033a0-1fbe-4ab0-af04-7b2c5a7c5bd8",
+              "ParameterName": "BluePrintId",
+              "DataSourceQueryID": "578eae60-1940-4f62-b857-ecca3fc1b276",
+              "MappingFieldName": "BluePrintId",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_BlueprintStatus",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "d531a98a-64a4-4a12-a3b3-d0995a5fa147",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": true,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": "d052a189-a33f-4acd-8012-f66f9cc07cd3",
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": "2025-07-07T08:26:47",
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+      "ObjectName": "TABD_CheckIn_Records",
+      "DisplayName": "TABD_CheckIn_Records",
+      "Description": "TABD_CheckIn_Records",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "c4644b66-bbe6-48e1-82f5-11e67b78ea2e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "FieldName": "Status",
+          "DisplayName": "Status",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Status",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "ec9f7638-aa3c-4042-89f6-41b896306104",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "FieldName": "CheckInID",
+          "DisplayName": "CheckInID",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "CheckInID",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "9c582f48-8125-41e1-9c02-41fb868185d3",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "FieldName": "Response_RecordId",
+          "DisplayName": "Response_RecordId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Response_RecordId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "8afa5cea-71a3-40f4-a3c5-4f27af668456",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "23B26EED-BE72-488C-B17F-2D23FDB952C0",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "38f90255-8c40-4276-8392-bc24788bf2fd",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "FieldName": "UserId",
+          "DisplayName": "UserId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "UserId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "9c4359d5-224e-4a5c-a87a-d93949b86540",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "bff4be3e-a7ce-4450-8fce-fc6c9afb3bc9",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "FieldName": "Ref_RecordId",
+          "DisplayName": "Ref_RecordId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Ref_RecordId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "9f79a1d2-d534-4f4a-b4e9-0bf9e9735ba5",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "QueryName": "DEV_TABD_CheckIn_Records",
+          "DisplayName": "DEV_TABD_CheckIn_Records",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "85a7e3b8-b126-49a5-b36a-05c3c7cf46ea",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c4644b66-bbe6-48e1-82f5-11e67b78ea2e"
+            },
+            {
+              "ID": "2c728470-f113-449b-8054-0ab73e4275b2",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bff4be3e-a7ce-4450-8fce-fc6c9afb3bc9"
+            },
+            {
+              "ID": "8468a199-467c-4b83-ac9f-1457dc8befe5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9c4359d5-224e-4a5c-a87a-d93949b86540"
+            },
+            {
+              "ID": "c608c00c-cad6-4ab3-9bc2-57e99788a127",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "38f90255-8c40-4276-8392-bc24788bf2fd"
+            },
+            {
+              "ID": "128c842a-26a9-406d-8d5c-65e43c4a16b8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8afa5cea-71a3-40f4-a3c5-4f27af668456"
+            },
+            {
+              "ID": "e2f4269b-34a9-4514-8307-7ddb3e5906f4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9c582f48-8125-41e1-9c02-41fb868185d3"
+            },
+            {
+              "ID": "7787f83b-e152-4a54-b971-91e9bde55914",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ec9f7638-aa3c-4042-89f6-41b896306104"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "e48d01ef-c603-45c7-96d8-0e71aee78466",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "QueryName": "Default_TABD_CheckIn_Records",
+          "DisplayName": "Default_TABD_CheckIn_Records",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "a6acb673-88b1-4f60-90b0-35f95582eac6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ec9f7638-aa3c-4042-89f6-41b896306104"
+            },
+            {
+              "ID": "1cccc018-7f3f-421e-b872-386a39bce649",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bff4be3e-a7ce-4450-8fce-fc6c9afb3bc9"
+            },
+            {
+              "ID": "b27e57d8-ac97-4013-9333-47c611e65ebf",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9c4359d5-224e-4a5c-a87a-d93949b86540"
+            },
+            {
+              "ID": "acb368fc-67de-4226-9813-5c88099d622c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c4644b66-bbe6-48e1-82f5-11e67b78ea2e"
+            },
+            {
+              "ID": "0237585a-262e-4444-834b-5e4eed8042e7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9c582f48-8125-41e1-9c02-41fb868185d3"
+            },
+            {
+              "ID": "b058c6d5-e042-48bd-90c4-7791436631a3",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8afa5cea-71a3-40f4-a3c5-4f27af668456"
+            },
+            {
+              "ID": "42817ecd-4541-4bc4-80ef-d4009e840b19",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "38f90255-8c40-4276-8392-bc24788bf2fd"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "97988720-4c46-4a07-b316-a99647991f5d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "QueryName": "List_TABD_CheckIn_Records",
+          "DisplayName": "List_TABD_CheckIn_Records",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "8dad4273-8d40-4020-b76b-41d16cd57176",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9c4359d5-224e-4a5c-a87a-d93949b86540"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "bdec0074-4cc0-4888-84f8-cf29d65a6856",
+          "ObjectID": null,
+          "ObjectID_Tosave": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+          "QueryName": "Detail_TABD_CheckIn_Records",
+          "DisplayName": "Detail_TABD_CheckIn_Records",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "bc8413e3-d3eb-4836-a541-09d40b8f720e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8afa5cea-71a3-40f4-a3c5-4f27af668456"
+            },
+            {
+              "ID": "85972f25-2f91-4a22-a4cc-7a4175dfa551",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c4644b66-bbe6-48e1-82f5-11e67b78ea2e"
+            },
+            {
+              "ID": "60be6c04-24fb-483e-827b-848dce536935",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ec9f7638-aa3c-4042-89f6-41b896306104"
+            },
+            {
+              "ID": "ae7de9af-e480-4264-97f3-8567baf634c5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "38f90255-8c40-4276-8392-bc24788bf2fd"
+            },
+            {
+              "ID": "f386116e-71b6-45f5-b22b-8ea25e5234ce",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9c4359d5-224e-4a5c-a87a-d93949b86540"
+            },
+            {
+              "ID": "b9748d1d-e3bc-41e0-b101-a741189bc953",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bff4be3e-a7ce-4450-8fce-fc6c9afb3bc9"
+            },
+            {
+              "ID": "a06f52ca-b7dc-4318-b0ef-c1af29dfc97d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9c582f48-8125-41e1-9c02-41fb868185d3"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "171612c4-a535-4c8d-a578-d7816797bfaf",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "9c4359d5-224e-4a5c-a87a-d93949b86540"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "81fd204d-fb8c-4f67-a60d-d18b41d83c10",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "bdec0074-4cc0-4888-84f8-cf29d65a6856",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_CheckIn_Records",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "23b26eed-be72-488c-b17f-2d23fdb952c0",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": false,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": null,
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": null,
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+      "ObjectName": "TABD_CheckIns",
+      "DisplayName": "TABD_CheckIns",
+      "Description": "TABD_CheckIns",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "11cd1d68-c5ff-44f9-9a0f-0b782855a57e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "Schedule_CRON",
+          "DisplayName": "Schedule_CRON",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Schedule_CRON",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "a8a19639-5eb0-4a02-96a0-23b76026fc22",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "Name",
+          "DisplayName": "Name",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Name",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "5181227f-1d5b-4775-b59e-6724b56d4ac2",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "RecordCriteria",
+          "DisplayName": "RecordCriteria",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordCriteria",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "6fcd58da-88c0-4e19-b36b-8d8d70dddd73",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "ApproverType",
+          "DisplayName": "ApproverType",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ApproverType",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "ed4f8864-eb8f-43e7-8d94-9d7ab220295f",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "ScreenId",
+          "DisplayName": "ScreenId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ScreenId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "f7e83ac0-27bb-4da7-a5ab-a455751aafab",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "Description",
+          "DisplayName": "Description",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Description",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "d143d168-2d2d-44de-bdbe-a6bf794169f7",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "ListingTemplate",
+          "DisplayName": "ListingTemplate",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ListingTemplate",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "f6d5df47-0d79-4146-b22c-c3b80a670bbe",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "AppObjectID",
+          "DisplayName": "AppObjectID",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "AppObjectID",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "49d0175e-df9c-406d-a01a-d24d4f709177",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "BC0A2C2F-C75C-4AB7-B521-23FF94C546C2",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "d1d79e31-dd1d-4f19-843f-d4cc48cede5d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "Approver",
+          "DisplayName": "Approver",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Approver",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "b8362734-9c3a-43db-9aff-d7714a3a4eac",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "dfa840b4-6557-49af-939d-0d16f5922a71",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "QueryName": "DEV_TABD_CheckIns",
+          "DisplayName": "DEV_TABD_CheckIns",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "26805207-db12-43c6-85c3-04d4f0ad9725",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fcd58da-88c0-4e19-b36b-8d8d70dddd73"
+            },
+            {
+              "ID": "6ead8dc0-5716-4d19-86ab-0c9a42b2a0f1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d1d79e31-dd1d-4f19-843f-d4cc48cede5d"
+            },
+            {
+              "ID": "88b1f832-2218-4448-aae5-155b1da91013",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "49d0175e-df9c-406d-a01a-d24d4f709177"
+            },
+            {
+              "ID": "5ef7bf81-59e0-4285-ac80-32cf0b7e9a39",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b8362734-9c3a-43db-9aff-d7714a3a4eac"
+            },
+            {
+              "ID": "ee163f8e-0c1d-4436-aa9a-561154ae9d22",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f7e83ac0-27bb-4da7-a5ab-a455751aafab"
+            },
+            {
+              "ID": "80877d7d-efd9-4cbe-9553-58e2989d8d6c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f6d5df47-0d79-4146-b22c-c3b80a670bbe"
+            },
+            {
+              "ID": "947cb4ab-4697-4462-98e7-61aed3d57c8e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a8a19639-5eb0-4a02-96a0-23b76026fc22"
+            },
+            {
+              "ID": "4f98ae34-a1f2-4663-9054-826ecdb31c1a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "11cd1d68-c5ff-44f9-9a0f-0b782855a57e"
+            },
+            {
+              "ID": "860d2dd1-fa64-4507-9243-8cba760daf43",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed4f8864-eb8f-43e7-8d94-9d7ab220295f"
+            },
+            {
+              "ID": "97860615-bb8f-4aba-b751-c6bb990890eb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5181227f-1d5b-4775-b59e-6724b56d4ac2"
+            },
+            {
+              "ID": "c2572ed0-6fc4-43da-a279-ce49610f0f7f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d143d168-2d2d-44de-bdbe-a6bf794169f7"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "71eee05e-b3bc-4e9d-a6cc-2e652441d30a",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "QueryName": "Default_TABD_CheckIns",
+          "DisplayName": "Default_TABD_CheckIns",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "41d7cfab-8f7f-4d3c-8bd3-0ecc00e441a7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a8a19639-5eb0-4a02-96a0-23b76026fc22"
+            },
+            {
+              "ID": "960903f7-0734-4e0a-a3d6-4ee2e16e757d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "11cd1d68-c5ff-44f9-9a0f-0b782855a57e"
+            },
+            {
+              "ID": "aaaab4c3-8c96-4ce9-9204-77be5636260e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5181227f-1d5b-4775-b59e-6724b56d4ac2"
+            },
+            {
+              "ID": "3f04400a-c8e4-4e26-aa7a-8a33b2365577",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f7e83ac0-27bb-4da7-a5ab-a455751aafab"
+            },
+            {
+              "ID": "5a32d087-7696-425d-bb87-8c6ab48851f4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d143d168-2d2d-44de-bdbe-a6bf794169f7"
+            },
+            {
+              "ID": "87cefb56-76a2-442d-b969-9b8d22b7d518",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "49d0175e-df9c-406d-a01a-d24d4f709177"
+            },
+            {
+              "ID": "b2fe9d4b-f22f-4111-b9b7-c2adf110fa45",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fcd58da-88c0-4e19-b36b-8d8d70dddd73"
+            },
+            {
+              "ID": "1e101f42-d771-470e-805f-ddc253129c6b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed4f8864-eb8f-43e7-8d94-9d7ab220295f"
+            },
+            {
+              "ID": "1a8a5e6a-b8a8-45d2-8a3c-e4b707c066f9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d1d79e31-dd1d-4f19-843f-d4cc48cede5d"
+            },
+            {
+              "ID": "2d821974-e7ff-48f7-bf43-eebcf9544449",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b8362734-9c3a-43db-9aff-d7714a3a4eac"
+            },
+            {
+              "ID": "4b9bbc71-02b5-4d34-966a-fafc5192b936",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f6d5df47-0d79-4146-b22c-c3b80a670bbe"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "8a7d7478-755f-45cf-bc0d-36d637f7297f",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "QueryName": "Detail_TABD_CheckIns",
+          "DisplayName": "Detail_TABD_CheckIns",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "564b1704-7a06-4ec7-b2ba-030bfc2056f5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "49d0175e-df9c-406d-a01a-d24d4f709177"
+            },
+            {
+              "ID": "12364e08-cc35-4277-a08d-192a2eee39e4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b8362734-9c3a-43db-9aff-d7714a3a4eac"
+            },
+            {
+              "ID": "d17dfae0-2dbf-4b01-970c-2e60d62f7d33",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5181227f-1d5b-4775-b59e-6724b56d4ac2"
+            },
+            {
+              "ID": "ca5c3fc2-89a0-434c-9196-35aa9d11ef8c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed4f8864-eb8f-43e7-8d94-9d7ab220295f"
+            },
+            {
+              "ID": "56c6cbcd-3c56-4e47-be91-477391becf31",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a8a19639-5eb0-4a02-96a0-23b76026fc22"
+            },
+            {
+              "ID": "6f8db4ce-e3df-456a-8c45-76ed0ab26167",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "11cd1d68-c5ff-44f9-9a0f-0b782855a57e"
+            },
+            {
+              "ID": "c4bac581-1083-49d8-ab9c-ab75c16d253f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d1d79e31-dd1d-4f19-843f-d4cc48cede5d"
+            },
+            {
+              "ID": "ae5ad1a1-d14c-4d6f-a2e6-afcb2545b00d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6fcd58da-88c0-4e19-b36b-8d8d70dddd73"
+            },
+            {
+              "ID": "16b20bae-62fe-4a2c-a9fd-c05f81175d0d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d143d168-2d2d-44de-bdbe-a6bf794169f7"
+            },
+            {
+              "ID": "61f97db0-c7e2-4ac1-b316-dbfcd636fa4a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f6d5df47-0d79-4146-b22c-c3b80a670bbe"
+            },
+            {
+              "ID": "dc2c0f3e-0d8b-4868-b84b-ec23e9a755d0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f7e83ac0-27bb-4da7-a5ab-a455751aafab"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "a787be95-ea09-4595-8393-da3958373142",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "b8362734-9c3a-43db-9aff-d7714a3a4eac"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "b9a91cfd-32bd-4dd4-90a7-fd2cb40c790f",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "8a7d7478-755f-45cf-bc0d-36d637f7297f",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "30993758-98cc-4017-8da4-90ff4ad05184",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+          "QueryName": "List_TABD_CheckIns",
+          "DisplayName": "List_TABD_CheckIns",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "fe97c6e6-489d-41fa-b273-b5cc192e8ecc",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a8a19639-5eb0-4a02-96a0-23b76026fc22"
+            },
+            {
+              "ID": "bcfcdfad-4ea5-4e12-b3aa-e0746dc0562f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b8362734-9c3a-43db-9aff-d7714a3a4eac"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_CheckIns",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "bc0a2c2f-c75c-4ab7-b521-23ff94c546c2",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": false,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": null,
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": null,
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+      "ObjectName": "TABD_Comments",
+      "DisplayName": "Comment",
+      "Description": "TABD_Comments",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "69695727-f37a-4dc7-90fd-182427bbfc8c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "FieldName": "Comment",
+          "DisplayName": "Comment",
+          "FieldType": {
+            "DataType": 24,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Comment",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "cb46d1dc-29de-4aea-8f87-3357b31559de",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "FieldName": "CreatedOn",
+          "DisplayName": "CreatedOn",
+          "FieldType": {
+            "DataType": 6,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "CreatedOn",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "7c2af822-a891-413b-b520-5a83a6bed193",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "2396eddb-23c2-4ccf-866a-9f6d4fc434fe",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "FieldName": "RecordId",
+          "DisplayName": "RecordId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "RecordId",
+            "DisplayField": "Title",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "f8a1a9d1-68a4-457e-b180-ac330db17a2d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "5D738594-A105-4100-BF90-5D74CC63B8E4",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "aedcd924-60c6-4c2d-a6bd-c02705fd9abe",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "FieldName": "ParentId",
+          "DisplayName": "ParentId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ParentId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "43967629-a9cc-4820-8640-c4d47af20911",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "FieldName": "FromUser",
+          "DisplayName": "FromUser",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "FromUser",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "AspNetUsers",
+            "LookupField": "Id",
+            "DisplayField": "Id",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": [
+        {
+          "childDetails": {
+            "LookupObject": "TABD_Record_Tagged",
+            "LookupField": "RecordId",
+            "DisplayField": null,
+            "selectQuery": null
+          },
+          "LocalId": "RecordId.RecordId"
+        }
+      ],
+      "DataSourceQueries": [
+        {
+          "ID": "ca69a8d7-2b6f-49ae-b259-03442d445234",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "List_TABD_Comments_Tab_Rewrite",
+          "DisplayName": "List_TABD_Comments_Tab_Rewrite",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "36d467f2-241f-470d-9715-20b65a4f1b10",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cb46d1dc-29de-4aea-8f87-3357b31559de"
+            },
+            {
+              "ID": "42283dce-a434-4b7c-9b18-42fcea98db12",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7c2af822-a891-413b-b520-5a83a6bed193"
+            },
+            {
+              "ID": "09475c6d-8f13-422b-95d9-6569b2e55bdf",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.Id",
+              "AppFieldID": "db76ce55-78b3-40c8-ba88-e5885ba0d51c"
+            },
+            {
+              "ID": "ca688db2-c86c-4f6f-aeac-65a91cf2353c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "aedcd924-60c6-4c2d-a6bd-c02705fd9abe"
+            },
+            {
+              "ID": "6894f98e-b92d-4658-8968-6e310c99b578",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.UserName",
+              "AppFieldID": "e964f910-c941-4d0e-83a0-69fb6e78f2fd"
+            },
+            {
+              "ID": "f786454e-9f3a-45a6-b577-759a06956bf8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "69695727-f37a-4dc7-90fd-182427bbfc8c"
+            },
+            {
+              "ID": "ca761959-ec48-44fa-8398-cd8fd373e75e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.PersonId.Id",
+              "AppFieldID": "80851bd1-10e3-4243-bf74-66fe3ef85d2b"
+            },
+            {
+              "ID": "9091d485-2826-4a65-a3d2-d1e76dd6dbbc",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.PersonId.LastName",
+              "AppFieldID": "22342631-d553-4afc-bdbd-ad3a2949faf1"
+            },
+            {
+              "ID": "3f903480-03da-4f54-a2e4-f494ed0e624f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.PersonId.FirstName",
+              "AppFieldID": "a7399032-1670-4a49-98dc-d340d538c2f6"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "2396eddb-23c2-4ccf-866a-9f6d4fc434fe"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [
+            {
+              "ID": "00000000-0000-0000-0000-000000000000",
+              "SortSequence": 2,
+              "Sequence": 1,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "AppFieldID": "cb46d1dc-29de-4aea-8f87-3357b31559de"
+            }
+          ],
+          "Parameters": [
+            {
+              "ID": "efb4078d-b96d-4f62-ae47-476ff6fc50a5",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "ca69a8d7-2b6f-49ae-b259-03442d445234",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "02c5262b-6a11-4b5e-97ad-11a3fa563ab6",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "Mobile_Details_Comment",
+          "DisplayName": "Mobile_Details_Comment",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "4eeb44c1-7059-46e2-8adc-7a070fe64ab5",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "2605bcf1-ab48-4b28-b4fd-fa8c9999c56e"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "b227415f-9b16-424c-9ba4-132791762f10",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "DEV_TABD_Comments",
+          "DisplayName": "DEV_TABD_Comments",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "c1957299-7000-4ce1-ba4b-28ef60771122",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cb46d1dc-29de-4aea-8f87-3357b31559de"
+            },
+            {
+              "ID": "8de35e3c-624a-4a3e-b377-3dc10751998b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2396eddb-23c2-4ccf-866a-9f6d4fc434fe"
+            },
+            {
+              "ID": "a35e697c-f6c6-41a2-8c54-6b47fcfc6e1c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "69695727-f37a-4dc7-90fd-182427bbfc8c"
+            },
+            {
+              "ID": "670b7da2-9739-4ee4-aa14-cd2a222d35c5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f8a1a9d1-68a4-457e-b180-ac330db17a2d"
+            },
+            {
+              "ID": "0cfb93b0-4257-4412-a9ce-d4bda0ca4d26",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "43967629-a9cc-4820-8640-c4d47af20911"
+            },
+            {
+              "ID": "cb7a0360-ef72-48a4-98e7-e1740f2671f7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7c2af822-a891-413b-b520-5a83a6bed193"
+            },
+            {
+              "ID": "7162905e-0e2c-4b9d-af04-f5413632fc70",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "aedcd924-60c6-4c2d-a6bd-c02705fd9abe"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "23c4dfb9-8094-4420-9ccd-13790da4944c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "Detail_TABD_Comments",
+          "DisplayName": "Detail_TABD_Comments",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "3b2bbcca-8da6-4fdc-b3ea-011c3d6871ff",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7c2af822-a891-413b-b520-5a83a6bed193"
+            },
+            {
+              "ID": "c045e77b-801b-4cc7-891e-06bf54abf7ab",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "43967629-a9cc-4820-8640-c4d47af20911"
+            },
+            {
+              "ID": "7f8e6aa1-183b-4fa8-9e71-34ac64024902",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f8a1a9d1-68a4-457e-b180-ac330db17a2d"
+            },
+            {
+              "ID": "25112f07-829b-4235-be76-6224d63d66ec",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "aedcd924-60c6-4c2d-a6bd-c02705fd9abe"
+            },
+            {
+              "ID": "929af102-002d-4278-b1c5-64ba76f1acdc",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2396eddb-23c2-4ccf-866a-9f6d4fc434fe"
+            },
+            {
+              "ID": "65c42ef9-877f-4f64-86e1-a41a0393b7c4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cb46d1dc-29de-4aea-8f87-3357b31559de"
+            },
+            {
+              "ID": "eb0dd02f-6112-4ce8-bd90-e749e6cf419c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "69695727-f37a-4dc7-90fd-182427bbfc8c"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "122b76d9-6007-4b1e-8598-5dc68e90a7a4",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "7c2af822-a891-413b-b520-5a83a6bed193"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "e3dd1cf0-056e-4559-b700-38b15df6fad1",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "23c4dfb9-8094-4420-9ccd-13790da4944c",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "ed163707-bb5e-4a3b-ad8f-1d31146bc588",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "FK_TABD_Comments_TABD_RecordInfo",
+          "DisplayName": "FK_TABD_Comments_TABD_RecordInfo",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "f1b82274-acf5-4f22-a6b3-14d55cb9680f",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "4a0bf750-dcca-4a02-be2d-33c2c1b390be"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "b455ed78-69f2-4774-986b-27b27c69a189",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "Remarks_TABD_Comments",
+          "DisplayName": "Remarks_TABD_Comments",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [
+            {
+              "ID": "d399fde6-3ee6-4a45-aead-d6082b3592ff",
+              "SortSequence": 1,
+              "Sequence": 1,
+              "LookupDetails": "CreatedOn",
+              "FieldType": 1,
+              "AppFieldID": "2a8141f7-56f6-4239-ad9d-46b22bca5f4f"
+            }
+          ],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "9f4d57bc-6eb2-46ef-95e6-6821aea5f41d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "Test_Comment+DSQ",
+          "DisplayName": "Test_Comment+DSQ",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "3c845aec-d1ae-4d5d-a74c-1f1cf51d4145",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.LocaleSettings",
+              "AppFieldID": "0ee91d62-2e17-4ee8-8e7e-7e9c75b57bab"
+            },
+            {
+              "ID": "767cec9d-4dda-4442-819c-300d430d1df2",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "aedcd924-60c6-4c2d-a6bd-c02705fd9abe"
+            },
+            {
+              "ID": "c4d1f460-ca5a-42c2-a623-3b6e1e72333a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "69695727-f37a-4dc7-90fd-182427bbfc8c"
+            },
+            {
+              "ID": "21c2edad-c6fe-454c-a5a1-44aa34d5f618",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2396eddb-23c2-4ccf-866a-9f6d4fc434fe"
+            },
+            {
+              "ID": "71c82dd3-46da-4d02-8a86-7396c6e5b186",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.UserName",
+              "AppFieldID": "e964f910-c941-4d0e-83a0-69fb6e78f2fd"
+            },
+            {
+              "ID": "185953eb-fb2f-42e5-b204-992c53f80dcb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7c2af822-a891-413b-b520-5a83a6bed193"
+            },
+            {
+              "ID": "1f77d4b6-031c-4404-a240-a06c0d598157",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 6,
+              "FieldDetails": "FromUser.#AspNetUserRoles:Tenant_App_Wise_AspNetUserRoles",
+              "AppFieldID": "87910647-3872-4a88-8365-a3c242d9c3ea"
+            },
+            {
+              "ID": "a4ea5e82-a065-4094-8a44-b56246a4feae",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.PersonId.Age",
+              "AppFieldID": "a8f4dafc-44dd-4fa1-8d91-079fb297441c"
+            },
+            {
+              "ID": "10e1faf8-f113-42b8-a989-dd81ebfda435",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.PersonId.Title",
+              "AppFieldID": "ad1d170b-fedf-4c41-8928-8c83c542cf92"
+            },
+            {
+              "ID": "8472d6b8-9ea5-4b54-98ec-f44bf465160e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.PersonId.Id",
+              "AppFieldID": "80851bd1-10e3-4243-bf74-66fe3ef85d2b"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "0fa3e847-97e6-4952-8fd0-2f580157c4c7",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 1,
+                "value": "122323qqqq",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "69695727-f37a-4dc7-90fd-182427bbfc8c"
+              },
+              {
+                "ID": "c0dc5cc1-a024-4952-98ec-1516c7310724",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 1,
+                "ValueType": 1,
+                "value": "26",
+                "Sequence": 2,
+                "GroupID": 1,
+                "LookupDetail": "FromUser.PersonId.Age",
+                "FieldType": 2,
+                "FieldID": "a8f4dafc-44dd-4fa1-8d91-079fb297441c"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [
+            {
+              "ID": "cb650392-a9b8-426f-9426-322d017e1912",
+              "SortSequence": 2,
+              "Sequence": 0,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "AppFieldID": "7c2af822-a891-413b-b520-5a83a6bed193"
+            }
+          ],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "503ca4c5-2c6e-41d6-a474-9c2af43f5467",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "Mobile_Query_Comments",
+          "DisplayName": "Mobile_Query_Comments",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "2764e75a-a6a0-4044-9782-36af134da67c",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "4a0bf750-dcca-4a02-be2d-33c2c1b390be"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "4ba30a0a-650e-4eb7-a14b-a99022241a70",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "Default_TABD_Comments",
+          "DisplayName": "Default_TABD_Comments",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "f0f6039a-67b7-48ef-8e66-01577a955430",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "43967629-a9cc-4820-8640-c4d47af20911"
+            },
+            {
+              "ID": "03ce759e-50da-4af9-ae1a-057e9d7ed297",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "69695727-f37a-4dc7-90fd-182427bbfc8c"
+            },
+            {
+              "ID": "baab1b8f-4417-4194-8879-0e83ca6e4142",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cb46d1dc-29de-4aea-8f87-3357b31559de"
+            },
+            {
+              "ID": "918026d9-469d-4e2a-a4d0-14577598a425",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f8a1a9d1-68a4-457e-b180-ac330db17a2d"
+            },
+            {
+              "ID": "3d2acf74-6616-43c1-9ea5-164d697058a3",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "aedcd924-60c6-4c2d-a6bd-c02705fd9abe"
+            },
+            {
+              "ID": "dfd3368c-05aa-453a-8489-94b079efbc44",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7c2af822-a891-413b-b520-5a83a6bed193"
+            },
+            {
+              "ID": "6ec22a1a-2897-4f6c-96f2-f3138e0a72ce",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2396eddb-23c2-4ccf-866a-9f6d4fc434fe"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "2d690bf5-0770-4d8a-9980-ae9f123d6c48",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "List_TABD_Comments",
+          "DisplayName": "List_TABD_Comments",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "f7de371c-d7ca-49e4-b420-a07b51a25bf3",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7c2af822-a891-413b-b520-5a83a6bed193"
+            },
+            {
+              "ID": "6ded62b5-7071-4942-91a4-d7ab08642846",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "69695727-f37a-4dc7-90fd-182427bbfc8c"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "e28155bf-3d8e-46e9-a907-f5a1f701d371",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "Test_Child_Comments",
+          "DisplayName": "Test_Child_Comments",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "ea82b7e7-a385-48d9-9ed3-1c1dd0446d21",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "2396eddb-23c2-4ccf-866a-9f6d4fc434fe"
+            },
+            {
+              "ID": "1678c357-7dbe-4572-8631-2275f2826a78",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.PrimaryKey",
+              "AppFieldID": "1765e7e6-c1f1-454d-abcf-2584ed643720"
+            },
+            {
+              "ID": "84642927-8a00-45ca-81b0-2b337c6b1819",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "69695727-f37a-4dc7-90fd-182427bbfc8c"
+            },
+            {
+              "ID": "616596ac-80e9-484e-9b45-6763bbf77210",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Icon",
+              "AppFieldID": "29671db8-c66f-4639-b1cd-11e1535088dd"
+            },
+            {
+              "ID": "a6354980-41be-4137-a64e-ecf5caf73a66",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7c2af822-a891-413b-b520-5a83a6bed193"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "59244be3-0a22-4bf8-919f-cb0520d935d8",
+              "ParameterName": "",
+              "DataSourceQueryID": "e28155bf-3d8e-46e9-a907-f5a1f701d371",
+              "MappingFieldName": "",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "4a51d0d9-7bd4-4a86-aa9f-5b2fa8ab65fc",
+          "ObjectID": null,
+          "ObjectID_Tosave": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+          "QueryName": "UserPersonalizationDashboard_Comment",
+          "DisplayName": "UserPersonalizationDashboard_Comment",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "6aae5c3f-5100-45d0-bf2d-02cd4f34c933",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordId.Title",
+              "AppFieldID": "f9b2d96f-8a99-4927-b590-3fd4af2af318"
+            },
+            {
+              "ID": "ebc79770-5d47-40f7-b653-27f4029a0156",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7c2af822-a891-413b-b520-5a83a6bed193"
+            },
+            {
+              "ID": "03e00d13-ca57-4fc8-8402-30468391989d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordId.AppObjectID",
+              "AppFieldID": "497cbcb0-e5eb-4fcd-84d3-bebc4348069e"
+            },
+            {
+              "ID": "f07da165-e346-46b6-ba2e-35a85316164e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cb46d1dc-29de-4aea-8f87-3357b31559de"
+            },
+            {
+              "ID": "37925808-0c98-499b-ab47-392e2db8a3e4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "aedcd924-60c6-4c2d-a6bd-c02705fd9abe"
+            },
+            {
+              "ID": "b8278dd3-d7e7-4d43-b80d-5cec485b0d90",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordId.PrimaryKey",
+              "AppFieldID": "1765e7e6-c1f1-454d-abcf-2584ed643720"
+            },
+            {
+              "ID": "b4eeb728-f543-43a1-b2fa-6035e9d812c8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.PersonId.Id",
+              "AppFieldID": "80851bd1-10e3-4243-bf74-66fe3ef85d2b"
+            },
+            {
+              "ID": "c34ff32d-4bc6-4443-a2e5-83baedd90cbb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordId.RecordId",
+              "AppFieldID": "d3661c2c-e872-4f5a-9030-4c8f97c704c5"
+            },
+            {
+              "ID": "aa3b9116-edd8-4114-9ab9-8586db12b1d7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.FirstName",
+              "AppFieldID": "f57086d2-67dd-4058-ac9c-4b186fc5fba0"
+            },
+            {
+              "ID": "816734ae-23f7-4ad7-8a01-9031f2803baf",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "69695727-f37a-4dc7-90fd-182427bbfc8c"
+            },
+            {
+              "ID": "4728880c-4e43-489f-97ed-f0522767f88d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.RecordId",
+              "AppFieldID": "d3661c2c-e872-4f5a-9030-4c8f97c704c5"
+            },
+            {
+              "ID": "9739932c-1c25-4709-b6a6-f9d2afb4425c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.Id",
+              "AppFieldID": "db76ce55-78b3-40c8-ba88-e5885ba0d51c"
+            },
+            {
+              "ID": "2486ffa5-ac76-4450-9582-faa7d1c7ce27",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.PersonId.FirstName",
+              "AppFieldID": "a7399032-1670-4a49-98dc-d340d538c2f6"
+            },
+            {
+              "ID": "c859f28a-afd9-4695-b4f3-ff59da842420",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "FromUser.PersonId.LastName",
+              "AppFieldID": "22342631-d553-4afc-bdbd-ad3a2949faf1"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "85d072f7-8281-e6fb-e8b4-6e7ec96b2f58",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "RecordId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": "RecordInfo.RecordId",
+                "FieldType": 2,
+                "FieldID": "d3661c2c-e872-4f5a-9030-4c8f97c704c5"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "d4702ce1-e13b-479e-822a-2bac2f567a46",
+              "ParameterName": "RecordId",
+              "DataSourceQueryID": "4a51d0d9-7bd4-4a86-aa9f-5b2fa8ab65fc",
+              "MappingFieldName": "RecordId",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_Comments",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "5d738594-a105-4100-bf90-5d74cc63b8e4",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": false,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": "cf76e173-3a93-41b7-aa3e-31c47428ceda",
+        "CreatedOn": "2024-06-25T17:47:43",
+        "UpdatedOn": "2025-08-01T09:45:02",
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+      "ObjectName": "TABD_Contact",
+      "DisplayName": "TABD_Contact",
+      "Description": "TABD_Contact",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "0c6a7046-1866-4dd6-af1b-2e0e87610753",
+          "ObjectID": null,
+          "ObjectID_Tosave": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+          "FieldName": "SecondaryEmail",
+          "DisplayName": "SecondaryEmail",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "SecondaryEmail",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "b2aac8ff-301d-4c97-b536-377a676367d3",
+          "ObjectID": null,
+          "ObjectID_Tosave": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "596935ED-E0B5-4A23-BFE4-4917DD61F7E8",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "3b2544d8-1e3a-46d4-b6d4-4053eb7ab14f",
+          "ObjectID": null,
+          "ObjectID_Tosave": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+          "FieldName": "SecondaryContactNumber",
+          "DisplayName": "SecondaryContactNumber",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "SecondaryContactNumber",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "b3621e21-62e8-4cde-8dc2-5e709c07150c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "7d0cc818-c0ef-46e2-9882-9f6a4300d07a",
+          "ObjectID": null,
+          "ObjectID_Tosave": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+          "FieldName": "PrimaryEmail",
+          "DisplayName": "PrimaryEmail",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "PrimaryEmail",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "f3c8eaf7-75ce-4a61-b649-e467988b1635",
+          "ObjectID": null,
+          "ObjectID_Tosave": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+          "FieldName": "PrimaryContactNumber",
+          "DisplayName": "PrimaryContactNumber",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "PrimaryContactNumber",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "4ac95006-b92b-4804-9b3d-02f24329126e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+          "QueryName": "DEV_TABD_Contact",
+          "DisplayName": "DEV_TABD_Contact",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "3c2d6ece-0568-4031-a573-162ab125d07f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b3621e21-62e8-4cde-8dc2-5e709c07150c"
+            },
+            {
+              "ID": "9b3b8190-b878-479c-b054-1da5a1d52c2b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7d0cc818-c0ef-46e2-9882-9f6a4300d07a"
+            },
+            {
+              "ID": "84650581-2457-4262-b4a5-87b4379546d5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f3c8eaf7-75ce-4a61-b649-e467988b1635"
+            },
+            {
+              "ID": "1447dae2-29df-495f-8e98-ad4bab52af29",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3b2544d8-1e3a-46d4-b6d4-4053eb7ab14f"
+            },
+            {
+              "ID": "fcee5ccc-a4cb-4a3f-b6ff-b693e223d263",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0c6a7046-1866-4dd6-af1b-2e0e87610753"
+            },
+            {
+              "ID": "7e85f9bf-8cbf-4ed0-8f5c-bb6e064eb805",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b2aac8ff-301d-4c97-b536-377a676367d3"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "00a9d6c1-90e6-4394-bcc4-06ccb16e45f4",
+          "ObjectID": null,
+          "ObjectID_Tosave": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+          "QueryName": "List_TABD_Contact",
+          "DisplayName": "List_TABD_Contact",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "86def91a-9507-48ef-89ef-203f22963623",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0c6a7046-1866-4dd6-af1b-2e0e87610753"
+            },
+            {
+              "ID": "3c4e9805-910a-4894-b570-4d79f4b026fc",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f3c8eaf7-75ce-4a61-b649-e467988b1635"
+            },
+            {
+              "ID": "e9d217c7-098a-416c-8a3e-5c3043376260",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b2aac8ff-301d-4c97-b536-377a676367d3"
+            },
+            {
+              "ID": "42787f63-27d5-4336-9052-cd8692af8fc2",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7d0cc818-c0ef-46e2-9882-9f6a4300d07a"
+            },
+            {
+              "ID": "9134486f-e9dd-4de8-80e8-eb1dc64972e2",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3b2544d8-1e3a-46d4-b6d4-4053eb7ab14f"
+            },
+            {
+              "ID": "b60cbdab-2cda-4d98-bf3c-f326dc9f4954",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b3621e21-62e8-4cde-8dc2-5e709c07150c"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "e8bc6ade-7c0e-4c5d-8465-43b1b9c33263",
+          "ObjectID": null,
+          "ObjectID_Tosave": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+          "QueryName": "Default_TABD_Contact",
+          "DisplayName": "Default_TABD_Contact",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "d933955e-f88c-40fc-8ca5-066768ec6269",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b3621e21-62e8-4cde-8dc2-5e709c07150c"
+            },
+            {
+              "ID": "c54194a1-7283-46fb-80fe-41dcc1075498",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7d0cc818-c0ef-46e2-9882-9f6a4300d07a"
+            },
+            {
+              "ID": "99bc2fe0-c9fc-4f05-8487-5feadd820e6b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3b2544d8-1e3a-46d4-b6d4-4053eb7ab14f"
+            },
+            {
+              "ID": "e9ee6d07-927a-4793-a378-74a6b8943da3",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0c6a7046-1866-4dd6-af1b-2e0e87610753"
+            },
+            {
+              "ID": "ab9684b5-26db-417d-abab-84f3b1305cbd",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b2aac8ff-301d-4c97-b536-377a676367d3"
+            },
+            {
+              "ID": "1b79c168-a2a8-4ed3-a735-cbbb5efffd4a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f3c8eaf7-75ce-4a61-b649-e467988b1635"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "fcda3bcc-e21c-49c8-a85b-e4c74fc150ad",
+          "ObjectID": null,
+          "ObjectID_Tosave": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+          "QueryName": "Detail_TABD_Contact",
+          "DisplayName": "Detail_TABD_Contact",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "fd0f63aa-e218-4d0a-a12c-2e45c4d1242f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b2aac8ff-301d-4c97-b536-377a676367d3"
+            },
+            {
+              "ID": "feb35e66-a3ae-4159-a98f-45d89f850937",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0c6a7046-1866-4dd6-af1b-2e0e87610753"
+            },
+            {
+              "ID": "d4736530-ec65-4260-93b3-8c12e6fe881c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b3621e21-62e8-4cde-8dc2-5e709c07150c"
+            },
+            {
+              "ID": "3133fb0f-dee7-4a9a-a193-b1ce118bdb96",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "3b2544d8-1e3a-46d4-b6d4-4053eb7ab14f"
+            },
+            {
+              "ID": "070bd32e-84a4-4f57-adb5-b21b0ad7229a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "7d0cc818-c0ef-46e2-9882-9f6a4300d07a"
+            },
+            {
+              "ID": "f9c22a70-8f8f-45f0-85c7-b94b2fb3b295",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f3c8eaf7-75ce-4a61-b649-e467988b1635"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "9d521501-bfb2-449b-80cc-d01ea0822882",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "b3621e21-62e8-4cde-8dc2-5e709c07150c"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "45ec301f-bdd4-4aa5-af83-9a1b9589daab",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "fcda3bcc-e21c-49c8-a85b-e4c74fc150ad",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_Contact",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "596935ed-e0b5-4a23-bfe4-4917dd61f7e8",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": false,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": "d052a189-a33f-4acd-8012-f66f9cc07cd3",
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": "2025-04-04T09:04:26",
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "67a314ba-f22e-4b15-8684-6477af9036a7",
+      "ObjectName": "TABD_Meeting_Event",
+      "DisplayName": "TABD_Meeting_Event",
+      "Description": null,
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": true,
+      "DeploymentStatus": 1,
+      "Fields": [
+        {
+          "ID": "e9c105a6-e09b-4962-ab37-068f9f1be353",
+          "ObjectID": null,
+          "ObjectID_Tosave": "67a314ba-f22e-4b15-8684-6477af9036a7",
+          "FieldName": "MeetingId",
+          "DisplayName": "MeetingId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "MeetingId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "1e481510-6a78-4ca4-bb7e-52c9ef531628",
+          "ObjectID": null,
+          "ObjectID_Tosave": "67a314ba-f22e-4b15-8684-6477af9036a7",
+          "FieldName": "Payload",
+          "DisplayName": "Payload",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Payload",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "40985f19-06f2-4623-8a44-aceec04b244e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "67a314ba-f22e-4b15-8684-6477af9036a7",
+          "FieldName": "ID",
+          "DisplayName": "ID",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ID",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "483e6015-8c53-4e3a-863b-d4c2f1e28f39",
+          "ObjectID": null,
+          "ObjectID_Tosave": "67a314ba-f22e-4b15-8684-6477af9036a7",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "67a314ba-f22e-4b15-8684-6477af9036a7",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "d6877765-ecf3-44f8-a683-e8fbd60b69ba",
+          "ObjectID": null,
+          "ObjectID_Tosave": "67a314ba-f22e-4b15-8684-6477af9036a7",
+          "FieldName": "EventType",
+          "DisplayName": "EventType",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "EventType",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "60f4c4f9-cd6c-4d23-8c43-157554e80e8c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "67a314ba-f22e-4b15-8684-6477af9036a7",
+          "QueryName": "List_TABD_Meeting_Event",
+          "DisplayName": "List_TABD_Meeting_Event",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "6ac32df0-b6b5-4067-bac8-bcac7f29f332",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "40985f19-06f2-4623-8a44-aceec04b244e"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "5b6e3571-609b-4816-9758-3b47b1fca8a9",
+          "ObjectID": null,
+          "ObjectID_Tosave": "67a314ba-f22e-4b15-8684-6477af9036a7",
+          "QueryName": "DEV_TABD_Meeting_Event",
+          "DisplayName": "DEV_TABD_Meeting_Event",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "beaafeb1-c9b7-469a-bc8b-4e8af116fad9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "40985f19-06f2-4623-8a44-aceec04b244e"
+            },
+            {
+              "ID": "a4d77711-ba00-45c0-8dbc-5a9e6775cd6a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "483e6015-8c53-4e3a-863b-d4c2f1e28f39"
+            },
+            {
+              "ID": "0c4c1d8d-e406-40b4-90b8-80cf7a02e1c0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e9c105a6-e09b-4962-ab37-068f9f1be353"
+            },
+            {
+              "ID": "a3fa59f4-2078-43e0-85c2-d9362f46fa20",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1e481510-6a78-4ca4-bb7e-52c9ef531628"
+            },
+            {
+              "ID": "843251fa-77b9-4116-8976-df70e9639a5d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d6877765-ecf3-44f8-a683-e8fbd60b69ba"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "6cbc2651-7be2-4731-81c6-5123ad7c5f49",
+          "ObjectID": null,
+          "ObjectID_Tosave": "67a314ba-f22e-4b15-8684-6477af9036a7",
+          "QueryName": "Detail_TABD_Meeting_Event",
+          "DisplayName": "Detail_TABD_Meeting_Event",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "13e68b2d-e677-4a10-8829-0c454d793930",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1e481510-6a78-4ca4-bb7e-52c9ef531628"
+            },
+            {
+              "ID": "ea22ccfc-b417-48e3-856d-719a7b58e0d5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d6877765-ecf3-44f8-a683-e8fbd60b69ba"
+            },
+            {
+              "ID": "87482f2a-bf86-4704-bacc-7bb1c20c19e6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "40985f19-06f2-4623-8a44-aceec04b244e"
+            },
+            {
+              "ID": "6f5c96b9-5279-45e7-ad31-ba21fa30454b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "483e6015-8c53-4e3a-863b-d4c2f1e28f39"
+            },
+            {
+              "ID": "720b3b05-2b50-4273-933f-fb74ab6ab857",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e9c105a6-e09b-4962-ab37-068f9f1be353"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "4bc6d80c-18ec-409c-98e3-372a417a36af",
+              "ParameterName": "ID",
+              "DataSourceQueryID": "6cbc2651-7be2-4731-81c6-5123ad7c5f49",
+              "MappingFieldName": "ID",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "3a9a751d-1ea9-45b4-b67e-7fcd9a5c8333",
+          "ObjectID": null,
+          "ObjectID_Tosave": "67a314ba-f22e-4b15-8684-6477af9036a7",
+          "QueryName": "Default_TABD_Meeting_Event",
+          "DisplayName": "Default_TABD_Meeting_Event",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "44100a97-ad9f-4446-a183-5167d2389c7e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e9c105a6-e09b-4962-ab37-068f9f1be353"
+            },
+            {
+              "ID": "29808d52-421f-44c1-b280-558efdd5388d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "40985f19-06f2-4623-8a44-aceec04b244e"
+            },
+            {
+              "ID": "62ad65ab-4aff-4db0-b05a-823bee9e9d8d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1e481510-6a78-4ca4-bb7e-52c9ef531628"
+            },
+            {
+              "ID": "2d07a8dd-0bf2-44dc-8e93-89f04142cd01",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d6877765-ecf3-44f8-a683-e8fbd60b69ba"
+            },
+            {
+              "ID": "36cee9c2-a29a-4b5c-a9d1-a37baf36452f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "483e6015-8c53-4e3a-863b-d4c2f1e28f39"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_Meeting_Event",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "67a314ba-f22e-4b15-8684-6477af9036a7",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": false,
+      "IsSupportBluePrint": null,
+      "IsLocationTracking": null,
+      "AllowSoftDelete": true,
+      "IsReplicationNeeded": null,
+      "IsCacheEnable": false,
+      "CacheTtl": null,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "f488635b-3e27-4b27-90d2-bb797f8ec672",
+        "UpdatedBy": null,
+        "CreatedOn": "2024-10-18T19:45:10.26",
+        "UpdatedOn": "2025-05-15T08:02:53",
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+      "ObjectName": "TABD_CustomViews",
+      "DisplayName": "TABD_CustomViews",
+      "Description": "TABD_CustomViews",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "e06beffa-9536-4703-9f54-0b79c66dc8b7",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "BB51C753-B510-4F39-BA38-48CE94CC9E5F",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "c6ba93de-4421-4055-9b79-27c90773938d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "FieldName": "SchemaConfig",
+          "DisplayName": "SchemaConfig",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "SchemaConfig",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "a3687d67-ed97-41a6-8eb7-463129372c18",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "FieldName": "ComponentType",
+          "DisplayName": "ComponentType",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ComponentType",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "ed7e38f0-60d0-4082-8d07-aa41b0e1e591",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "FieldName": "ViewName",
+          "DisplayName": "View Name",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ViewName",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": true,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": "{\"Validations\":[{}]}"
+        },
+        {
+          "ID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "8a2fa991-4532-464b-b416-db69e0e925ab",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "FieldName": "IsDefault",
+          "DisplayName": "IsDefault",
+          "FieldType": {
+            "DataType": 3,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "IsDefault",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "8f9c06ea-d4c1-4b83-8623-e711b792dbb8",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "FieldName": "Description",
+          "DisplayName": "Description",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Description",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "d22a0c13-0f53-4d03-9937-e7247e0b187b",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "FieldName": "DataSourceQueryId",
+          "DisplayName": "DataSourceQueryId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "DataSourceQueryId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABMD_DataSourceQueries",
+            "LookupField": "Id",
+            "DisplayField": "QueryName",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "cc802f18-0f71-491c-8d16-14c451658f5c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "QueryName": "Get_Default_CustomView",
+          "DisplayName": "Get_Default_CustomView",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "e539154d-63f0-4c9b-9630-461ab7403dd6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3"
+            },
+            {
+              "ID": "2101508d-1ca1-4ee4-8494-664543b3d136",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed7e38f0-60d0-4082-8d07-aa41b0e1e591"
+            },
+            {
+              "ID": "6264eb57-999e-49ce-888d-96752418cd69",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedBy",
+              "AppFieldID": "261e456c-dba2-45f4-bbdf-fe351ecd9a89"
+            },
+            {
+              "ID": "e5b8d61a-4dd3-49cb-a72b-f54b065d653b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8a2fa991-4532-464b-b416-db69e0e925ab"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "DataSourceQueryId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 1,
+                "value": "1",
+                "Sequence": 2,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "8a2fa991-4532-464b-b416-db69e0e925ab"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "76e0a249-1510-49a0-bad8-83b60a92bb09",
+              "ParameterName": "DataSourceQueryId",
+              "DataSourceQueryID": "cc802f18-0f71-491c-8d16-14c451658f5c",
+              "MappingFieldName": "DataSourceQueryId",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "2389d301-a7a3-44c9-a98a-19620050c9ca",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "QueryName": "DEV_TABD_CustomViews",
+          "DisplayName": "DEV_TABD_CustomViews",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "3af2f174-f857-499f-ad2a-09def9cc70ae",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3"
+            },
+            {
+              "ID": "84cc4cbd-0ba6-4111-82cf-17f5e17947df",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a3687d67-ed97-41a6-8eb7-463129372c18"
+            },
+            {
+              "ID": "f6181e18-e74d-4b54-993f-2b8f07b3e85a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f9c06ea-d4c1-4b83-8623-e711b792dbb8"
+            },
+            {
+              "ID": "db51ed24-95d0-44ad-8841-9b816f00da92",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+            },
+            {
+              "ID": "6e31c20a-078d-4610-a3ee-aa89aba06fee",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8a2fa991-4532-464b-b416-db69e0e925ab"
+            },
+            {
+              "ID": "f7137a79-4a97-4d31-ae48-bebf53de9958",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e06beffa-9536-4703-9f54-0b79c66dc8b7"
+            },
+            {
+              "ID": "a41c4d09-aeab-4550-944e-db70d3c7aaa4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c6ba93de-4421-4055-9b79-27c90773938d"
+            },
+            {
+              "ID": "4aba2fa4-289b-4e3c-8173-fe08945744fc",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed7e38f0-60d0-4082-8d07-aa41b0e1e591"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "c6d9b9fb-ce3b-4997-8236-3f8162e70fc2",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "QueryName": "Default_TABD_CustomViews",
+          "DisplayName": "Default_TABD_CustomViews",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "55a19051-516d-4dc9-9611-1ad83678de46",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e06beffa-9536-4703-9f54-0b79c66dc8b7"
+            },
+            {
+              "ID": "d9793d93-5301-40b2-8817-638f317c1a68",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c6ba93de-4421-4055-9b79-27c90773938d"
+            },
+            {
+              "ID": "2b8e2b1f-254a-4678-8a9d-6fcfcc5b8c01",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8a2fa991-4532-464b-b416-db69e0e925ab"
+            },
+            {
+              "ID": "4861b245-5099-4d58-9ec4-9a367f1d3d03",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+            },
+            {
+              "ID": "464b74a6-52f2-4790-863f-b63b3f53e588",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f9c06ea-d4c1-4b83-8623-e711b792dbb8"
+            },
+            {
+              "ID": "2b83b017-401e-4794-9090-c617c2530cbe",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3"
+            },
+            {
+              "ID": "1d5b8803-c84d-41ca-b18b-d613b098327c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a3687d67-ed97-41a6-8eb7-463129372c18"
+            },
+            {
+              "ID": "9d12f0ee-eb83-4e9a-8f28-ef8fecc89036",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed7e38f0-60d0-4082-8d07-aa41b0e1e591"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "1c1c16a1-e3d1-444a-a2fb-4729f8b21f78",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "QueryName": "List_Dsqwise_TABD_CustomViews",
+          "DisplayName": "List_Dsqwise_TABD_CustomViews",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "e417740a-2a37-491a-abc5-592021dc509c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed7e38f0-60d0-4082-8d07-aa41b0e1e591"
+            },
+            {
+              "ID": "ede7a164-a062-437f-aee1-7565434c4601",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c6ba93de-4421-4055-9b79-27c90773938d"
+            },
+            {
+              "ID": "0868c6d3-3f2c-4ecf-8a74-80534ecd5a23",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+            },
+            {
+              "ID": "b9f62462-f1b7-4820-b87c-875c446df4b3",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3"
+            },
+            {
+              "ID": "c404bf0e-bdc7-46c8-a664-9fc28eb5cc07",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a3687d67-ed97-41a6-8eb7-463129372c18"
+            },
+            {
+              "ID": "bc5a979a-e9a6-4e1d-80bf-a71653c693b6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e06beffa-9536-4703-9f54-0b79c66dc8b7"
+            },
+            {
+              "ID": "c077ed01-5bc2-4957-985c-bf7d2396a4be",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8a2fa991-4532-464b-b416-db69e0e925ab"
+            },
+            {
+              "ID": "261a86a4-ab0b-4d65-a6d7-d25ee04e81b6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f9c06ea-d4c1-4b83-8623-e711b792dbb8"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "DataSourceQueryID",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "5aac74f2-a34f-4174-990c-d4200d247b6e",
+              "ParameterName": "DataSourceQueryID",
+              "DataSourceQueryID": "1c1c16a1-e3d1-444a-a2fb-4729f8b21f78",
+              "MappingFieldName": "DataSourceQueryID",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "98673332-b04e-4d81-9b8d-58ede267b7c8",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "QueryName": "List_CustomViewForPivot",
+          "DisplayName": "List_CustomViewForPivot",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "99e88b1c-1b56-4bbf-8909-4ec269abc3d8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedBy",
+              "AppFieldID": "261e456c-dba2-45f4-bbdf-fe351ecd9a89"
+            },
+            {
+              "ID": "d046d592-3998-49d1-800e-9714b5b74167",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed7e38f0-60d0-4082-8d07-aa41b0e1e591"
+            },
+            {
+              "ID": "0dad0a92-9bac-43b6-836d-c4bbbf6c8058",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "DataSourceQueryId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "b9d842ed-88aa-4197-977f-29a7f7aa8e48",
+              "ParameterName": "DataSourceQueryId",
+              "DataSourceQueryID": "98673332-b04e-4d81-9b8d-58ede267b7c8",
+              "MappingFieldName": "DataSourceQueryId",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "936bcd6a-b3c0-45bb-8ae6-850867cfad85",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "QueryName": "FK_TABD_CustomViews_TABMD_DataSourceQueries",
+          "DisplayName": "FK_TABD_CustomViews_TABMD_DataSourceQueries",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "b3383ed2-985e-4649-bc67-156643b6f509",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "ID",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "982d0a5c-23c8-4ce8-89fd-a348efc20004"
+              },
+              {
+                "ID": "0ede5a03-58fe-452b-8862-ba26b3e647a0",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "DataSourceQueryID",
+                "Sequence": 0,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "982d0a5c-23c8-4ce8-89fd-a348efc20004"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "1f348f40-011b-45b4-9d93-96a7243ccdf1",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "QueryName": "Grid_CustomViewList",
+          "DisplayName": "Grid_CustomViewList",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "7d072f8e-bfdc-4c3b-a263-05086928623a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedBy",
+              "AppFieldID": "261e456c-dba2-45f4-bbdf-fe351ecd9a89"
+            },
+            {
+              "ID": "28b65507-6465-47d6-bab3-373ddd6f4b91",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f9c06ea-d4c1-4b83-8623-e711b792dbb8"
+            },
+            {
+              "ID": "e4e323e2-e1b4-4914-92dd-3d80169b62c2",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+            },
+            {
+              "ID": "0ccdd8f5-1e90-4d55-9e13-4aacd998f415",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed7e38f0-60d0-4082-8d07-aa41b0e1e591"
+            },
+            {
+              "ID": "4be1dde7-282e-4c91-ac9c-5c7189104792",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3"
+            },
+            {
+              "ID": "470c7212-65de-453d-b08e-aa50c1ba09e1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8a2fa991-4532-464b-b416-db69e0e925ab"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "DatasourceQueryID",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [
+            {
+              "ID": "00000000-0000-0000-0000-000000000000",
+              "SortSequence": 1,
+              "Sequence": 1,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "AppFieldID": "8f9c06ea-d4c1-4b83-8623-e711b792dbb8"
+            }
+          ],
+          "Parameters": [
+            {
+              "ID": "c671c03b-58f4-4d33-a216-b81c2ce67ca1",
+              "ParameterName": "DatasourceQueryID",
+              "DataSourceQueryID": "1f348f40-011b-45b4-9d93-96a7243ccdf1",
+              "MappingFieldName": "DatasourceQueryID",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "312bf1ed-b24e-42aa-be0a-9bed89cf9279",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "QueryName": "TABD_CustomViews_DSQ",
+          "DisplayName": "TABD_CustomViews_DSQ",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "905d691e-c533-48fa-909d-1cd2607820d1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a3687d67-ed97-41a6-8eb7-463129372c18"
+            },
+            {
+              "ID": "212e42ec-06d6-4bb1-8dec-30acca538b1e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f9c06ea-d4c1-4b83-8623-e711b792dbb8"
+            },
+            {
+              "ID": "593cb7b7-9866-4de8-97c5-3a6670a76d68",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c6ba93de-4421-4055-9b79-27c90773938d"
+            },
+            {
+              "ID": "7fb96989-f479-46af-a9aa-87530755c2c0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8a2fa991-4532-464b-b416-db69e0e925ab"
+            },
+            {
+              "ID": "2482be3b-31e7-4ef6-9d8a-a4e8e5ad12a4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3"
+            },
+            {
+              "ID": "b51e2265-899c-47ce-a5ca-b54ee12fcb25",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "e06beffa-9536-4703-9f54-0b79c66dc8b7"
+            },
+            {
+              "ID": "2a5afcec-12b1-4175-95f9-bfdaeb9b4f5e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+            },
+            {
+              "ID": "cd3be96d-8550-44cc-b1cb-e1b9a2cafb36",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed7e38f0-60d0-4082-8d07-aa41b0e1e591"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 2,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "DSQId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "30cb78df-3879-41c8-a80a-fee8e5c00324",
+              "ParameterName": "DSQId",
+              "DataSourceQueryID": "312bf1ed-b24e-42aa-be0a-9bed89cf9279",
+              "MappingFieldName": "DSQId",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "3a0edc86-7979-456b-a813-d40d16614ab0",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "QueryName": "List_TABD_CustomViews",
+          "DisplayName": "List_TABD_CustomViews",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "29c88fcd-02b5-41c3-ba2f-1fde735b304b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3"
+            },
+            {
+              "ID": "6ef1ce27-b53c-4f3f-a766-6a2d81410f9e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed7e38f0-60d0-4082-8d07-aa41b0e1e591"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "1a9a392d-1c30-4958-92a2-fa17bec9f965",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+          "QueryName": "Detail_TABD_CustomViews",
+          "DisplayName": "Detail_TABD_CustomViews",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "88186360-d6e3-4858-80b4-0ad7f3260281",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByLastName",
+              "AppFieldID": "69727469-ed5e-48e0-b52a-874f430810bd"
+            },
+            {
+              "ID": "8f257812-ea89-46f8-abf9-19d633075823",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByFirstName",
+              "AppFieldID": "5b5a0372-b741-4d2c-a319-f62950d07325"
+            },
+            {
+              "ID": "c5c39ab4-df08-4c6d-9dd0-372df742ba57",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsSystemRecord",
+              "AppFieldID": "7c3e041e-6086-48f0-9ba8-61da0e241b29"
+            },
+            {
+              "ID": "f3922148-36b5-48d4-826e-3a22a5811903",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.TenantId",
+              "AppFieldID": "f9a5bee3-f20c-47db-bbd4-ac0d972985f5"
+            },
+            {
+              "ID": "43bfb515-c937-4856-9142-3faa51bb88d9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a3687d67-ed97-41a6-8eb7-463129372c18"
+            },
+            {
+              "ID": "4aed777d-c401-448a-b4a0-41b16ddbcfc6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8a2fa991-4532-464b-b416-db69e0e925ab"
+            },
+            {
+              "ID": "ce300ce4-567e-41ec-ac3c-423f183bfc30",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.RecordId",
+              "AppFieldID": "d3661c2c-e872-4f5a-9030-4c8f97c704c5"
+            },
+            {
+              "ID": "5346fa21-c3d8-49ee-af25-667b4bce8a27",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByFirstName",
+              "AppFieldID": "bfac404a-c645-4472-a183-cfa4510346fd"
+            },
+            {
+              "ID": "bed509c8-470c-4f53-a9a7-69e4f4a22d10",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.AppObjectID",
+              "AppFieldID": "497cbcb0-e5eb-4fcd-84d3-bebc4348069e"
+            },
+            {
+              "ID": "128cb81a-0003-45dd-8f08-768f287db395",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3"
+            },
+            {
+              "ID": "17aa7496-1415-4f88-86b4-8880481d275b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f9c06ea-d4c1-4b83-8623-e711b792dbb8"
+            },
+            {
+              "ID": "0a432137-889d-49c6-931c-8efd366b4dc9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.PrimaryKey",
+              "AppFieldID": "1765e7e6-c1f1-454d-abcf-2584ed643720"
+            },
+            {
+              "ID": "366eeb28-7713-4d52-99cc-a0d00f921c4a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.OwnerFirstName",
+              "AppFieldID": "641b8455-61fe-4196-b231-c9acbdbb9513"
+            },
+            {
+              "ID": "f21730f7-b85c-47fd-8317-aab65a41fb8d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "ed7e38f0-60d0-4082-8d07-aa41b0e1e591"
+            },
+            {
+              "ID": "0f816008-957d-4c32-9dcf-acd5f431adec",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.OwnerLastName",
+              "AppFieldID": "be0d04e9-0ce8-429d-af97-6119d799e108"
+            },
+            {
+              "ID": "1c47d94d-9954-4ec1-a3eb-adeca087ea74",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c6ba93de-4421-4055-9b79-27c90773938d"
+            },
+            {
+              "ID": "d38caa60-5584-4a94-96ba-bab03c277bf5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedOn",
+              "AppFieldID": "985391df-21b5-414d-9ebb-07e95ae448ba"
+            },
+            {
+              "ID": "70a14975-8e05-46a7-a2c8-c13b3dc5e760",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedOn",
+              "AppFieldID": "ebcf22cb-9e6e-49cf-a069-5b2af3dc7ea3"
+            },
+            {
+              "ID": "f7cfe1a7-f1fc-4c72-b599-c97fcff2d56a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByLastName",
+              "AppFieldID": "4447d5d5-552b-4e65-96b1-a6701e6efc02"
+            },
+            {
+              "ID": "2e37442d-9db9-41c0-8320-ccd2b3ab37a1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d22a0c13-0f53-4d03-9937-e7247e0b187b"
+            },
+            {
+              "ID": "d16225e0-4a5a-41ad-bac3-d7ef11f84d18",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Tags",
+              "AppFieldID": "c73fb52f-ef29-4229-9f07-df27b6ab3d22"
+            },
+            {
+              "ID": "d6beebc1-e95e-4cf8-8660-dda88a4e0a10",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsActive",
+              "AppFieldID": "7fede379-4b82-4ba6-ac6c-da9c5bd3db9b"
+            },
+            {
+              "ID": "f6c16550-548a-405b-8721-eda34e67a40d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Title",
+              "AppFieldID": "f9b2d96f-8a99-4927-b590-3fd4af2af318"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "a1a75624-816f-4f61-87b8-9d8a78d042c4",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "f13f92bc-d8ce-4b9e-ab5a-cc84e0e713d3"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "2d6da68b-a820-4b5f-9afe-4582ab4888bb",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "1a9a392d-1c30-4958-92a2-fa17bec9f965",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_CustomViews",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "bb51c753-b510-4f39-ba38-48ce94cc9e5f",
+      "AppObjectConfiguration": "{\"RecordInfoTitleConfiguration\":\"{{ViewName}}\",\"GlobalSearch\":{\"IsElasticSearchEnable\":\"False\"}}",
+      "AllowVersioning": true,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": "d052a189-a33f-4acd-8012-f66f9cc07cd3",
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": "2025-02-27T14:06:09",
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+      "ObjectName": "VW_TABD_Transitions",
+      "DisplayName": "VW_TABD_Transitions",
+      "Description": null,
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": true,
+      "DeploymentStatus": 1,
+      "Fields": [
+        {
+          "ID": "4164caa1-bbae-43d3-a6fc-1499ed8c9c60",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "FieldName": "FromStatusId",
+          "DisplayName": "FromStatusId",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "FromStatusId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "f411e9a7-ae88-452a-beaf-25b6741d3b16",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "FieldName": "ToStatusName",
+          "DisplayName": "ToStatusName",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ToStatusName",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "0222fa89-1ae3-4dad-a1f8-7aaf6cf4e883",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "FieldName": "TransitionName",
+          "DisplayName": "TransitionName",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "TransitionName",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "a4a9e046-9f5e-4e47-99d2-88c347858aec",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "f75c7966-0689-434b-bebb-a10866b74c1e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "FieldName": "Transition_Criteria",
+          "DisplayName": "Transition_Criteria",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Transition_Criteria",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "c99b2669-167d-4a6e-bf2b-b44a69fe2a5d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "FieldName": "FromStatusName",
+          "DisplayName": "FromStatusName",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "FromStatusName",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "07733d4d-5606-42f0-ab8f-b6875d60bc20",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "d4b4be9f-a767-4d62-9c46-deb5f9e37e29",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "FieldName": "BluePrintId",
+          "DisplayName": "BluePrintId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "BluePrintId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "fb384069-bd20-4bcd-b0a1-ee18ece02c2e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "FieldName": "ToStatusId",
+          "DisplayName": "ToStatusId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ToStatusId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "1a43b317-72b0-457b-aedb-09886f003646",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "QueryName": "DEV_VW_TABD_Transitions",
+          "DisplayName": "DEV_VW_TABD_Transitions",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "79a9225d-d0d1-4126-9ed4-204e71851b4c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "74e4670c-8882-4b70-b2b3-11c033f330bc",
+          "QueryName": "Default_VW_TABD_Transitions",
+          "DisplayName": "Default_VW_TABD_Transitions",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "f0f2d06a-393b-4a42-9deb-235bd5e29b78",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "07733d4d-5606-42f0-ab8f-b6875d60bc20"
+            },
+            {
+              "ID": "8cb82218-388c-48ce-8e3d-2e7a2bcad0dd",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d4b4be9f-a767-4d62-9c46-deb5f9e37e29"
+            },
+            {
+              "ID": "fa064255-dca0-4b38-8f2e-49937364f87c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a4a9e046-9f5e-4e47-99d2-88c347858aec"
+            },
+            {
+              "ID": "d63c8bdd-de0f-4dd3-8eff-8c511b615e1e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f411e9a7-ae88-452a-beaf-25b6741d3b16"
+            },
+            {
+              "ID": "492fc603-ef77-4646-8dac-9a31a36b8698",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c99b2669-167d-4a6e-bf2b-b44a69fe2a5d"
+            },
+            {
+              "ID": "8136dff0-7678-41ac-9577-a976b08bf93c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0222fa89-1ae3-4dad-a1f8-7aaf6cf4e883"
+            },
+            {
+              "ID": "2b7a8789-6d95-4548-8d59-b86d035a935b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f75c7966-0689-434b-bebb-a10866b74c1e"
+            },
+            {
+              "ID": "7c188f32-0a47-4b4a-9e2d-c797ef6bdf76",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "fb384069-bd20-4bcd-b0a1-ee18ece02c2e"
+            },
+            {
+              "ID": "24a32495-b120-4686-ac23-ef2e3532367e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "4164caa1-bbae-43d3-a6fc-1499ed8c9c60"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "VW_TABD_Transitions",
+      "Resources": null,
+      "IsSystem": false,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 2,
+      "CRUDAppObjectId": null,
+      "AppObjectConfiguration": null,
+      "AllowVersioning": false,
+      "IsSupportBluePrint": null,
+      "IsLocationTracking": null,
+      "AllowSoftDelete": true,
+      "IsReplicationNeeded": null,
+      "IsCacheEnable": false,
+      "CacheTtl": null,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": null,
+        "CreatedOn": "2024-07-05T16:01:18.76",
+        "UpdatedOn": null,
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+      "ObjectName": "TABD_Documents",
+      "DisplayName": "TABD_Documents",
+      "Description": "TABD_Documents",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "93699410-b6ac-4920-b987-3a571a04f650",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "FieldName": "Content",
+          "DisplayName": "Content",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Content",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "cd36c571-38cc-43da-9c66-43a2926c8c83",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "2AF63E28-1802-49D8-9EDA-1FFE3E527FE8",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "6e8829b3-19ed-4883-8e24-5751ebeb3922",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "FieldName": "ParentId",
+          "DisplayName": "ParentId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ParentId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "6445702e-020a-4204-b90c-9e81905f52c5",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "FieldName": "Title",
+          "DisplayName": "Title",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Title",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": true,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": "{\"Validations\":[{}]}"
+        },
+        {
+          "ID": "1b513ad0-ff5b-4faa-98d4-a058acb8b6b7",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "FieldName": "Sequence",
+          "DisplayName": "Sequence",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Sequence",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "72fa52de-a7f2-4076-b095-c511a91a08b1",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "5f4042c6-343b-47ac-bd10-f2bfa1a32ef7",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "FieldName": "RecordId",
+          "DisplayName": "RecordId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "51dc548f-4c6c-4d4a-ab48-fec66f8d4202",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "FieldName": "Category",
+          "DisplayName": "Category",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Category",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": [
+        {
+          "childDetails": {
+            "LookupObject": "TABD_RecordVisited",
+            "LookupField": "RecordId",
+            "DisplayField": "",
+            "selectQuery": null
+          },
+          "LocalId": "Id"
+        }
+      ],
+      "DataSourceQueries": [
+        {
+          "ID": "bbd1bdca-8645-495e-b390-22d64f71210e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "QueryName": "DEV_TABD_Documents",
+          "DisplayName": "DEV_TABD_Documents",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "4ac9fdcf-b850-4c72-b319-13e279043bdb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5f4042c6-343b-47ac-bd10-f2bfa1a32ef7"
+            },
+            {
+              "ID": "f0611baa-602f-40ae-8813-408609597518",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "72fa52de-a7f2-4076-b095-c511a91a08b1"
+            },
+            {
+              "ID": "0c5b485d-027a-43de-8d8b-5268470887fd",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "93699410-b6ac-4920-b987-3a571a04f650"
+            },
+            {
+              "ID": "f9a3f46c-5a10-4134-8c05-68d145c2132f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6e8829b3-19ed-4883-8e24-5751ebeb3922"
+            },
+            {
+              "ID": "1303075a-b347-4ab8-80e7-b02d9b27e817",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cd36c571-38cc-43da-9c66-43a2926c8c83"
+            },
+            {
+              "ID": "b8955ade-015c-4faa-9ca4-cd41bf09f1c9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6445702e-020a-4204-b90c-9e81905f52c5"
+            },
+            {
+              "ID": "39d7aeb1-9d81-437b-9c99-edf56dced69a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "51dc548f-4c6c-4d4a-ab48-fec66f8d4202"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "cb4b7897-7007-4a5f-96d2-248eb09ecf3c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "QueryName": "Pages_TABD_Documents",
+          "DisplayName": "Pages_TABD_Documents",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "4e301352-c133-4081-9d7d-5280b9375984",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6445702e-020a-4204-b90c-9e81905f52c5"
+            },
+            {
+              "ID": "6d9e2baf-d1d5-42c2-be3e-5fcb0559e358",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6e8829b3-19ed-4883-8e24-5751ebeb3922"
+            },
+            {
+              "ID": "19efe38f-6a04-43b3-8015-9275d187c569",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "72fa52de-a7f2-4076-b095-c511a91a08b1"
+            },
+            {
+              "ID": "4605a281-420d-4af6-99a1-e9942e84ac89",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1b513ad0-ff5b-4faa-98d4-a058acb8b6b7"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "f1ccba34-5e8f-4d0e-866a-cb1e7ec80f44",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "501870d7-9d97-4464-b959-ec50af690561"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "6ab371a5-0a8a-401d-a008-3459585e1b74",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "QueryName": "Default_TABD_Documents",
+          "DisplayName": "Default_TABD_Documents",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "aaa169b9-1c07-4758-a3b4-1ba145482c69",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6e8829b3-19ed-4883-8e24-5751ebeb3922"
+            },
+            {
+              "ID": "a1966f5f-2a08-40d9-b1c3-32d69beb53bd",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cd36c571-38cc-43da-9c66-43a2926c8c83"
+            },
+            {
+              "ID": "beb13282-91e4-4738-9290-440549c1bcdc",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "51dc548f-4c6c-4d4a-ab48-fec66f8d4202"
+            },
+            {
+              "ID": "81bc6230-3f50-437b-9717-82681e68b7b6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5f4042c6-343b-47ac-bd10-f2bfa1a32ef7"
+            },
+            {
+              "ID": "83b64a2a-c091-42a6-9e13-88098e672ec5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "93699410-b6ac-4920-b987-3a571a04f650"
+            },
+            {
+              "ID": "3723171d-e4ea-43de-9b40-9ec702934fc1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "72fa52de-a7f2-4076-b095-c511a91a08b1"
+            },
+            {
+              "ID": "a471c9cb-9b4e-49d9-ad83-a1e7b83bb3af",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6445702e-020a-4204-b90c-9e81905f52c5"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "ec8752a7-bbe9-4c4b-b05b-36d2e8107c0f",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "QueryName": "GS_TABD_Documents",
+          "DisplayName": "GS_TABD_Documents",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "1675d152-8f8a-4020-ba79-26ddba37181b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "51dc548f-4c6c-4d4a-ab48-fec66f8d4202"
+            },
+            {
+              "ID": "55dc745c-6eed-492e-95bd-2f07222d46b9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "93699410-b6ac-4920-b987-3a571a04f650"
+            },
+            {
+              "ID": "98ac9179-2db7-48ad-9227-ccd5cf4d562d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "72fa52de-a7f2-4076-b095-c511a91a08b1"
+            },
+            {
+              "ID": "f54b54f4-8794-460a-b4a5-d9e0ba2f9678",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6445702e-020a-4204-b90c-9e81905f52c5"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "bc9a8ed3-2dab-a900-eb31-97e99f149e7f",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "72fa52de-a7f2-4076-b095-c511a91a08b1"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "f9f82811-4261-4323-a214-d54ef9f8001a",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "ec8752a7-bbe9-4c4b-b05b-36d2e8107c0f",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "2a322e4f-7919-40e5-8fb5-6ee7d21c4049",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "QueryName": "All_Pages_TABD_Documents",
+          "DisplayName": "All_Pages_TABD_Documents",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "981dc9e2-9ae2-4ed0-9c99-4da1ba1cf6e0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6445702e-020a-4204-b90c-9e81905f52c5"
+            },
+            {
+              "ID": "688a3bf0-df27-49f0-8802-5342510d0a29",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "72fa52de-a7f2-4076-b095-c511a91a08b1"
+            },
+            {
+              "ID": "bbe99772-4077-4642-968b-a417f3747d12",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1b513ad0-ff5b-4faa-98d4-a058acb8b6b7"
+            },
+            {
+              "ID": "190a7b58-a99c-4237-aed8-a903c98b6dca",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6e8829b3-19ed-4883-8e24-5751ebeb3922"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "533482d5-9a59-47c0-a06d-7d45335a698c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "QueryName": "Detail_TABD_Documents",
+          "DisplayName": "Detail_TABD_Documents",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "a291f515-bec2-4c20-b80b-077e22877049",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedOn",
+              "AppFieldID": "985391df-21b5-414d-9ebb-07e95ae448ba"
+            },
+            {
+              "ID": "9f84b19c-b22d-402e-931a-14d9da1a86ea",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Title",
+              "AppFieldID": "f9b2d96f-8a99-4927-b590-3fd4af2af318"
+            },
+            {
+              "ID": "c158e94e-2426-4212-a6fd-20581df22169",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsActive",
+              "AppFieldID": "7fede379-4b82-4ba6-ac6c-da9c5bd3db9b"
+            },
+            {
+              "ID": "545f5285-78ba-49c8-b143-22f7f0e03bc7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6e8829b3-19ed-4883-8e24-5751ebeb3922"
+            },
+            {
+              "ID": "d93aeb98-2b16-45ca-ad8d-252dc1ff11b3",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByLastName",
+              "AppFieldID": "69727469-ed5e-48e0-b52a-874f430810bd"
+            },
+            {
+              "ID": "a852e438-e50e-4252-947a-4157f7bfba3d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.PrimaryKey",
+              "AppFieldID": "1765e7e6-c1f1-454d-abcf-2584ed643720"
+            },
+            {
+              "ID": "72a403de-b3d7-42c0-bcee-748cc74fc691",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.IsSystemRecord",
+              "AppFieldID": "7c3e041e-6086-48f0-9ba8-61da0e241b29"
+            },
+            {
+              "ID": "c59ef832-2fa5-4afa-9c2e-7492b4b26c42",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "93699410-b6ac-4920-b987-3a571a04f650"
+            },
+            {
+              "ID": "cbbae03a-8da2-4c52-9588-8af03354c48f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1b513ad0-ff5b-4faa-98d4-a058acb8b6b7"
+            },
+            {
+              "ID": "d78cae4c-5040-4ecf-b3c4-913581221ca8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5f4042c6-343b-47ac-bd10-f2bfa1a32ef7"
+            },
+            {
+              "ID": "81e4d5ad-4241-4113-8bc4-9a80768554b9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.RecordId",
+              "AppFieldID": "d3661c2c-e872-4f5a-9030-4c8f97c704c5"
+            },
+            {
+              "ID": "5bca840b-080a-46c5-9280-9e50ce1cae5d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "51dc548f-4c6c-4d4a-ab48-fec66f8d4202"
+            },
+            {
+              "ID": "211955b5-5674-4d4d-9059-a65c84415eee",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByLastName",
+              "AppFieldID": "4447d5d5-552b-4e65-96b1-a6701e6efc02"
+            },
+            {
+              "ID": "b92163d9-835e-4a72-8d71-adbb4dd82a12",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6445702e-020a-4204-b90c-9e81905f52c5"
+            },
+            {
+              "ID": "74722d15-b425-426a-8a90-cff980dfcb5e",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.CreatedByFirstName",
+              "AppFieldID": "bfac404a-c645-4472-a183-cfa4510346fd"
+            },
+            {
+              "ID": "0696bd22-cde2-4f67-b6c9-df7cc686b938",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "72fa52de-a7f2-4076-b095-c511a91a08b1"
+            },
+            {
+              "ID": "a4a8d01c-1327-4439-b7c5-e7828aee6b1f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.UpdatedByFirstName",
+              "AppFieldID": "5b5a0372-b741-4d2c-a319-f62950d07325"
+            },
+            {
+              "ID": "d528fcbc-ba5d-42c0-9725-f79ef4f6349c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "RecordInfo.Tags",
+              "AppFieldID": "c73fb52f-ef29-4229-9f07-df27b6ab3d22"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "4a49ded2-9a75-40f2-ab48-63a50c2b8fac",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "72fa52de-a7f2-4076-b095-c511a91a08b1"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "f4e84c00-b32a-46a8-b4ed-4991d0b84684",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "533482d5-9a59-47c0-a06d-7d45335a698c",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "ca12192d-3c38-41cf-8714-83acb95c16e9",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "QueryName": "List_TABD_Documents",
+          "DisplayName": "List_TABD_Documents",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "81eb399e-2b2c-4428-980f-05469cbf2f15",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6445702e-020a-4204-b90c-9e81905f52c5"
+            },
+            {
+              "ID": "a525ddad-e2a8-4e23-b1c7-3954d611c178",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "72fa52de-a7f2-4076-b095-c511a91a08b1"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "3a773335-b6a1-4c59-9d79-aab02b64ff27",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "QueryName": "View_TABD_Documents",
+          "DisplayName": "View_TABD_Documents",
+          "FilterLogic": null,
+          "Fields": [],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "389ef0d9-2ac6-4f48-b005-b4e9d0f01421",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "3a773335-b6a1-4c59-9d79-aab02b64ff27",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "50321b18-951f-4b8f-8926-f162ec34660f",
+          "ObjectID": null,
+          "ObjectID_Tosave": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+          "QueryName": "ProjectWise_TABD_Documents",
+          "DisplayName": "ProjectWise_TABD_Documents",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "4d75f4be-d514-48ac-b545-1e56b14a4f63",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6445702e-020a-4204-b90c-9e81905f52c5"
+            },
+            {
+              "ID": "bbe09b93-89cb-4b88-b31a-219c630dc5a8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "6e8829b3-19ed-4883-8e24-5751ebeb3922"
+            },
+            {
+              "ID": "1d699dba-c60b-4db0-98ce-34a8088f880a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "1b513ad0-ff5b-4faa-98d4-a058acb8b6b7"
+            },
+            {
+              "ID": "8c793172-d4cc-459b-b9a9-8a5866d83c02",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "72fa52de-a7f2-4076-b095-c511a91a08b1"
+            },
+            {
+              "ID": "f422e30a-f9a6-4ddf-9c59-9d516618f116",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "93699410-b6ac-4920-b987-3a571a04f650"
+            },
+            {
+              "ID": "ff1711ed-7f73-49de-9570-bf644273dd34",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "51dc548f-4c6c-4d4a-ab48-fec66f8d4202"
+            },
+            {
+              "ID": "f6c8a1c2-cb29-44fb-ad9b-eaf9f04d0ebe",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "5f4042c6-343b-47ac-bd10-f2bfa1a32ef7"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "RecordId",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "5f4042c6-343b-47ac-bd10-f2bfa1a32ef7"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "cb8305dc-d2a8-462d-84a2-50e563d37378",
+              "ParameterName": "RecordId",
+              "DataSourceQueryID": "50321b18-951f-4b8f-8926-f162ec34660f",
+              "MappingFieldName": "RecordId",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_Documents",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "2af63e28-1802-49d8-9eda-1ffe3e527fe8",
+      "AppObjectConfiguration": "{\"RecordInfoTitleConfiguration\":\"{{Title}}\",\"GlobalSearch\":{\"IsElasticSearchEnable\":\"True\",\"DSQId\":\"ec8752a7-bbe9-4c4b-b05b-36d2e8107c0f\",\"TemplateId\":\"1af0229f-d7fb-479c-bb2e-f9e9df508cd8\",\"RedirectionScreenId\":\"\",\"SearchNavigationType\":\"url\",\"RedirectionUrl\":\"documents/${PrimaryKeyValue}\"},\"History\":{\"DSQId\":\"533482d5-9a59-47c0-a06d-7d45335a698c\"},\"ScreenConfiguration\":{\"addScreenId\":\"\",\"editScreenId\":\"\",\"previewScreenId\":\"\",\"listScreenId\":\"\"}}",
+      "AllowVersioning": true,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": "d052a189-a33f-4acd-8012-f66f9cc07cd3",
+        "CreatedOn": "2024-06-25T12:17:43",
+        "UpdatedOn": "2025-07-16T15:35:35",
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+      "ObjectName": "TABD_ImportDataConfig",
+      "DisplayName": "TABD_ImportDataConfig",
+      "Description": "TABD_ImportDataConfig",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "edb039c9-c67f-4ed8-a48b-009bb6b6cd69",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "FieldName": "AppObjectId",
+          "DisplayName": "AppObjectId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "AppObjectId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "eee15725-197f-4d28-85bd-1b99dc55f56e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "FieldName": "Config",
+          "DisplayName": "Config",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Config",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "8f272557-9c7e-417b-b119-507f5499059e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "bc43116b-8e00-417c-af56-65f50cc9fcce",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "BBAA59DB-B841-42BA-ADBA-CBEB8D36A0D6",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "92abcb63-5d09-458c-80d3-6c526712fee9",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "FieldName": "TemplateName",
+          "DisplayName": "TemplateName",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "TemplateName",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "c744377b-88f5-40a1-9441-8f18cc853fbb",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "FieldName": "IsTemplate",
+          "DisplayName": "IsTemplate",
+          "FieldType": {
+            "DataType": 3,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "IsTemplate",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "a0638771-d63c-4ada-bd34-0b9df6452ddf",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "QueryName": "DEV_TABD_ImportDataConfig",
+          "DisplayName": "DEV_TABD_ImportDataConfig",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "5b84b585-409b-4f54-a2ed-075a24a051c4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c744377b-88f5-40a1-9441-8f18cc853fbb"
+            },
+            {
+              "ID": "b1808edc-f5ef-4632-885b-22988283705c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f272557-9c7e-417b-b119-507f5499059e"
+            },
+            {
+              "ID": "93b0bab3-120f-4059-883d-2375ef0f8016",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "92abcb63-5d09-458c-80d3-6c526712fee9"
+            },
+            {
+              "ID": "a2404ebe-6f51-4f2f-bdcb-547fbd407131",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "edb039c9-c67f-4ed8-a48b-009bb6b6cd69"
+            },
+            {
+              "ID": "2ab95a7b-434e-4f02-9b6d-d214d0030ed9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "eee15725-197f-4d28-85bd-1b99dc55f56e"
+            },
+            {
+              "ID": "5eb40c6e-12e7-4dc7-86ac-f7b552207b1d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bc43116b-8e00-417c-af56-65f50cc9fcce"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "589d857a-4b15-4dc3-9b6a-5046698ac04e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "QueryName": "FK_TABD_ImportDataConfig_TABD_ImportDataConfig",
+          "DisplayName": "FK_TABD_ImportDataConfig_TABD_ImportDataConfig",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "20de0382-ba9d-4848-a2f4-0e3ccfdf51ce",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "92abcb63-5d09-458c-80d3-6c526712fee9"
+            },
+            {
+              "ID": "6a551ead-25ca-47f4-81f6-26ec36985e84",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bc43116b-8e00-417c-af56-65f50cc9fcce"
+            },
+            {
+              "ID": "0a25f421-6022-4629-8ad4-34fba62a21de",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c744377b-88f5-40a1-9441-8f18cc853fbb"
+            },
+            {
+              "ID": "39075a31-5ec6-4b1e-95b9-736a68f94abc",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f272557-9c7e-417b-b119-507f5499059e"
+            },
+            {
+              "ID": "d7405e49-2f40-46b2-ba17-c49c279694fb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "edb039c9-c67f-4ed8-a48b-009bb6b6cd69"
+            },
+            {
+              "ID": "bcb744c6-8c9f-48d7-802b-fde642be2802",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "eee15725-197f-4d28-85bd-1b99dc55f56e"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "3b9132bc-0d1f-4e64-aea8-7c315c0bc23f",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "8f272557-9c7e-417b-b119-507f5499059e"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "286d3c52-21a0-4775-9991-b292aa5d0d24",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "589d857a-4b15-4dc3-9b6a-5046698ac04e",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "47edfdfd-8267-4977-9b42-5d139d481ce8",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "QueryName": "Default_TABD_ImportDataConfig",
+          "DisplayName": "Default_TABD_ImportDataConfig",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "9e5df9ee-9667-4671-b421-1de05590f788",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "eee15725-197f-4d28-85bd-1b99dc55f56e"
+            },
+            {
+              "ID": "b3db56a3-b3e5-43a7-904d-3907a76fa72d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "92abcb63-5d09-458c-80d3-6c526712fee9"
+            },
+            {
+              "ID": "152d313b-c026-4bc7-bb7e-4478de1af8d7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f272557-9c7e-417b-b119-507f5499059e"
+            },
+            {
+              "ID": "1ce837f8-0965-4df7-9dd3-703a04f67d90",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bc43116b-8e00-417c-af56-65f50cc9fcce"
+            },
+            {
+              "ID": "b2d59c07-30ad-4c3c-8950-74ded69f1bcc",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "edb039c9-c67f-4ed8-a48b-009bb6b6cd69"
+            },
+            {
+              "ID": "23d5005b-a165-40d0-b24c-e7111555a0b4",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c744377b-88f5-40a1-9441-8f18cc853fbb"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "a8cf9f2b-79c0-4fb9-823e-890a679d0291",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "QueryName": "FK_TABD_ImportDataConfig_TABMD_AppObject",
+          "DisplayName": "FK_TABD_ImportDataConfig_TABMD_AppObject",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "8eaea437-6608-49d0-a1e0-674a45a170c8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c744377b-88f5-40a1-9441-8f18cc853fbb"
+            },
+            {
+              "ID": "fc64b657-28ba-4efe-9a15-b7b7e7105d33",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "92abcb63-5d09-458c-80d3-6c526712fee9"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "667895a7-524b-4e00-a94d-9c7aa6746897",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "ID",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "df6d3d03-5985-4d46-9fe0-8e55674eb4d7"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "55a9c9f1-006a-4c7a-b6cd-ca6e72632670",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "QueryName": "List_TABD_ImportDataConfig",
+          "DisplayName": "List_TABD_ImportDataConfig",
+          "FilterLogic": "1",
+          "Fields": [
+            {
+              "ID": "c92c3c82-2750-4eff-b4e5-1c8098b0b856",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "edb039c9-c67f-4ed8-a48b-009bb6b6cd69"
+            },
+            {
+              "ID": "b01a7864-5bd8-4c79-a7bb-6fc4dac563a8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "92abcb63-5d09-458c-80d3-6c526712fee9"
+            },
+            {
+              "ID": "a4d84003-b528-4603-9738-8657628d8b3f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "eee15725-197f-4d28-85bd-1b99dc55f56e"
+            },
+            {
+              "ID": "89382877-c1e6-4af5-9548-9ddf1b3a6685",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bc43116b-8e00-417c-af56-65f50cc9fcce"
+            },
+            {
+              "ID": "b37b893f-9aed-4326-aeca-b1ad79d269e6",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f272557-9c7e-417b-b119-507f5499059e"
+            },
+            {
+              "ID": "b05ab777-9165-42a5-aee7-d595bcde3dc7",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c744377b-88f5-40a1-9441-8f18cc853fbb"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 1,
+                "value": "1",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "c744377b-88f5-40a1-9441-8f18cc853fbb"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "27f2a7a0-8772-4c56-b56b-248501f1244f",
+              "ParameterName": "",
+              "DataSourceQueryID": "55a9c9f1-006a-4c7a-b6cd-ca6e72632670",
+              "MappingFieldName": "",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "da8f1d08-5ac3-4c22-a96b-d59b232042e0",
+          "ObjectID": null,
+          "ObjectID_Tosave": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+          "QueryName": "Detail_TABD_ImportDataConfig",
+          "DisplayName": "Detail_TABD_ImportDataConfig",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "10ff5070-7b00-4aef-8b80-08cbca4d5ad0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "edb039c9-c67f-4ed8-a48b-009bb6b6cd69"
+            },
+            {
+              "ID": "522dc848-eaf7-4a85-b5ee-49db7479823d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c744377b-88f5-40a1-9441-8f18cc853fbb"
+            },
+            {
+              "ID": "30a0d206-2974-4f9c-8a84-a9372cee9dd0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "eee15725-197f-4d28-85bd-1b99dc55f56e"
+            },
+            {
+              "ID": "f9c2b343-87b9-40a1-ba37-c70852f2ea27",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bc43116b-8e00-417c-af56-65f50cc9fcce"
+            },
+            {
+              "ID": "96297c88-d38e-423f-a45c-d35e7490ad52",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "92abcb63-5d09-458c-80d3-6c526712fee9"
+            },
+            {
+              "ID": "e01bd562-bd76-4e45-88da-d6ed0eae69a9",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "8f272557-9c7e-417b-b119-507f5499059e"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "a5632bd2-276a-4773-813a-0ea52082d404",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "8f272557-9c7e-417b-b119-507f5499059e"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "625589bb-201c-4387-a61b-73e572e7c4a9",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "da8f1d08-5ac3-4c22-a96b-d59b232042e0",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_ImportDataConfig",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "bbaa59db-b841-42ba-adba-cbeb8d36a0d6",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": true,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": null,
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": null,
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "6961529b-b288-4832-ae53-dae00f1bbc75",
+      "ObjectName": "TABD_Location",
+      "DisplayName": "TABD_Location",
+      "Description": "TABD_Location",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "b2be7ef7-40eb-4093-8fd6-038ccb42423a",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "Lattitude",
+          "DisplayName": "Lattitude",
+          "FieldType": {
+            "DataType": 4,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Lattitude",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "f2c6d5df-fefd-42b9-b8b3-1ef4d0beb5a9",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "Address",
+          "DisplayName": "Address",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Address",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "f0305021-62b5-4445-8e00-45b1d22bdf6b",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "Pincode",
+          "DisplayName": "Pincode",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Pincode",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "924fe214-3f80-45bf-b911-5f992d8016b8",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "StateId",
+          "DisplayName": "StateId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "StateId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "StateMaster",
+            "LookupField": "Id",
+            "DisplayField": "StateName",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "20876b7b-6cc1-4287-bdd4-7740bd51cdf1",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "Longitude",
+          "DisplayName": "Longitude",
+          "FieldType": {
+            "DataType": 4,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Longitude",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "9ea07b5a-8eb4-4746-87a1-891bcaa6d55e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "GoogleLocationData",
+          "DisplayName": "GoogleLocationData",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "GoogleLocationData",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "df352728-e9f4-45e8-84bc-8dcfad5b415e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "CityId",
+          "DisplayName": "CityId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "CityId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "CityMaster",
+            "LookupField": "Id",
+            "DisplayField": "CityName",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "58fb2b2b-1467-4732-a220-9dbfbd60469d",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "6961529B-B288-4832-AE53-DAE00F1BBC75",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "4158f389-7e4c-4085-ae0a-ce67a940b34c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "CountryId",
+          "DisplayName": "CountryId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "CountryId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "CountryMaster",
+            "LookupField": "Id",
+            "DisplayField": "CountryName",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "967ee4ec-e9a0-48c1-b7a6-d114b6488d6c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "DistrictId",
+          "DisplayName": "DistrictId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "DistrictId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_Districts",
+            "LookupField": "Id",
+            "DisplayField": "Id",
+            "selectQuery": null
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "cfd64d53-c8c4-48bb-82ac-ff00adca9cb5",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": null,
+      "DataSourceQueries": [
+        {
+          "ID": "05df9caf-891f-4b91-8e28-0eb457ec2cad",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "QueryName": "DEV_TABD_Location",
+          "DisplayName": "DEV_TABD_Location",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "c8038efd-c9e0-4112-8680-0c720940ff34",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "924fe214-3f80-45bf-b911-5f992d8016b8"
+            },
+            {
+              "ID": "4cc9d92d-6b35-4f87-a170-365e3e9e1870",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9ea07b5a-8eb4-4746-87a1-891bcaa6d55e"
+            },
+            {
+              "ID": "7852cdcd-f364-4ae9-8877-97d803e95c76",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f0305021-62b5-4445-8e00-45b1d22bdf6b"
+            },
+            {
+              "ID": "9bfa1c4a-082d-412d-9669-a7e3ecbd09d5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "58fb2b2b-1467-4732-a220-9dbfbd60469d"
+            },
+            {
+              "ID": "7de5c8b0-9730-4d0a-b413-b5b2a220b886",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b2be7ef7-40eb-4093-8fd6-038ccb42423a"
+            },
+            {
+              "ID": "98bbf927-6224-4e08-b2c3-ca1c5becc59b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cfd64d53-c8c4-48bb-82ac-ff00adca9cb5"
+            },
+            {
+              "ID": "6210a583-ad42-4d0e-96d4-d0b78c919f79",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2c6d5df-fefd-42b9-b8b3-1ef4d0beb5a9"
+            },
+            {
+              "ID": "81a66369-4152-4e4b-b25e-d0d3b7df0e7b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "20876b7b-6cc1-4287-bdd4-7740bd51cdf1"
+            },
+            {
+              "ID": "b7c454af-d900-4d7e-8e7b-dfa828232d66",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "4158f389-7e4c-4085-ae0a-ce67a940b34c"
+            },
+            {
+              "ID": "1af0d579-32b8-432e-b7a8-f2e12f2a7b59",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "df352728-e9f4-45e8-84bc-8dcfad5b415e"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "694488e1-2746-44a2-a886-16696d17fc1f",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "QueryName": "Default_TABD_Location",
+          "DisplayName": "Default_TABD_Location",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "c3bc3b6d-8c2b-482c-b58e-2c03ebed113c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b2be7ef7-40eb-4093-8fd6-038ccb42423a"
+            },
+            {
+              "ID": "50ea788b-a4d4-4d1d-b535-34e88a986e3d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "4158f389-7e4c-4085-ae0a-ce67a940b34c"
+            },
+            {
+              "ID": "ea71d200-dddd-4586-9055-3e54abe28f03",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cfd64d53-c8c4-48bb-82ac-ff00adca9cb5"
+            },
+            {
+              "ID": "1a05ba83-8580-4f1b-b738-3fe3ebb208bf",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "924fe214-3f80-45bf-b911-5f992d8016b8"
+            },
+            {
+              "ID": "7e1de28b-bb4d-4849-a112-48aa8e2f9f72",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "df352728-e9f4-45e8-84bc-8dcfad5b415e"
+            },
+            {
+              "ID": "44f5c5e5-0020-4ecd-b422-5ee8ceddc509",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f0305021-62b5-4445-8e00-45b1d22bdf6b"
+            },
+            {
+              "ID": "403024f4-3941-49c7-b5e1-91701c4aa0cf",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "20876b7b-6cc1-4287-bdd4-7740bd51cdf1"
+            },
+            {
+              "ID": "88282a25-47cb-488b-a494-9ccd68f85d9b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2c6d5df-fefd-42b9-b8b3-1ef4d0beb5a9"
+            },
+            {
+              "ID": "ffd10a3c-bf7d-433e-840a-9e3bf0cd161d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9ea07b5a-8eb4-4746-87a1-891bcaa6d55e"
+            },
+            {
+              "ID": "689fde88-e69c-4cf9-a6b3-cfaf2e17e9c0",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "58fb2b2b-1467-4732-a220-9dbfbd60469d"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "1f6e2b4f-3648-4389-af16-3a1422a14802",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "QueryName": "hardik_test_location",
+          "DisplayName": "hardik_test_location",
+          "FilterLogic": "1",
+          "Fields": [],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 2,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "ID",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "f0305021-62b5-4445-8e00-45b1d22bdf6b"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 2,
+                "RelationalOperator": 3,
+                "ValueType": 3,
+                "value": "CityId",
+                "Sequence": 2,
+                "GroupID": 1,
+                "LookupDetail": "RecordInfo.OwnerUserName",
+                "FieldType": 2,
+                "FieldID": "38f84704-8086-48d7-ab0e-008f8b98fd88"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 2,
+                "RelationalOperator": 3,
+                "ValueType": 1,
+                "value": "212121",
+                "Sequence": 3,
+                "GroupID": 1,
+                "LookupDetail": "RecordInfo.TenantId",
+                "FieldType": 2,
+                "FieldID": "f9a5bee3-f20c-47db-bbd4-ac0d972985f5"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "9d9450f0-7018-49aa-8be4-db445e0942a8",
+              "ParameterName": "ID",
+              "DataSourceQueryID": "1f6e2b4f-3648-4389-af16-3a1422a14802",
+              "MappingFieldName": "ID",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "a2997772-2805-43e6-9ab6-48c8bf0e4b3b",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "QueryName": "List_TABD_Location",
+          "DisplayName": "List_TABD_Location",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "e28233c1-ae4e-4a9f-b57c-04fd82c86cfd",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "4158f389-7e4c-4085-ae0a-ce67a940b34c"
+            },
+            {
+              "ID": "69c3e8d1-8821-4c84-a5f8-18a7240b7f52",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b2be7ef7-40eb-4093-8fd6-038ccb42423a"
+            },
+            {
+              "ID": "a818f402-e39d-4033-81ab-2ef7576b9b90",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9ea07b5a-8eb4-4746-87a1-891bcaa6d55e"
+            },
+            {
+              "ID": "e7780b59-9bd0-46ab-ab69-38cfce9bbcea",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "924fe214-3f80-45bf-b911-5f992d8016b8"
+            },
+            {
+              "ID": "06b72085-e215-4d21-9a9d-3e5c85cd0cbb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "58fb2b2b-1467-4732-a220-9dbfbd60469d"
+            },
+            {
+              "ID": "6508c72c-ee52-40c1-971c-40955d99910a",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f0305021-62b5-4445-8e00-45b1d22bdf6b"
+            },
+            {
+              "ID": "bdb12f8c-4905-41c8-8e9e-5ba0ac21909b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "20876b7b-6cc1-4287-bdd4-7740bd51cdf1"
+            },
+            {
+              "ID": "9c0f86e0-d659-41b4-bfb4-6e5ce05e5461",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2c6d5df-fefd-42b9-b8b3-1ef4d0beb5a9"
+            },
+            {
+              "ID": "e694cef5-691a-4cb1-b2c6-8fd5ba96c55d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "df352728-e9f4-45e8-84bc-8dcfad5b415e"
+            },
+            {
+              "ID": "98604bd6-b58d-4a48-a257-91f06514733d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cfd64d53-c8c4-48bb-82ac-ff00adca9cb5"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "f0305021-62b5-4445-8e00-45b1d22bdf6b"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [
+            {
+              "ID": "00000000-0000-0000-0000-000000000000",
+              "SortSequence": 1,
+              "Sequence": 1,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "AppFieldID": null
+            }
+          ],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "e59c4e52-3418-4373-8db8-7e315924491c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "QueryName": "Test_DSQ",
+          "DisplayName": "Test_DSQ",
+          "FilterLogic": "[1 AND [2]]",
+          "Fields": [
+            {
+              "ID": "e2609ccb-bcfb-4d83-812c-57611afd6ccf",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cfd64d53-c8c4-48bb-82ac-ff00adca9cb5"
+            },
+            {
+              "ID": "a56ab44e-08bb-4c62-b2fc-8e60349c5f8d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "4158f389-7e4c-4085-ae0a-ce67a940b34c"
+            },
+            {
+              "ID": "72111d1b-27e8-4268-866f-c45b7a7fc2de",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "df352728-e9f4-45e8-84bc-8dcfad5b415e"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "ID",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": "RecordInfo.PrimaryKey",
+                "FieldType": 2,
+                "FieldID": "1765e7e6-c1f1-454d-abcf-2584ed643720"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "ID",
+                "Sequence": 1,
+                "GroupID": 2,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "b2be7ef7-40eb-4093-8fd6-038ccb42423a"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 1,
+                "value": "1,2,3",
+                "Sequence": 2,
+                "GroupID": 2,
+                "LookupDetail": null,
+                "FieldType": 1,
+                "FieldID": "f0305021-62b5-4445-8e00-45b1d22bdf6b"
+              },
+              {
+                "ID": "00000000-0000-0000-0000-000000000000",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 13,
+                "ValueType": 1,
+                "value": "Tickets,EPIC",
+                "Sequence": 3,
+                "GroupID": 2,
+                "LookupDetail": "RecordInfo.CreatedByUserName",
+                "FieldType": 2,
+                "FieldID": "51901e1e-d2e8-4372-9173-47601b2ef3cc"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "080ea91b-7e13-4591-9dfc-624d14a4f643",
+              "ParameterName": "ID",
+              "DataSourceQueryID": "e59c4e52-3418-4373-8db8-7e315924491c",
+              "MappingFieldName": "ID",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "3a10679b-85c6-426b-b4b8-8a3f67a4bd18",
+          "ObjectID": null,
+          "ObjectID_Tosave": "6961529b-b288-4832-ae53-dae00f1bbc75",
+          "QueryName": "Detail_TABD_Location",
+          "DisplayName": "Detail_TABD_Location",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "4f922cee-76f9-461e-8a65-03ee221735c1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f2c6d5df-fefd-42b9-b8b3-1ef4d0beb5a9"
+            },
+            {
+              "ID": "eae65f89-69e1-41eb-bbd5-09e24c6ec92f",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "StateId.StateName",
+              "AppFieldID": "c6c51911-94b0-4489-8185-f6cd6f5da63a"
+            },
+            {
+              "ID": "77477b17-e392-4718-bb3f-11172f4a9715",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "b2be7ef7-40eb-4093-8fd6-038ccb42423a"
+            },
+            {
+              "ID": "713781fa-b5a7-44fc-8c9f-2eaeee18244c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "CountryId.Id",
+              "AppFieldID": "3d618a7d-f670-4275-a539-29d5ff1c5bba"
+            },
+            {
+              "ID": "123f0e34-5aa9-48d0-8f99-84d4456fc5d1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "9ea07b5a-8eb4-4746-87a1-891bcaa6d55e"
+            },
+            {
+              "ID": "5d44ec38-60eb-41e8-8eab-8a6d3b623ca1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "CityId.StateID",
+              "AppFieldID": "aa1234a1-caaa-44de-8ed1-954be0ca85f1"
+            },
+            {
+              "ID": "6b2e5e93-8f5d-4ace-9cbc-92cb14884633",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "StateId.Id",
+              "AppFieldID": "bbb72943-4c2e-4ae5-a5cf-18ededb5415b"
+            },
+            {
+              "ID": "c7caba94-de7b-46d0-82d3-938638ba6013",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "CityId.Id",
+              "AppFieldID": "37903ddc-22d0-455e-b791-3766b2e2afb9"
+            },
+            {
+              "ID": "f28cd5df-766c-4bfa-be80-addf9af61065",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "20876b7b-6cc1-4287-bdd4-7740bd51cdf1"
+            },
+            {
+              "ID": "03e2d41c-bf70-405d-bcd7-b43e3cc0a031",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "58fb2b2b-1467-4732-a220-9dbfbd60469d"
+            },
+            {
+              "ID": "ab83696d-b1ea-47c2-b9fb-b9aa7deb5806",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 2,
+              "FieldDetails": "CountryId.CountryName",
+              "AppFieldID": "d49f70b9-444c-476b-a79e-6e1e6677aaf3"
+            },
+            {
+              "ID": "3e516232-d89f-47f7-b9f9-ee3dc87d8a9b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "cfd64d53-c8c4-48bb-82ac-ff00adca9cb5"
+            },
+            {
+              "ID": "33824fa3-6e26-4242-810c-fed0f761c012",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "f0305021-62b5-4445-8e00-45b1d22bdf6b"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "cfa9b2af-d9c5-4f7a-b185-4e1a60056800",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "cfd64d53-c8c4-48bb-82ac-ff00adca9cb5"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "80df3c4d-047c-4811-b25a-ce82d634b90d",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "3a10679b-85c6-426b-b4b8-8a3f67a4bd18",
+              "MappingFieldName": "Id",
+              "IsMandatory": false
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_Location",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "6961529b-b288-4832-ae53-dae00f1bbc75",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": false,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": null,
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": null,
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    },
+    {
+      "ID": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+      "ObjectName": "TABD_Media",
+      "DisplayName": "TABD_Media",
+      "Description": "TABD_Media",
+      "EnableTracking": true,
+      "AllowSearchable": true,
+      "CreationType": 1,
+      "AllowReports": true,
+      "AllowActivities": true,
+      "AllowSharing": false,
+      "DeploymentStatus": 2,
+      "Fields": [
+        {
+          "ID": "bce631c6-2d70-4c22-9471-01545b36e7a8",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "FieldName": "RefID",
+          "DisplayName": "RefID",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RefID",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "79c7022a-8d60-48e8-a840-2009b13e6b18",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "FieldName": "Id",
+          "DisplayName": "Id",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Id",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": true,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "c8268654-565d-4bae-a4c8-7744fc697a74",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "FieldName": "Sequence",
+          "DisplayName": "Sequence",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Sequence",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "117c20b0-6b93-4394-8564-7f0b20c03b16",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "FieldName": "RecordInfo",
+          "DisplayName": "RecordInfo",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": false,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "RecordInfo",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": {
+            "LookupObject": "TABD_RecordInfoView",
+            "LookupField": "PrimaryKey",
+            "DisplayField": "PrimaryKey",
+            "selectQuery": {
+              "RawSQL_AppfieldIds": null,
+              "ResultField_AppfieldIds": null,
+              "Sort": null,
+              "Distinct": false,
+              "NoLock": true,
+              "TopCount": null,
+              "Includes": [],
+              "pager": null,
+              "RecordState": 3,
+              "GlobalSearch": null,
+              "IsPager": true,
+              "DSQId": null,
+              "GroupByFields": null,
+              "QueryObjectID": "TABD_RecordInfoView",
+              "QueryType": 0,
+              "Joins": [],
+              "WhereClause": {
+                "Filters": [
+                  {
+                    "ID": "00000000-0000-0000-0000-000000000000",
+                    "ConjuctionClause": 1,
+                    "FieldID": "AppObjectID",
+                    "RelationalOperator": 3,
+                    "ValueType": 1,
+                    "Value": "FB58F16A-BADC-48F2-99AE-AC385846D6E3",
+                    "Sequence": 1,
+                    "GroupID": 0,
+                    "FieldType": 0,
+                    "LookUpDetail": null
+                  }
+                ],
+                "FilterLogic": "1"
+              },
+              "Reqtokens": null,
+              "HavingClause": null,
+              "RequestId": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "a8c01b23-4cf5-4116-97dc-8cbf0d76fb2c",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "FieldName": "Title",
+          "DisplayName": "Title",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Title",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "da331dba-899e-441f-8d69-8e2225edc7f7",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "FieldName": "URL",
+          "DisplayName": "URL",
+          "FieldType": {
+            "DataType": 13,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "URL",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "464522f6-3d28-46a3-a309-933c4ba29dbf",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "FieldName": "FileType",
+          "DisplayName": "FileType",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "FileType",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "d545c88a-6a1f-4018-986e-a7eee427e0db",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "FieldName": "ParentId",
+          "DisplayName": "ParentId",
+          "FieldType": {
+            "DataType": 17,
+            "RelationalOperator": null
+          },
+          "FieldBase": 1,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": true,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "ParentId",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        },
+        {
+          "ID": "0c87b2bb-6d22-4f14-9eb0-c283c04ae21e",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "FieldName": "Type",
+          "DisplayName": "Type",
+          "FieldType": {
+            "DataType": 2,
+            "RelationalOperator": null
+          },
+          "FieldBase": null,
+          "Description": null,
+          "CreationType": 1,
+          "IsRequired": false,
+          "IsUnique": false,
+          "BaseField": null,
+          "IsSearchable": true,
+          "IsUpdatable": false,
+          "IsConfidential": false,
+          "SystemDBFieldName": "Type",
+          "IsSystem": false,
+          "IsVisible": false,
+          "IsPrimaryKey": false,
+          "IsDeprecated": false,
+          "IsDisplayField": false,
+          "LookUpDetails": null,
+          "AccessList": null,
+          "Data": null,
+          "FieldConfiguration": null,
+          "FieldValidatorConfiguration": null
+        }
+      ],
+      "ChildRelationShips": [
+        {
+          "childDetails": {
+            "LookupObject": "TABD_Documents",
+            "LookupField": "RecordId",
+            "DisplayField": null,
+            "selectQuery": null
+          },
+          "LocalId": "Id"
+        },
+        {
+          "childDetails": {
+            "LookupObject": "TABD_Attachments",
+            "LookupField": "MediaId",
+            "DisplayField": null,
+            "selectQuery": null
+          },
+          "LocalId": "Id"
+        }
+      ],
+      "DataSourceQueries": [
+        {
+          "ID": "cc7556df-ca2a-47a6-bf0a-037070638165",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "QueryName": "Default_TABD_Media",
+          "DisplayName": "Default_TABD_Media",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "d2f9c4ca-df6c-470b-9a7c-259fc88a4ae5",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "117c20b0-6b93-4394-8564-7f0b20c03b16"
+            },
+            {
+              "ID": "34a4537c-0721-4bb3-83f7-2fa1ce0be968",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "79c7022a-8d60-48e8-a840-2009b13e6b18"
+            },
+            {
+              "ID": "31f89ccf-d1b7-4784-ac13-409220ec95af",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "464522f6-3d28-46a3-a309-933c4ba29dbf"
+            },
+            {
+              "ID": "484f547e-2969-4485-aaea-72c8b466aabd",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a8c01b23-4cf5-4116-97dc-8cbf0d76fb2c"
+            },
+            {
+              "ID": "0167ae8e-4caa-4bb0-9302-868cf551630c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bce631c6-2d70-4c22-9471-01545b36e7a8"
+            },
+            {
+              "ID": "2c3f203a-9e4b-4120-989e-902fb41640d1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0c87b2bb-6d22-4f14-9eb0-c283c04ae21e"
+            },
+            {
+              "ID": "0cd64a63-d023-4526-a6c7-9565bff3a5b1",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "da331dba-899e-441f-8d69-8e2225edc7f7"
+            },
+            {
+              "ID": "4ae81903-8b2d-4c4c-b67a-bd2716383172",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d545c88a-6a1f-4018-986e-a7eee427e0db"
+            },
+            {
+              "ID": "92001102-c04e-455b-8cc9-ff0672f33c9b",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c8268654-565d-4bae-a4c8-7744fc697a74"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "f1f25f2a-014b-4301-bea8-0855e9fd8f83",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "QueryName": "DEV_TABD_Media",
+          "DisplayName": "DEV_TABD_Media",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "a3848c24-b65c-41d3-b99a-21e1a142f432",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a8c01b23-4cf5-4116-97dc-8cbf0d76fb2c"
+            },
+            {
+              "ID": "2179f2ca-0d81-4e45-b1ec-336c75f3ea9c",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bce631c6-2d70-4c22-9471-01545b36e7a8"
+            },
+            {
+              "ID": "edb239e8-0273-4076-9b39-3e110f177e88",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0c87b2bb-6d22-4f14-9eb0-c283c04ae21e"
+            },
+            {
+              "ID": "0065bec3-23ee-4ea0-b908-7081ba04c431",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "117c20b0-6b93-4394-8564-7f0b20c03b16"
+            },
+            {
+              "ID": "b15906c1-13f2-41b6-8451-8682bf48cf58",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c8268654-565d-4bae-a4c8-7744fc697a74"
+            },
+            {
+              "ID": "963ae060-23d6-432b-bbd9-bfe0ea1c19b8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "da331dba-899e-441f-8d69-8e2225edc7f7"
+            },
+            {
+              "ID": "4515a256-049e-4463-ba90-df30156f3eef",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "464522f6-3d28-46a3-a309-933c4ba29dbf"
+            },
+            {
+              "ID": "443692e3-b261-491d-aa2f-e0eb27ab8483",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "d545c88a-6a1f-4018-986e-a7eee427e0db"
+            },
+            {
+              "ID": "4303d49c-c9c3-489b-87d6-f04659525281",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "79c7022a-8d60-48e8-a840-2009b13e6b18"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "1d2e2780-93c3-41c4-9bc0-117d3839da48",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "QueryName": "Detail_TABD_Media",
+          "DisplayName": "Detail_TABD_Media",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "8ad5d057-85b2-445e-942c-11bafa0b3019",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "a8c01b23-4cf5-4116-97dc-8cbf0d76fb2c"
+            },
+            {
+              "ID": "38c9fb33-2dda-4144-bf7b-218a91c22be8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "da331dba-899e-441f-8d69-8e2225edc7f7"
+            },
+            {
+              "ID": "79eae00c-87ce-40a5-b5fa-95bda1923524",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "79c7022a-8d60-48e8-a840-2009b13e6b18"
+            },
+            {
+              "ID": "76e34985-963b-44c4-94e7-ad13dcefeab8",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "0c87b2bb-6d22-4f14-9eb0-c283c04ae21e"
+            },
+            {
+              "ID": "832418f3-2b1d-4596-9a0f-b0d7fe52860d",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "c8268654-565d-4bae-a4c8-7744fc697a74"
+            },
+            {
+              "ID": "4266f0a8-f931-4b6c-9ab8-cdbbe0895018",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "117c20b0-6b93-4394-8564-7f0b20c03b16"
+            },
+            {
+              "ID": "7e8a104e-d7f7-41e2-bd2d-fc72c2ced2eb",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "bce631c6-2d70-4c22-9471-01545b36e7a8"
+            },
+            {
+              "ID": "713620c6-5764-4c35-8899-fd67b21babae",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "464522f6-3d28-46a3-a309-933c4ba29dbf"
+            }
+          ],
+          "Filters": {
+            "Filters": [
+              {
+                "ID": "0cf97334-5169-4b12-acb9-cb8ab3bab65d",
+                "ConjuctionClause": 1,
+                "RelationalOperator": 3,
+                "ValueType": 2,
+                "value": "Id",
+                "Sequence": 1,
+                "GroupID": 1,
+                "LookupDetail": null,
+                "FieldType": 0,
+                "FieldID": "79c7022a-8d60-48e8-a840-2009b13e6b18"
+              }
+            ],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [
+            {
+              "ID": "8ab15857-477b-402b-bcb3-548d391b9c1a",
+              "ParameterName": "Id",
+              "DataSourceQueryID": "1d2e2780-93c3-41c4-9bc0-117d3839da48",
+              "MappingFieldName": "Id",
+              "IsMandatory": true
+            }
+          ],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "ID": "a9a9c68f-a601-4236-9cdf-db7d6da57305",
+          "ObjectID": null,
+          "ObjectID_Tosave": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+          "QueryName": "List_TABD_Media",
+          "DisplayName": "List_TABD_Media",
+          "FilterLogic": null,
+          "Fields": [
+            {
+              "ID": "631060aa-5d26-49c4-8e89-3b6509445cd3",
+              "SeqNo": 0,
+              "Field_GridAttributes": null,
+              "LookupDetails": null,
+              "FieldType": 1,
+              "FieldDetails": null,
+              "AppFieldID": "79c7022a-8d60-48e8-a840-2009b13e6b18"
+            }
+          ],
+          "Filters": {
+            "Filters": [],
+            "FilterLogic": null
+          },
+          "Sort": [],
+          "Parameters": [],
+          "RequestId": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "SystemDBTableName": "TABD_Media",
+      "Resources": null,
+      "IsSystem": true,
+      "IsVisible": false,
+      "IsDeprecated": false,
+      "ObjectType": 1,
+      "CRUDAppObjectId": "fb58f16a-badc-48f2-99ae-ac385846d6e3",
+      "AppObjectConfiguration": null,
+      "AllowVersioning": false,
+      "IsSupportBluePrint": false,
+      "IsLocationTracking": false,
+      "AllowSoftDelete": false,
+      "IsReplicationNeeded": false,
+      "IsCacheEnable": false,
+      "CacheTtl": 0,
+      "ConnectionId": "0a08b86a-dd7b-4695-ada9-6d6dae85af59",
+      "AccessList": [],
+      "IsSupportLayout": null,
+      "RecordInfo": {
+        "CreatedBy": "905a3188-6e49-43ec-9c91-9a9077da6594",
+        "UpdatedBy": "fc5ad49a-41d3-4f44-90fc-a7baf61c410e",
+        "CreatedOn": "2024-06-25T12:17:43.617",
+        "UpdatedOn": "2025-06-11T09:03:01",
+        "IsSystemRecord": true,
+        "AppId": null
+      }
+    } ]
 
     // Map the raw API data to the internal SchemaData format
     this.dummySchema = this.mapApiDataToSchema(rawApiData);

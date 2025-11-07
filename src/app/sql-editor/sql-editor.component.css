@@ -633,6 +633,99 @@
   word-wrap: break-word;
 }
 
+.json-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #374151;
+}
+
+.json-actions .btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.json-actions .btn-primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.json-actions .btn-primary:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.json-actions .btn-primary:disabled {
+  background-color: #4b5563;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.json-actions .btn-secondary {
+  background-color: #6b7280;
+  color: white;
+}
+
+.json-actions .btn-secondary:hover {
+  background-color: #4b5563;
+}
+
+.json-input-section,
+.json-output-section {
+  margin-bottom: 20px;
+}
+
+.json-input-section label,
+.json-output-section label {
+  display: block;
+  color: #f3f4f6;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.json-input {
+  width: 100%;
+  min-height: 300px;
+  padding: 12px;
+  background-color: #111827;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  color: #f3f4f6;
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.json-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.json-output {
+  margin: 0;
+  padding: 12px;
+  background-color: #111827;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  color: #f3f4f6;
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  min-height: 100px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
 /* Scrollbar Styling */
 .sql-editor::-webkit-scrollbar,
 .parameters-panel::-webkit-scrollbar,

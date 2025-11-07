@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { GridModule, GridComponent, PageService, SortService, FilterService, GroupService, ToolbarService, ExcelExportService, PdfExportService, ReorderService } from '@syncfusion/ej2-angular-grids';
+import { GridModule, GridComponent, PageService, SortService, FilterService, GroupService, ToolbarService, ExcelExportService, PdfExportService, ReorderService, ResizeService } from '@syncfusion/ej2-angular-grids';
 import { ExportService } from '../../services/export.service';
 import { ToastService } from '../../services/toast.service';
 
@@ -34,7 +34,7 @@ export interface GridGroup {
   selector: 'app-results-grid',
   standalone: true,
   imports: [CommonModule, FormsModule, GridModule],
-  providers: [PageService, SortService, FilterService, GroupService, ToolbarService, ExcelExportService, PdfExportService, ReorderService],
+  providers: [PageService, SortService, FilterService, GroupService, ToolbarService, ExcelExportService, PdfExportService, ReorderService, ResizeService],
   templateUrl: './results-grid.component.html',
   styleUrl: './results-grid.component.css'
 })
@@ -96,6 +96,10 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
     columns: [],
     showGroupedColumn: true, // Show grouped columns in the grouping bar
     allowReordering: true // Allow reordering of grouped columns in the grouping bar
+  };
+  
+  gridResizeSettings: any = {
+    mode: 'Normal' // 'Normal' or 'Auto' - Normal allows manual resizing
   };
   
   gridToolbar: string[] = ['Search'];
@@ -251,7 +255,8 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
         allowFiltering: true,
         allowSorting: true,
         allowGrouping: true,
-        allowReordering: true // Enable column reordering for each column
+        allowReordering: true, // Enable column reordering for each column
+        allowResizing: true // Enable column resizing for each column
       };
 
       // Determine column type and format

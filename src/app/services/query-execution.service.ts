@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-// import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, delay } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of, delay, map, catchError } from 'rxjs';
 
 export interface QueryExecutionResponse {
   success: boolean;
@@ -11,17 +11,32 @@ export interface QueryExecutionResponse {
     hasMore: boolean;
   };
   error?: string;
+  statusCode?: string;
+  recordAffected?: number;
+  totalRecords?: number;
+  totalExecutionTime?: number;
+}
+
+export interface ApiResponse {
+  RequestId?: string;
+  IsSuccess: boolean;
+  Result: any[];
+  StatusCode: string;
+  RecordAffectted: number;
+  TotalRecords: number;
+  TotalExecutionTime: number;
+  Log?: string[];
+  Errors?: any[];
+  IsFromCache?: boolean;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class QueryExecutionService {
-  // TODO: Replace with actual API endpoint
-  // private readonly API_ENDPOINT = '/api/query/execute';
+  private apiUrl = 'https://api.techappforce.xyz/api/v1/CRUD/Select';
 
-  // constructor(private http: HttpClient) {}
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   /**
    * Execute SQL query
@@ -35,33 +50,76 @@ export class QueryExecutionService {
     parameters: { [key: string]: any } = {},
     sqlParserService?: any
   ): Observable<QueryExecutionResponse> {
-    // Convert SQL to QueryJson
+    debugger
+    // Convert SQL to QueryJson in the format expected by the API
     let queryJson: any = null;
     if (sqlParserService) {
       try {
-        queryJson = sqlParserService.parseQuery(sqlQuery);
+        queryJson = sqlParserService.sqlToJson(sqlQuery);
       } catch (error) {
         console.error('Failed to parse SQL to QueryJson:', error);
+        return this.handleError('Failed to parse SQL to QueryJson');
       }
     }
 
-    // FOR PRODUCTION: Uncomment the code below and remove the mock data return
-    /*
+    if (!queryJson) {
+      return this.handleError('Failed to convert SQL to JSON format');
+    }
+
+    // Prepare headers
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'accept': 'application/json, text/plain, */*',
+      'accept-language': 'en-US,en;q=0.9',
+      'appid': 'bf4391ae-5e34-4fdd-8ce5-93a5cd4429a2',
+      'applicationcode': 'PMS',
+      'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzeXN0ZW0udXNlckB0ZWNoZXh0ZW5zb3IuY29tIiwianRpIjoiODc5ZjI1NjUtYTFjYi00MzUxLWI2ZmItZWU1ODc0NzExMGMwIiwiZW1haWwiOiJzeXN0ZW0udXNlckB0ZWNoZXh0ZW5zb3IuY29tIiwiaWQiOiJhOTZmYTc0ZS03MDE3LTQwYWUtOWRjNy05NmZhYzU2NzY2MDYiLCJsb2NhbGVTZXR0aW5nIjoie1wiVGltZVpvbmVJZFwiOlwiXCIsXCJMb2NhbGVcIjpudWxsLFwiTGFuZ3VhZ2VcIjpcIjFcIixcIkRhdGVGb3JtYXRcIjpcIlwiLFwiVGltZUZvcm1hdFwiOlwiXCIsXCJOdW1iZXJGb3JtYXRcIjpcIlwiLFwiQ3VycmVuY3lcIjpcIlwifSIsInJvbGUiOlsiQWRtaW4iLCJUQUIgQWRtaW5pc3RyYXRvciIsIlRlbmFudCBBZG1pbmlzdHJhdG9yIl0sIlJvbGVJZHMiOiJmOTFkYTU5MC1lMzExLTRhMzQtYWQyMC0yY2Q5OTI3ZGU3NjQsMDFjZGE2NWItZDMxYi00MzNhLWEwZmItODhlMDgxNmM5ZjNkLGEzNjcyMGJlLTIwOWItNDllOS1hZTgwLWIxOGQyZGUxZTBiZCIsIm5iZiI6MTczNjU5MzkyMiwiZXhwIjoxNzY4MTI5OTIyLCJpYXQiOjE3MzY1OTM5MjJ9.amxr6V964Dul6DP2UuHk2ockcoqsoBBQVJ-4c_elD10',
+      'content-type': 'application/json',
+      'environment': '8096c35c-e673-4ad6-800f-bddb1779787e',
+      'origin': 'https://techextensor.techappforce.xyz',
+      'referer': 'https://techextensor.techappforce.xyz/',
+      'tenantid': 'a5e7d0d1-0e92-422f-a85c-9dac28375172'
     });
 
-    // POST QueryJson to API: /api/query/execute
-    const body = {
-      queryJson: queryJson || { rawQuery: sqlQuery },
-      parameters: parameters
-    };
+    // POST QueryJson to API
+    return this.http.post<ApiResponse>(this.apiUrl, queryJson, { headers }).pipe(
+      map((response: ApiResponse) => {
+        // Transform API response to QueryExecutionResponse format
+        return {
+          success: response.IsSuccess,
+          data: response.Result || [],
+          metadata: {
+            rowCount: response.TotalRecords || 0,
+            executionTime: response.TotalExecutionTime ? response.TotalExecutionTime / 1000 : 0, // Convert ms to seconds
+            hasMore: false // API doesn't provide pagination info in this format
+          },
+          statusCode: response.StatusCode,
+          recordAffected: response.RecordAffectted,
+          totalRecords: response.TotalRecords,
+          totalExecutionTime: response.TotalExecutionTime,
+          error: response.Errors && response.Errors.length > 0 ? JSON.stringify(response.Errors) : undefined
+        };
+      }),
+      catchError((error) => {
+        console.error('API Error:', error);
+        return this.handleError(error.message || 'Failed to execute query');
+      })
+    );
+  }
 
-    return this.http.post<QueryExecutionResponse>('/api/query/execute', body, { headers });
-    */
-
-    // MOCK DATA: Return dummy data for development
-    return this.getMockData(sqlQuery, parameters);
+  /**
+   * Handle errors
+   */
+  private handleError(message: string): Observable<QueryExecutionResponse> {
+    return of({
+      success: false,
+      data: [],
+      metadata: {
+        rowCount: 0,
+        executionTime: 0,
+        hasMore: false
+      },
+      error: message
+    });
   }
 
   /**

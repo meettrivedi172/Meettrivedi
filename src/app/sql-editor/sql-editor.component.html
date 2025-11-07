@@ -469,7 +469,27 @@
   <!-- Query JSON Tab -->
   <div [style.display]="activeTab === 'json' ? 'flex' : 'none'" class="tab-content json-tab">
     <div class="json-viewer">
-      <pre>{{ formattedQuery }}</pre>
+      <!-- <div class="json-actions">
+        <button class="btn btn-primary" (click)="convertJsonToSql()" [disabled]="!jsonInput || jsonInput.trim() === ''">
+          Convert JSON to SQL
+        </button>
+        <button class="btn btn-secondary" (click)="loadJsonFromSql()">
+          Load JSON from SQL
+        </button>
+      </div> -->
+      <div class="json-input-section">
+        <label>Paste JSON Query Object:</label>
+        <textarea 
+          class="json-input" 
+          [(ngModel)]="jsonInput" 
+          placeholder='Paste JSON here, e.g. { "QueryObjectID": "WorkItems", "ResultField_AppfieldIds": ["ID", "Title"], ... }'
+          rows="15">
+        </textarea>
+      </div>
+      <!-- <div class="json-output-section">
+        <label>Generated SQL:</label>
+        <pre class="json-output">{{ formattedQuery }}</pre>
+      </div> -->
     </div>
   </div>
 </div>

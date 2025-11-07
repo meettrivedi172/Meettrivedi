@@ -553,5 +553,323 @@ export class SqlParserService {
       return v.toString(16);
     });
   }
+
+  /**
+   * Convert JSON query object to SQL query string
+   * @param jsonQuery JSON query object with QueryObjectID, ResultField_AppfieldIds, WhereClause, etc.
+   * @returns SQL query string
+   */
+  jsonToSql(jsonQuery: any): string {
+    let sql = '';
+
+    // SELECT clause
+    sql += 'SELECT\n';
+    if (jsonQuery.ResultField_AppfieldIds && jsonQuery.ResultField_AppfieldIds.length > 0) {
+      sql += '    ' + jsonQuery.ResultField_AppfieldIds.join(',\n    ') + '\n';
+    } else {
+      sql += '    *\n';
+    }
+
+    // FROM clause
+    if (jsonQuery.QueryObjectID) {
+      sql += 'FROM ' + jsonQuery.QueryObjectID + '\n';
+    } else {
+      throw new Error('QueryObjectID is required');
+    }
+
+    // JOIN clauses - handle both old format (RightObject, LeftField, RightField) and new format (Relationship)
+    if (jsonQuery.Joins && jsonQuery.Joins.length > 0) {
+      jsonQuery.Joins.forEach((join: any) => {
+        // Convert JoinType number to string (1 = INNER, 2 = LEFT, 3 = RIGHT, 4 = FULL)
+        const joinTypeMap: { [key: number]: string } = {
+          1: 'INNER',
+          2: 'LEFT',
+          3: 'RIGHT',
+          4: 'FULL'
+        };
+        const joinType = joinTypeMap[join.JoinType] || 'INNER';
+        
+        // Handle new format with Relationship object
+        if (join.Relationship) {
+          // For Relationship format, we need to use the table names from the relationship
+          // Since we don't have the actual table names in the Relationship object,
+          // we'll try to use RightObject if available, or generate a placeholder
+          const rightObject = join.RightObject || 'JoinedTable';
+          sql += `${joinType} JOIN ${rightObject}`;
+          if (join.RightObjectAlias) {
+            sql += ` ${join.RightObjectAlias}`;
+          }
+          // For Relationship format, we can't determine the exact field names from SQL alone
+          // So we'll use placeholder field names
+          sql += ` ON ${join.LeftField || 'SourceField'} = ${join.RightField || 'TargetField'}\n`;
+        } else {
+          // Handle old format with direct field references
+          const rightObject = join.RightObject || 'JoinedTable';
+          sql += `${joinType} JOIN ${rightObject}`;
+          if (join.RightObjectAlias) {
+            sql += ` ${join.RightObjectAlias}`;
+          }
+          sql += ` ON ${join.LeftField} = ${join.RightField}\n`;
+        }
+      });
+    }
+
+    // WHERE clause
+    if (jsonQuery.WhereClause && jsonQuery.WhereClause.Filters && jsonQuery.WhereClause.Filters.length > 0) {
+      sql += 'WHERE ';
+      const conditions: string[] = [];
+      
+      jsonQuery.WhereClause.Filters.forEach((filter: any, index: number) => {
+        const condition = this.buildFilterConditionFromJson(filter);
+        if (condition) {
+          // Add conjunction (AND/OR) if not the first filter
+          if (index > 0) {
+            const conjunction = filter.ConjuctionClause === 2 ? 'OR' : 'AND';
+            conditions.push(conjunction + ' ' + condition);
+          } else {
+            conditions.push(condition);
+          }
+        }
+      });
+      
+      sql += conditions.join(' ') + '\n';
+    }
+
+    // GROUP BY clause
+    if (jsonQuery.GroupByFields && jsonQuery.GroupByFields.length > 0) {
+      sql += 'GROUP BY ' + jsonQuery.GroupByFields.join(', ') + '\n';
+    }
+
+    // HAVING clause
+    if (jsonQuery.HavingClause && jsonQuery.HavingClause.Filters && jsonQuery.HavingClause.Filters.length > 0) {
+      sql += 'HAVING ';
+      const conditions: string[] = [];
+      
+      jsonQuery.HavingClause.Filters.forEach((filter: any, index: number) => {
+        const condition = this.buildFilterConditionFromJson(filter);
+        if (condition) {
+          if (index > 0) {
+            const conjunction = filter.ConjuctionClause === 2 ? 'OR' : 'AND';
+            conditions.push(conjunction + ' ' + condition);
+          } else {
+            conditions.push(condition);
+          }
+        }
+      });
+      
+      sql += conditions.join(' ') + '\n';
+    }
+
+    // ORDER BY clause
+    if (jsonQuery.Sort && jsonQuery.Sort.length > 0) {
+      sql += 'ORDER BY ';
+      const sortFields: string[] = [];
+      
+      // Sort by SortSequence first, then by Sequence
+      const sortedSorts = [...jsonQuery.Sort].sort((a: any, b: any) => {
+        if (a.SortSequence !== b.SortSequence) {
+          return (a.SortSequence || 0) - (b.SortSequence || 0);
+        }
+        return (a.Sequence || 0) - (b.Sequence || 0);
+      });
+      
+      sortedSorts.forEach((sort: any) => {
+        const fieldName = sort.FieldID || sort.FieldName;
+        // SortSequence: 1 = ASC, -1 = DESC (or use Direction if available)
+        let direction = 'ASC';
+        if (sort.Direction) {
+          direction = sort.Direction.toUpperCase();
+        } else if (sort.SortSequence !== undefined) {
+          direction = sort.SortSequence === -1 ? 'DESC' : 'ASC';
+        }
+        sortFields.push(fieldName + ' ' + direction);
+      });
+      
+      sql += sortFields.join(', ') + '\n';
+    }
+
+    return sql.trim() + ';';
+  }
+
+  /**
+   * Build a filter condition from JSON filter object
+   */
+  private buildFilterConditionFromJson(filter: any): string {
+    if (!filter.FieldName) return '';
+
+    const fieldName = filter.FieldName;
+    const operator = this.getSQLOperatorFromNumber(filter.RelationalOperator || filter.Operator);
+    let value = filter.Value;
+
+    // Handle NULL checks
+    if (filter.RelationalOperator === 10 || filter.Operator === 10) {
+      return `${fieldName} IS NULL`;
+    }
+    if (filter.RelationalOperator === 11 || filter.Operator === 11) {
+      return `${fieldName} IS NOT NULL`;
+    }
+
+    // Handle parameter values (ValueType 2)
+    if (filter.ValueType === 2 && value && value.startsWith('@')) {
+      return `${fieldName} ${operator} ${value}`;
+    }
+
+    // Handle string values - add quotes if needed
+    if (typeof value === 'string' && !value.startsWith("'") && !value.startsWith('"') && !value.startsWith('@')) {
+      // Remove existing quotes if present
+      value = value.replace(/^['"]|['"]$/g, '');
+      value = `'${value}'`;
+    }
+
+    return `${fieldName} ${operator} ${value}`;
+  }
+
+  /**
+   * Get SQL operator from operator number
+   * Note: This uses the RelationalOperator numbering system where:
+   * Based on user's JSON format where RelationalOperator: 3 maps to =
+   */
+  private getSQLOperatorFromNumber(operatorNumber: number): string {
+    // Based on user's example: RelationalOperator: 3 should be =
+    // The user's system appears to use: 3 = =, so we'll map accordingly
+    const operatorMap: { [key: number]: string } = {
+      1: '=',
+      2: '!=',
+      3: '=',  // Based on user's example, 3 = = (not >)
+      4: '>=',
+      5: '<',
+      6: '<=',
+      7: 'LIKE',
+      8: 'IN',
+      9: 'NOT IN',
+      10: 'IS NULL',
+      11: 'IS NOT NULL'
+    };
+    return operatorMap[operatorNumber] || '=';
+  }
+
+  /**
+   * Convert SQL operator number to RelationalOperator number
+   * Based on user's JSON format where RelationalOperator: 3 maps to =
+   */
+  private getRelationalOperatorFromSQLOperator(operatorNumber: number): number {
+    // The existing system uses: 1 = =, 2 = !=, 3 = >, etc.
+    // The user's system uses: 3 = = (based on example)
+    // We'll create a mapping that converts to the user's format
+    // For now, we'll use a simple mapping where = maps to 3
+    const relationalOperatorMap: { [key: number]: number } = {
+      1: 3,  // = -> 3 (based on user's example)
+      2: 2,  // != -> 2
+      3: 4,  // > -> 4 (or keep as 3 if user wants >)
+      4: 4,  // >= -> 4
+      5: 5,  // < -> 5
+      6: 6,  // <= -> 6
+      7: 7,  // LIKE -> 7
+      8: 8,  // IN -> 8
+      9: 9,  // NOT IN -> 9
+      10: 10, // IS NULL -> 10
+      11: 11  // IS NOT NULL -> 11
+    };
+    return relationalOperatorMap[operatorNumber] || 3; // Default to 3 (=)
+  }
+
+  /**
+   * Convert SQL query string to JSON query object
+   * @param sqlQuery SQL query string
+   * @returns JSON query object with QueryObjectID, ResultField_AppfieldIds, WhereClause, etc.
+   */
+  sqlToJson(sqlQuery: string): any {
+    // Remove comments and normalize whitespace
+    const cleanedQuery = this.removeComments(sqlQuery);
+    
+    // Extract table name from FROM clause
+    const fromMatch = cleanedQuery.match(/FROM\s+(\w+)/i);
+    const queryObjectID = fromMatch ? fromMatch[1] : '';
+
+    // Parse SELECT fields
+    const resultField_AppfieldIds = this.parseSelectFields(cleanedQuery);
+
+    // Parse WHERE clause
+    const whereClause: any = { Filters: [] };
+    const parsedWhere = this.parseWhereClause(cleanedQuery);
+    if (parsedWhere && parsedWhere.Filters) {
+      whereClause.Filters = parsedWhere.Filters.map((filter: QueryFilter) => ({
+        ConjuctionClause: filter.Conjunction || 1,
+        FieldID: this.generateGuid(), // Generate FieldID if not available
+        RelationalOperator: this.getRelationalOperatorFromSQLOperator(filter.Operator),
+        Value: filter.Value,
+        ValueType: filter.ValueType,
+        GroupID: filter.GroupId || 1,
+        Sequence: filter.Sequence || 1,
+        FieldType: 1, // Default field type
+        FieldName: filter.FieldName,
+        LookUpDetail: null,
+        ID: filter.Id || this.generateGuid()
+      }));
+    }
+
+    // Parse GROUP BY
+    const groupByFields = this.parseGroupBy(cleanedQuery);
+
+    // Parse ORDER BY
+    const sort: any[] = [];
+    const parsedSort = this.parseOrderBy(cleanedQuery);
+    if (parsedSort && parsedSort.length > 0) {
+      parsedSort.forEach((sortField: SortField, index: number) => {
+        sort.push({
+          FieldID: sortField.FieldName,
+          SortSequence: sortField.Direction === 'DESC' ? -1 : 1,
+          Sequence: index + 1
+        });
+      });
+    }
+
+    // Parse JOINs - API expects JoinType as number and Relationship object
+    const joins: any[] = [];
+    const parsedJoins = this.parseJoins(cleanedQuery);
+    if (parsedJoins && parsedJoins.length > 0) {
+      parsedJoins.forEach((join: Join) => {
+        // Convert JoinType string to number (1 = INNER, 2 = LEFT, 3 = RIGHT, 4 = FULL)
+        const joinTypeMap: { [key: string]: number } = {
+          'INNER': 1,
+          'LEFT': 2,
+          'RIGHT': 3,
+          'FULL': 4
+        };
+        const joinTypeNumber = joinTypeMap[join.JoinType] || 1;
+        
+        // Extract table name from LeftField and RightField if they contain table.field format
+        const leftTableMatch = join.LeftField.match(/^(\w+)\./);
+        const rightTableMatch = join.RightField.match(/^(\w+)\./);
+        const leftTable = leftTableMatch ? leftTableMatch[1] : queryObjectID;
+        const rightTable = rightTableMatch ? rightTableMatch[1] : join.RightObject;
+        
+        // Extract field names
+        const leftFieldName = join.LeftField.includes('.') ? join.LeftField.split('.')[1] : join.LeftField;
+        const rightFieldName = join.RightField.includes('.') ? join.RightField.split('.')[1] : join.RightField;
+        
+        joins.push({
+          JoinType: joinTypeNumber,
+          Relationship: {
+            RelSourceObjectID: this.generateGuid(), // Placeholder - should be actual object ID
+            RelSourceFieldID: this.generateGuid(), // Placeholder - should be actual field ID
+            RelTargetObjectID: this.generateGuid(), // Placeholder - should be actual object ID
+            RelTargetFieldID: this.generateGuid() // Placeholder - should be actual field ID
+          }
+        });
+      });
+    }
+
+    return {
+      QueryObjectID: queryObjectID,
+      ResultField_AppfieldIds: resultField_AppfieldIds,
+      RawSQL_AppfieldIds: [],
+      GroupByFields: groupByFields,
+      WhereClause: whereClause.Filters.length > 0 ? whereClause : {},
+      HavingClause: {},
+      Joins: joins,
+      Sort: sort
+    };
+  }
 }
 
