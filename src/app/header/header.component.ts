@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  @Output() savedQueriesClick = new EventEmitter<void>();
+  @Output() historyClick = new EventEmitter<void>();
+  @Output() saveQueryClick = new EventEmitter<void>();
 
+  onSavedQueriesClick(): void {
+    this.savedQueriesClick.emit();
+  }
+
+  onHistoryClick(): void {
+    this.historyClick.emit();
+  }
+
+  onSaveQueryClick(): void {
+    this.saveQueryClick.emit();
+  }
 }

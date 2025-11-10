@@ -814,18 +814,16 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
       this.handleGridSorts();
     } else if (event.requestType === 'grouping') {
       console.log('Grouping action complete event:', event);
-      
-      // Get column name from event
-      const columnName = event.columnName || event.column?.field || event.column?.headerText;
-      console.log('Grouping column from event:', columnName);
-      
-      // Store the column name for fallback use
-      (this as any).lastGroupedColumnName = columnName;
-      
+
       // Read the current grouped columns from the grid after a small delay
       // This ensures the grid has updated its internal state
       setTimeout(() => {
-        this.handleGridGroups(columnName);
+        this.handleGridGroups(event);
+      }, 100);
+    } else if (event.requestType === 'ungrouping') {
+      console.log('Ungrouping action complete event:', event);
+      setTimeout(() => {
+        this.handleGridGroups(event);
       }, 100);
     } else if (event.requestType === 'reorder') {
       // Column reordering completed - sync the column order
@@ -976,16 +974,19 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  private handleGridGroups(lastColumnName?: string): void {
+  private handleGridGroups(event: any): void {
     if (!this.syncfusionGrid) return;
 
     try {
       const groups: GridGroup[] = [];
       const gridInstance = this.syncfusionGrid as any;
-      
+      const columnNameFromEvent = event?.columnName || event?.column?.field || event?.column?.headerText || event?.fieldName;
+      const actionType = (event?.action || event?.requestType || '').toString().toLowerCase();
+      const isUngroupAction = actionType.includes('ungroup');
+
       // Method 1: Direct access to groupSettings property from grid instance (most reliable)
       let groupSettings = gridInstance.groupSettings;
-      
+
       // Method 2: Try to get from grid's element if direct access doesn't work
       if (!groupSettings || !groupSettings.columns) {
         const gridElement = gridInstance.element;
@@ -996,37 +997,41 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
           }
         }
       }
-      
+
       // Method 3: Try getGroupSettings method if available
       if (!groupSettings || !groupSettings.columns) {
         if (typeof gridInstance.getGroupSettings === 'function') {
           groupSettings = gridInstance.getGroupSettings();
         }
       }
-      
+
       // Method 4: Use our local gridGroupSettings as fallback
       if (!groupSettings || !groupSettings.columns) {
         groupSettings = this.gridGroupSettings;
       }
-      
+
       console.log('Group settings object (backup check):', groupSettings);
-      
+
       // Extract groups from the settings and sync with our tracked columns
-      if (groupSettings && groupSettings.columns && Array.isArray(groupSettings.columns)) {
+      if (groupSettings && Array.isArray(groupSettings.columns)) {
         // Clear and rebuild from grid settings
         this.currentGroupedColumns.clear();
         groupSettings.columns.forEach((groupCol: any) => {
-          // Handle different possible structures
-          const field = groupCol.field || groupCol.name || groupCol.columnName || groupCol.headerText;
+          let field: string | undefined;
+          if (typeof groupCol === 'string') {
+            field = groupCol;
+          } else {
+            field = groupCol.field || groupCol.name || groupCol.columnName || groupCol.headerText;
+          }
           if (field) {
             this.currentGroupedColumns.add(field);
-            if (!groups.find(g => g.field.toLowerCase() === field.toLowerCase())) {
+            if (!groups.find(g => g.field.toLowerCase() === field!.toLowerCase())) {
               groups.push({ field: field });
             }
           }
         });
       }
-      
+
       // Also try to get from the grid's internal API methods
       if (groups.length === 0 && typeof gridInstance.getGroupedColumns === 'function') {
         try {
@@ -1034,10 +1039,15 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
           if (groupedColumns && Array.isArray(groupedColumns)) {
             this.currentGroupedColumns.clear();
             groupedColumns.forEach((col: any) => {
-              const field = col.field || col.name || col.columnName || col.headerText;
+              let field: string | undefined;
+              if (typeof col === 'string') {
+                field = col;
+              } else {
+                field = col.field || col.name || col.columnName || col.headerText;
+              }
               if (field) {
                 this.currentGroupedColumns.add(field);
-                if (!groups.find(g => g.field.toLowerCase() === field.toLowerCase())) {
+                if (!groups.find(g => g.field.toLowerCase() === field!.toLowerCase())) {
                   groups.push({ field: field });
                 }
               }
@@ -1054,25 +1064,23 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
           groups.push({ field: field });
         });
       }
-      
+
       // Method 5: Try to read from DOM - grouping bar elements
       if (groups.length === 0) {
         try {
           const gridElement = gridInstance.element;
           if (gridElement) {
-            // Look for grouping bar elements
             const groupBarElements = gridElement.querySelectorAll('.e-groupbar-item, .e-groupbar-item-text, [class*="groupbar"]');
             if (groupBarElements && groupBarElements.length > 0) {
               groupBarElements.forEach((el: any) => {
                 const text = el.textContent || el.innerText || '';
                 const field = text.trim();
-                // Try to match field name from the grouped column text
-                if (field && this.syncfusionGridColumns.some(col => 
-                  col.field === field || col.headerText === field || 
-                  col.field.toLowerCase() === field.toLowerCase())) {
-                  const matchedCol = this.syncfusionGridColumns.find(col => 
-                    col.field === field || col.headerText === field || 
-                    col.field.toLowerCase() === field.toLowerCase());
+                if (field) {
+                  const matchedCol = this.syncfusionGridColumns.find(col =>
+                    col.field === field || col.headerText === field ||
+                    col.field.toLowerCase() === field.toLowerCase() ||
+                    col.headerText.toLowerCase() === field.toLowerCase()
+                  );
                   if (matchedCol && !groups.find(g => g.field === matchedCol.field)) {
                     groups.push({ field: matchedCol.field });
                   }
@@ -1085,62 +1093,59 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
         }
       }
 
-      // Fallback: If we still don't have groups but we have a column name from the event,
-      // use it directly since the grouping event fired
-      if (groups.length === 0 && lastColumnName) {
-        // The event fired, so the column should be grouped
-        // Check if there's a grouping bar visible (meaning grouping is active)
+      // Fallback: If we still don't have groups and this was a grouping action (not ungrouping),
+      // use the column name from the event
+      if (groups.length === 0 && columnNameFromEvent && !isUngroupAction) {
         const gridElement = gridInstance.element;
+        let matchedField: string | undefined;
+
         if (gridElement) {
           const groupBar = gridElement.querySelector('.e-groupbar, [class*="groupbar"], .e-grouped-row');
           if (groupBar) {
-            // Grouping bar exists, so the column is grouped
-            groups.push({ field: lastColumnName });
-            console.log('Using column from event as fallback (grouping bar visible):', lastColumnName);
-          } else {
-            // Check if we can find the column in any grouped state
-            // Try to match the column name with our grid columns
-            const matchedCol = this.syncfusionGridColumns.find(col => 
-              col.field === lastColumnName || 
-              col.headerText === lastColumnName ||
-              col.field.toLowerCase() === lastColumnName.toLowerCase() ||
-              col.headerText.toLowerCase() === lastColumnName.toLowerCase()
-            );
-            if (matchedCol) {
-              groups.push({ field: matchedCol.field });
-              console.log('Using column from event (matched with grid column):', matchedCol.field);
-            } else {
-              // Last resort: use the column name as-is
-              groups.push({ field: lastColumnName });
-              console.log('Using column from event (direct):', lastColumnName);
-            }
+            matchedField = columnNameFromEvent;
           }
-        } else {
-          // No grid element, but event fired - use the column name
-          groups.push({ field: lastColumnName });
-          console.log('Using column from event (no grid element check):', lastColumnName);
+        }
+
+        if (!matchedField) {
+          const matchedCol = this.syncfusionGridColumns.find(col =>
+            col.field === columnNameFromEvent ||
+            col.headerText === columnNameFromEvent ||
+            col.field.toLowerCase() === columnNameFromEvent.toLowerCase() ||
+            col.headerText.toLowerCase() === columnNameFromEvent.toLowerCase()
+          );
+          if (matchedCol) {
+            matchedField = matchedCol.field;
+          }
+        }
+
+        if (!matchedField) {
+          matchedField = columnNameFromEvent;
+        }
+
+        if (matchedField) {
+          console.log('Using column from event as fallback (grouping action):', matchedField);
+          groups.push({ field: matchedField });
         }
       }
 
       console.log('Grid groups found:', groups.length > 0 ? groups.map(g => g.field).join(', ') : 'none');
-      
+
       // Log group settings structure safely (avoid circular reference)
       if (groupSettings && groupSettings.columns) {
         console.log('Group settings columns:', groupSettings.columns);
         console.log('Group settings columns count:', groupSettings.columns.length);
         if (Array.isArray(groupSettings.columns)) {
           console.log('Group settings columns array:', groupSettings.columns.map((col: any) => ({
-            field: col.field || col.name || col.columnName,
+            field: typeof col === 'string' ? col : (col.field || col.name || col.columnName),
             direction: col.direction
           })));
         }
       }
-      
-      // Always emit groups (even if empty) to ensure SQL updates
+
       // Sync our tracked columns with what we found
       this.currentGroupedColumns.clear();
       groups.forEach(g => this.currentGroupedColumns.add(g.field));
-      
+
       console.log('Emitting groups:', groups.length > 0 ? groups.map(g => g.field).join(', ') : 'none');
       console.log('Groups array to emit:', groups);
       this.groupChange.emit(groups);

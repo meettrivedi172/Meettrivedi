@@ -1,0 +1,342 @@
+<div class="visual-builder-container">
+  <!-- Toolbar -->
+  <div class="visual-toolbar">
+    <button class="toolbar-button execute-btn" (click)="onExecuteQuery()" [disabled]="isExecuting || !selectedAppObject || selectedFields.length === 0">
+      @if (isExecuting) {
+        <div class="spinner-small"></div>
+      } @else {
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3L13 8L3 13V3Z" fill="currentColor" />
+        </svg>
+      }
+      <span>Execute Query</span>
+    </button>
+
+    <div class="toolbar-spacer"></div>
+
+    <button class="toolbar-button clear-btn" (click)="clearBuilder()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <span>Clear</span>
+    </button>
+  </div>
+
+  <!-- Warning Banner -->
+  @if (parseWarning) {
+    <div class="warning-banner">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 6V10M10 14H10.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>{{ parseWarning }}</span>
+      <button class="close-warning" (click)="parseWarning = null">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  }
+
+  <div  style="scrollbar-width: thin;
+    scrollbar-color: #4b5563 #111827;
+    height: calc(100vh - 167px);
+    overflow-y: auto;">
+  <!-- Data Source Section -->
+  <div class="builder-section">
+    <div class="section-header">
+      <h3>Data Source (SELECT FROM)</h3>
+    </div>
+    <div class="section-content">
+      <!-- AppObject Selection -->
+      <div class="form-group">
+        <label>Select AppObject (FROM)</label>
+        <select 
+          class="form-control" 
+          [(ngModel)]="selectedAppObject"
+          (ngModelChange)="onAppObjectChange()"
+          [disabled]="isLoadingSchema"
+        >
+          <option [ngValue]="null">-- Select Table --</option>
+          @for (obj of appObjects; track obj.id) {
+            <option [ngValue]="obj">{{ obj.displayName }} ({{ obj.name }})</option>
+          }
+        </select>
+      </div>
+
+      <!-- Field Selection -->
+      @if (selectedAppObject) {
+        <div class="form-group">
+          <label>Select Fields (SELECT)</label>
+          <div class="fields-list">
+            @for (field of availableFields; track field.id) {
+              <div class="field-item" [class.selected]="isFieldSelected(field.name)">
+                <div class="field-header">
+                  <input 
+                    type="checkbox" 
+                    [id]="'field-' + field.id"
+                    [checked]="isFieldSelected(field.name)"
+                    (change)="onFieldToggle(field)"
+                  />
+                  <label [for]="'field-' + field.id" class="field-label">
+                    <span class="field-name">{{ field.displayName }}</span>
+                    <span class="field-type">({{ field.name }})</span>
+                  </label>
+                </div>
+                
+                @if (isFieldSelected(field.name)) {
+                  <div class="field-options">
+                    <div class="field-option">
+                      <label>Alias (optional):</label>
+                      <input 
+                        type="text" 
+                        class="form-control-small"
+                        [value]="getSelectedField(field.name)?.alias || ''"
+                        (input)="getSelectedField(field.name)!.alias = $any($event.target).value; onFieldChange()"
+                        placeholder="e.g., MyField"
+                      />
+                    </div>
+                    <div class="field-option">
+                      <label>Aggregate:</label>
+                      <select 
+                        class="form-control-small"
+                        [value]="getSelectedField(field.name)?.aggregate || 'None'"
+                        (change)="getSelectedField(field.name)!.aggregate = $any($event.target).value; onFieldChange()"
+                      >
+                        @for (agg of aggregates; track agg) {
+                          <option [value]="agg">{{ agg }}</option>
+                        }
+                      </select>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview-box">
+          <div class="preview-label">Generated SELECT:</div>
+          <div class="preview-content">{{ getPreviewSelect() }}</div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="builder-section">
+    <div class="section-header">
+      <h3>Filters (WHERE)</h3>
+      <button class="btn-add" (click)="addFilter()" [disabled]="!selectedAppObject || availableFields.length === 0">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>Add Filter</span>
+      </button>
+    </div>
+    <div class="section-content">
+      @if (filters.length === 0) {
+        <div class="empty-state">No filters added. Click "Add Filter" to add one.</div>
+      } @else {
+        @for (filter of filters; track filter.id; let i = $index) {
+          <div class="filter-item">
+            @if (i > 0) {
+              <div class="filter-conjunction">
+                <select 
+                  class="form-control-small"
+                  [(ngModel)]="filter.conjunction"
+                  (ngModelChange)="onFilterChange()"
+                >
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                </select>
+              </div>
+            }
+            <div class="filter-controls">
+              <select 
+                class="form-control"
+                [(ngModel)]="filter.fieldName"
+                (ngModelChange)="onFilterChange()"
+              >
+                <option value="">-- Select Field --</option>
+                @for (field of availableFields; track field.id) {
+                  <option [value]="field.name">{{ field.displayName }} ({{ field.name }})</option>
+                }
+              </select>
+              
+              <select 
+                class="form-control"
+                [(ngModel)]="filter.operator"
+                (ngModelChange)="onFilterOperatorChange(filter)"
+              >
+                @for (op of operators; track op.value) {
+                  <option [value]="op.value">{{ op.label }}</option>
+                }
+              </select>
+              
+              @if (isFilterValueRequired(filter.operator)) {
+                <input 
+                  class="form-control"
+                  [type]="getFilterInputType(filter.fieldName)"
+                  [(ngModel)]="filter.value"
+                  (ngModelChange)="onFilterChange()"
+                  placeholder="Enter value"
+                />
+              }
+              
+              <button class="btn-remove" (click)="removeFilter(filter.id)" title="Remove filter">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        }
+      }
+
+      <!-- Preview -->
+      @if (filters.length > 0) {
+        <div class="preview-box">
+          <div class="preview-label">Generated WHERE:</div>
+          <div class="preview-content">{{ getPreviewWhere() }}</div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Sort & Group Section -->
+  <div class="builder-section">
+    <div class="section-header">
+      <h3>Sort & Group (ORDER BY, GROUP BY)</h3>
+    </div>
+    <div class="section-content">
+      <!-- Sort Section -->
+      <div class="subsection">
+        <div class="subsection-header">
+          <h4>Sort (ORDER BY)</h4>
+          <button class="btn-add" (click)="addSort()" [disabled]="!selectedAppObject">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Add Sort</span>
+          </button>
+        </div>
+        
+        @if (sorts.length === 0) {
+          <div class="empty-state">No sorting added.</div>
+        } @else {
+          @for (sort of sorts; track sort.id; let i = $index) {
+            <div class="sort-item">
+              <div class="sort-controls">
+                <select 
+                  class="form-control"
+                  [(ngModel)]="sort.fieldName"
+                  (ngModelChange)="onSortChange()"
+                >
+                  <option value="">-- Select Field --</option>
+                  @for (field of availableFields; track field.id) {
+                    <option [value]="field.name">{{ field.displayName }} ({{ field.name }})</option>
+                  }
+                </select>
+                
+                <select 
+                  class="form-control"
+                  [(ngModel)]="sort.direction"
+                  (ngModelChange)="onSortChange()"
+                >
+                  <option value="ASC">ASC</option>
+                  <option value="DESC">DESC</option>
+                </select>
+                
+                <button 
+                  class="btn-move" 
+                  (click)="moveSortUp(i)"
+                  [disabled]="i === 0"
+                  title="Move up"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M12 10L8 6L4 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                
+                <button 
+                  class="btn-move" 
+                  (click)="moveSortDown(i)"
+                  [disabled]="i === sorts.length - 1"
+                  title="Move down"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                
+                <button class="btn-remove" (click)="removeSort(sort.id)" title="Remove sort">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          }
+        }
+
+        <!-- Preview -->
+        @if (sorts.length > 0) {
+          <div class="preview-box">
+            <div class="preview-label">Generated ORDER BY:</div>
+            <div class="preview-content">{{ getPreviewOrderBy() }}</div>
+          </div>
+        }
+      </div>
+
+      <!-- Group By Section -->
+      <div class="subsection">
+        <div class="subsection-header">
+          <h4>Group By</h4>
+          <button class="btn-add" (click)="addGroup()" [disabled]="!selectedAppObject">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Add Group</span>
+          </button>
+        </div>
+        
+        @if (groups.length === 0) {
+          <div class="empty-state">No grouping added.</div>
+        } @else {
+          @for (group of groups; track group.id) {
+            <div class="group-item">
+              <select 
+                class="form-control"
+                [(ngModel)]="group.fieldName"
+                (ngModelChange)="onGroupChange()"
+              >
+                <option value="">-- Select Field --</option>
+                @for (field of availableFields; track field.id) {
+                  <option [value]="field.name">{{ field.displayName }} ({{ field.name }})</option>
+                }
+              </select>
+              
+              <button class="btn-remove" (click)="removeGroup(group.id)" title="Remove group">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          }
+        }
+
+        <!-- Preview -->
+        @if (groups.length > 0) {
+          <div class="preview-box">
+            <div class="preview-label">Generated GROUP BY:</div>
+            <div class="preview-content">{{ getPreviewGroupBy() }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+

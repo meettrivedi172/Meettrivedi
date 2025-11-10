@@ -1,4 +1,8 @@
-<app-header></app-header>
+<app-header
+  (savedQueriesClick)="onSavedQueriesClick()"
+  (historyClick)="onHistoryClick()"
+  (saveQueryClick)="onSaveQueryClick()"
+></app-header>
 
 <!-- <div class="main-container">
   <ejs-splitter #splitter height="100%" width="100%">

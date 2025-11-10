@@ -1,0 +1,89 @@
+@if (isOpen) {
+  <div class="modal-backdrop" (click)="onBackdropClick($event)">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ existingQuery ? 'Edit Query' : 'Save Query' }}</h2>
+        <button class="modal-close" (click)="onClose()" aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="queryName">
+            Query Name <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="queryName"
+            [(ngModel)]="queryName"
+            class="form-input"
+            [class.error]="errors['name']"
+            placeholder="Enter query name"
+            maxlength="100"
+          />
+          @if (errors['name']) {
+            <span class="error-message">{{ errors['name'] }}</span>
+          }
+          <span class="char-count">{{ queryName.length }}/100</span>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            [(ngModel)]="description"
+            class="form-textarea"
+            [class.error]="errors['description']"
+            placeholder="Enter description (optional)"
+            rows="3"
+            maxlength="500"
+          ></textarea>
+          @if (errors['description']) {
+            <span class="error-message">{{ errors['description'] }}</span>
+          }
+          <span class="char-count">{{ description.length }}/500</span>
+        </div>
+
+        <div class="form-group">
+          <label for="tags">Tags</label>
+          <input
+            type="text"
+            id="tags"
+            [(ngModel)]="tags"
+            class="form-input"
+            [class.error]="errors['tags']"
+            placeholder="Comma-separated tags (e.g., dashboard, reports, analytics)"
+          />
+          @if (errors['tags']) {
+            <span class="error-message">{{ errors['tags'] }}</span>
+          }
+          <span class="help-text">Maximum 10 tags, separated by commas</span>
+        </div>
+
+        <div class="form-group">
+          <label for="visibility">Visibility</label>
+          <select
+            id="visibility"
+            [(ngModel)]="visibility"
+            class="form-select"
+          >
+            <option value="private">Private</option>
+            <option value="shared">Shared</option>
+          </select>
+          <span class="help-text">Private queries are only visible to you. Shared queries can be accessed by others.</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="onClose()">Cancel</button>
+        <button class="btn btn-primary" (click)="onSave()">
+          {{ existingQuery ? 'Update' : 'Save' }} Query
+        </button>
+      </div>
+    </div>
+  </div>
+}
+

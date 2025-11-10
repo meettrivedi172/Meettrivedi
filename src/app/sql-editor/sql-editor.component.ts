@@ -6,7 +6,12 @@ import { MetadataService, AppObject, Field } from '../services/metadata.service'
 import { SqlParserService } from '../services/sql-parser.service';
 import { QueryExecutionService, QueryExecutionResponse } from '../services/query-execution.service';
 import { ToastService } from '../services/toast.service';
+import { QueryManagementService, SavedQuery, QueryHistory } from '../services/query-management.service';
 import { ResultsGridComponent, GridFilter, GridSort, GridGroup } from '../components/results-grid/results-grid.component';
+import { SaveQueryModalComponent } from '../components/save-query-modal/save-query-modal.component';
+import { SavedQueriesSidebarComponent } from '../components/saved-queries-sidebar/saved-queries-sidebar.component';
+import { QueryHistorySidebarComponent } from '../components/query-history-sidebar/query-history-sidebar.component';
+import { VisualQueryBuilderComponent } from '../components/visual-query-builder/visual-query-builder.component';
 import * as monaco from 'monaco-editor';
 import { SqlCompletionProvider } from './monaco-sql-provider';
 import { SplitterModule } from '@syncfusion/ej2-angular-layouts';
@@ -32,7 +37,16 @@ interface ValidationError {
 @Component({
   selector: 'app-sql-editor',
   standalone: true,
-  imports: [CommonModule, FormsModule, ResultsGridComponent,SplitterModule],
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    ResultsGridComponent,
+    SplitterModule,
+    SaveQueryModalComponent,
+    SavedQueriesSidebarComponent,
+    QueryHistorySidebarComponent,
+    VisualQueryBuilderComponent
+  ],
   templateUrl: './sql-editor.component.html',
   styleUrl: './sql-editor.component.css'
 })
@@ -47,6 +61,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   activeTab: 'sql' | 'visual' | 'json' = 'sql';
   sqlQuery: string = '';
+  forceVisualParse: boolean = false;
   formattedQuery: string = '';
   jsonInput: string = '';
   parameters: QueryParameter[] = [];
@@ -60,6 +75,13 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   queryResults: QueryExecutionResponse | null = null;
   showResults: boolean = false;
   
+  // Query Management
+  showSaveQueryModal: boolean = false;
+  showSavedQueriesSidebar: boolean = false;
+  showQueryHistorySidebar: boolean = false;
+  editingQuery: SavedQuery | null = null;
+  currentQueryId: string | null = null; // Track if current query is from a saved query
+  
   private queryChangeSubject = new Subject<string>();
   private schemaData: { appObjects: AppObject[] } | null = null;
   
@@ -67,30 +89,19 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     private metadataService: MetadataService,
     private sqlParserService: SqlParserService,
     private queryExecutionService: QueryExecutionService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private queryManagementService: QueryManagementService
   ) {}
 
   ngOnInit(): void {
     // Initialize with sample query
     this.sqlQuery = `-- Active Work Items Dashboard Query
-SELECT 
-    w.Title, 
-    w.Description, 
-    wt.WorkItemTypeName AS WorkItemType,
-    p.ProjectName AS Project,
-    w.Priority,
-    w.Progress,
-    COUNT(t.ID) AS TimeLogCount
-FROM WorkItems w
-INNER JOIN WorkItemTypes wt ON w.WorkItemType = wt.ID
-INNER JOIN Project p ON w.ProjectID = p.ID
-LEFT JOIN TimeEntries t ON w.ID = t.WorkItemID
-WHERE w.ProjectID = @ProjectID 
-    AND w.StartDate >= @StartDate
-    AND w.Priority IN (@Priorities)
-GROUP BY w.Title, w.Description, wt.WorkItemTypeName, p.ProjectName
-ORDER BY w.Priority DESC
-LIMIT 100`;
+
+
+
+
+
+    `;
 
     // Initialize original query
     this.originalQuery = this.sqlQuery;
@@ -345,9 +356,15 @@ LIMIT 100`;
   }
 
   onQueryChange(): void {
-    // Sync Monaco editor value if it changed externally
-    if (this.editor && this.editor.getValue() !== this.sqlQuery) {
-      this.editor.setValue(this.sqlQuery);
+    // Sync Monaco editor value if it changed externally (but not from visual builder)
+    // Visual builder updates are handled separately to avoid conflicts
+    if (this.editor && this.activeTab === 'sql') {
+      const editorValue = this.editor.getValue();
+      if (editorValue !== this.sqlQuery) {
+        // Only update if the change came from SQL editor itself, not from visual builder
+        // Check if we're currently on SQL tab to avoid updating when visual builder changes SQL
+        this.editor.setValue(this.sqlQuery);
+      }
     }
     
     // If query is manually changed (not from grid update), update original query
@@ -774,6 +791,16 @@ LIMIT 100`;
       }
     });
 
+    // Get QueryJson for history
+    let queryJson: any = null;
+    try {
+      queryJson = this.sqlParserService.sqlToJson(this.sqlQuery);
+    } catch (error) {
+      console.warn('Failed to generate QueryJson for history:', error);
+    }
+
+    const startTime = Date.now();
+
     // Call query execution service with SQL parser for QueryJson conversion
     // FOR PRODUCTION: The API call code is in QueryExecutionService
     // Currently using mock data for development
@@ -782,6 +809,29 @@ LIMIT 100`;
         this.isExecuting = false;
         this.queryResults = response;
         this.showResults = true;
+        
+        const executionTime = (Date.now() - startTime) / 1000;
+        
+        // Record in query history
+        this.queryManagementService.addToHistory({
+          sqlText: this.sqlQuery,
+          queryJson: queryJson,
+          parameterValues: Object.keys(paramsObj).length > 0 ? paramsObj : undefined,
+          status: response.success ? 'success' : 'error',
+          executionTime: response.metadata.executionTime || executionTime,
+          rowCount: response.metadata.rowCount || 0,
+          errorMessage: response.error,
+          savedQueryId: this.currentQueryId || undefined
+        }).subscribe();
+
+        // Update saved query stats if this was from a saved query
+        if (this.currentQueryId && response.success) {
+          this.queryManagementService.recordQueryExecution(
+            this.currentQueryId,
+            response.metadata.executionTime || executionTime,
+            true
+          );
+        }
         
         if (response.success) {
           this.toastService.success(
@@ -799,6 +849,20 @@ LIMIT 100`;
       error: (error) => {
         this.isExecuting = false;
         const errorMessage = error.message || 'Unknown error occurred';
+        const executionTime = (Date.now() - startTime) / 1000;
+        
+        // Record failed execution in history
+        this.queryManagementService.addToHistory({
+          sqlText: this.sqlQuery,
+          queryJson: queryJson,
+          parameterValues: Object.keys(paramsObj).length > 0 ? paramsObj : undefined,
+          status: 'error',
+          executionTime: executionTime,
+          rowCount: 0,
+          errorMessage: errorMessage,
+          savedQueryId: this.currentQueryId || undefined
+        }).subscribe();
+        
         this.toastService.error(
           `Error executing query: ${errorMessage}`,
           'Network Error'
@@ -856,6 +920,8 @@ LIMIT 100`;
   private currentGridGroups: GridGroup[] = [];
   private isUpdatingFromGrid: boolean = false; // Prevent circular updates
   private originalQuery: string = ''; // Store original query without grid modifications
+  private parsedOriginalQuery: any = null; // Cache parsed original query structure
+  private parsedOriginalQueryBase: string = ''; // Track base query string used for cache
 
   onGridFilterChange(filters: GridFilter[]): void {
     this.currentGridFilters = filters;
@@ -899,9 +965,19 @@ LIMIT 100`;
         
         // If originalQuery is still empty, use current query
         const baseQuery = this.originalQuery || this.sqlQuery;
+        if (!baseQuery.trim()) {
+          return;
+        }
         
-        // Parse original SQL (without grid modifications)
-        const parsedQuery = this.sqlParserService.parseQuery(baseQuery);
+        // Parse original SQL (without grid modifications) with caching to avoid repeated parsing
+        let parsedQuery: any;
+        if (this.parsedOriginalQuery && this.parsedOriginalQueryBase === baseQuery) {
+          parsedQuery = this.parsedOriginalQuery;
+        } else {
+          parsedQuery = this.sqlParserService.parseQuery(baseQuery);
+          this.parsedOriginalQuery = parsedQuery;
+          this.parsedOriginalQueryBase = baseQuery;
+        }
         
         // Build new SQL query with grid filters/sorts/groups
         let newQuery = this.buildSQLFromParsedQuery(parsedQuery, baseQuery);
@@ -917,6 +993,7 @@ LIMIT 100`;
           
           // Trigger change detection (but don't update originalQuery here)
           // Skip the onQueryChange logic that might update originalQuery
+          this.formatQuery(); // Optional: format the new query
           this.detectParameters();
           this.queryChangeSubject.next(this.sqlQuery);
           
@@ -1213,19 +1290,34 @@ LIMIT 100`;
     this.activeTab = tab;
     
     if (tab === 'sql') {
-      // When switching back to SQL tab, ensure Monaco Editor is initialized and laid out correctly
+      // When switching back to SQL tab, ensure Monaco Editor is initialized and shows current SQL
       setTimeout(() => {
         if (!this.editorInitialized || !this.editor) {
           this.initializeMonacoEditor();
         } else {
-          // Editor exists, just update layout
-          setTimeout(() => {
-            if (this.editor) {
-              this.editor.layout();
+          // Editor exists - update with current SQL and layout
+          if (this.editor) {
+            const currentValue = this.editor.getValue();
+            // Only update if SQL query has changed (to avoid losing cursor position unnecessarily)
+            if (currentValue !== this.sqlQuery) {
+              this.editor.setValue(this.sqlQuery);
+              // Move cursor to end of query for better UX
+              const lineCount = this.editor.getModel()?.getLineCount() || 1;
+              this.editor.setPosition({ lineNumber: lineCount, column: 1 });
             }
-          }, 50);
+            // Always refresh layout when switching tabs
+            setTimeout(() => {
+              this.editor?.layout();
+            }, 0);
+          }
         }
       }, 50);
+    }
+    
+    if (tab === 'visual') {
+      // When switching to Visual Builder, trigger parsing
+      // Toggle forceParse to trigger ngOnChanges in the visual builder
+      this.forceVisualParse = !this.forceVisualParse;
     }
     
     if (tab === 'json') {
@@ -1238,6 +1330,50 @@ LIMIT 100`;
         this.jsonInput = '';
         this.formattedQuery = `Error converting SQL to JSON: ${error.message}`;
       }
+    }
+  }
+
+  onVisualBuilderSQLChange(newSQL: string): void {
+    // Update SQL query from visual builder (debounced by 300ms in the component)
+    if (newSQL !== this.sqlQuery) {
+      this.sqlQuery = newSQL;
+      
+      // Update Monaco editor if it exists
+      if (this.editor) {
+        // Only update if value is different to avoid cursor position loss
+        const currentValue = this.editor.getValue();
+        if (currentValue !== newSQL) {
+          // Save cursor position
+          const position = this.editor.getPosition();
+          this.editor.setValue(newSQL);
+          // Restore cursor position if possible, otherwise move to end
+          if (position) {
+            const lineCount = this.editor.getModel()?.getLineCount() || 1;
+            if (position.lineNumber <= lineCount) {
+              this.editor.setPosition(position);
+            } else {
+              this.editor.setPosition({ lineNumber: lineCount, column: 1 });
+            }
+          }
+          // Refresh layout
+          setTimeout(() => {
+            this.editor?.layout();
+          }, 0);
+        }
+      }
+      
+      // Trigger change detection (but don't update editor again to avoid loop)
+      this.detectParameters();
+      // Don't call onQueryChange() here as it might trigger editor update again
+      // Just update the query change subject for validation
+      this.queryChangeSubject.next(this.sqlQuery);
+    }
+  }
+
+  onVisualBuilderWarning(warning: string): void {
+    // Show warning toast when visual builder encounters parsing issues
+    if (warning) {
+      this.toastService.warning(warning, 'Visual Builder Warning');
     }
   }
 
@@ -1357,5 +1493,167 @@ LIMIT 100`;
       this.jsonInput = '';
       this.formattedQuery = `Error: ${error.message}`;
     }
+  }
+
+  // ==================== QUERY MANAGEMENT METHODS ====================
+
+  openSaveQueryModal(): void {
+    // Check if we're editing an existing query
+    if (this.currentQueryId) {
+      this.queryManagementService.getSavedQuery(this.currentQueryId).subscribe(query => {
+        if (query) {
+          this.editingQuery = query;
+        }
+        this.showSaveQueryModal = true;
+      });
+    } else {
+      this.editingQuery = null;
+      this.showSaveQueryModal = true;
+    }
+  }
+
+  closeSaveQueryModal(): void {
+    this.showSaveQueryModal = false;
+    this.editingQuery = null;
+  }
+
+  onSaveQuery(queryData: Omit<SavedQuery, 'id' | 'createdTimestamp' | 'updatedTimestamp' | 'executionCount' | 'isFavorite'>): void {
+    if (this.editingQuery) {
+      // Update existing query
+      this.queryManagementService.updateQuery(this.editingQuery.id, queryData).subscribe({
+        next: (updatedQuery) => {
+          this.toastService.success(`Query "${updatedQuery.name}" updated successfully`, 'Success');
+          this.currentQueryId = updatedQuery.id;
+          this.closeSaveQueryModal();
+        },
+        error: (error) => {
+          this.toastService.error('Failed to update query', 'Error');
+          console.error('Error updating query:', error);
+        }
+      });
+    } else {
+      // Save new query
+      this.queryManagementService.saveQuery(queryData).subscribe({
+        next: (savedQuery) => {
+          this.toastService.success(`Query "${savedQuery.name}" saved successfully`, 'Success');
+          this.currentQueryId = savedQuery.id;
+          this.closeSaveQueryModal();
+        },
+        error: (error) => {
+          this.toastService.error('Failed to save query', 'Error');
+          console.error('Error saving query:', error);
+        }
+      });
+    }
+  }
+
+  openSavedQueriesSidebar(): void {
+    this.showSavedQueriesSidebar = true;
+  }
+
+  closeSavedQueriesSidebar(): void {
+    this.showSavedQueriesSidebar = false;
+  }
+
+  onLoadSavedQuery(query: SavedQuery): void {
+    // Load SQL
+    this.sqlQuery = query.sqlText;
+    if (this.editor) {
+      this.editor.setValue(query.sqlText);
+    }
+
+    // Update original query
+    this.originalQuery = query.sqlText;
+
+    // Trigger change detection (this will detect parameters)
+    this.onQueryChange();
+
+    // Load parameters if available (after detection)
+    if (query.parameterValues) {
+      setTimeout(() => {
+        this.parameters.forEach(param => {
+          if (query.parameterValues && query.parameterValues[param.name] !== undefined) {
+            param.value = query.parameterValues[param.name];
+          }
+        });
+      }, 0);
+    }
+
+    // Set current query ID
+    this.currentQueryId = query.id;
+
+    // Close sidebar
+    this.closeSavedQueriesSidebar();
+
+    // Show toast
+    this.toastService.success(`Query loaded: ${query.name}`, 'Query Loaded');
+  }
+
+  onEditSavedQuery(query: SavedQuery): void {
+    // Load the query first
+    this.onLoadSavedQuery(query);
+    // Then open the save modal in edit mode
+    this.editingQuery = query;
+    this.showSaveQueryModal = true;
+  }
+
+  openQueryHistorySidebar(): void {
+    this.showQueryHistorySidebar = true;
+  }
+
+  closeQueryHistorySidebar(): void {
+    this.showQueryHistorySidebar = false;
+  }
+
+  onLoadQueryFromHistory(historyItem: QueryHistory): void {
+    // Load SQL
+    this.sqlQuery = historyItem.sqlText;
+    if (this.editor) {
+      this.editor.setValue(historyItem.sqlText);
+    }
+
+    // Update original query
+    this.originalQuery = historyItem.sqlText;
+
+    // Trigger change detection (this will detect parameters)
+    this.onQueryChange();
+
+    // Load parameters if available (after detection)
+    if (historyItem.parameterValues) {
+      setTimeout(() => {
+        this.parameters.forEach(param => {
+          if (historyItem.parameterValues && historyItem.parameterValues[param.name] !== undefined) {
+            param.value = historyItem.parameterValues[param.name];
+          }
+        });
+      }, 0);
+    }
+
+    // Set current query ID if it was from a saved query
+    this.currentQueryId = historyItem.savedQueryId || null;
+
+    // Close sidebar
+    this.closeQueryHistorySidebar();
+
+    // Show toast
+    this.toastService.success('Query loaded from history', 'Query Loaded');
+  }
+
+  getQueryJson(): any {
+    try {
+      return this.sqlParserService.sqlToJson(this.sqlQuery);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  getParameterValues(): { [key: string]: any } {
+    const paramsObj: { [key: string]: any } = {};
+    this.parameters.forEach(param => {
+      if (param.value !== null && param.value !== undefined && param.value !== '') {
+        paramsObj[param.name] = param.value;
+      }
+    });
+    return paramsObj;
   }
 }

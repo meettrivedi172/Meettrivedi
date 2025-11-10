@@ -1,0 +1,165 @@
+<div class="sidebar" [class.open]="isOpen">
+  <div class="sidebar-header">
+    <h2>Saved Queries</h2>
+    <button class="sidebar-close" (click)="onClose()" aria-label="Close">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="sidebar-content">
+    <!-- Search Box -->
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="search-icon">
+        <path d="M7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10zM13 13l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+        class="search-input"
+        placeholder="Search queries..."
+      />
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+      <button
+        class="filter-btn"
+        [class.active]="filter === 'all'"
+        (click)="onFilterChange('all')"
+      >
+        All
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="filter === 'favorites'"
+        (click)="onFilterChange('favorites')"
+      >
+        Favorites
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="filter === 'my'"
+        (click)="onFilterChange('my')"
+      >
+        My Queries
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="filter === 'shared'"
+        (click)="onFilterChange('shared')"
+      >
+        Shared
+      </button>
+    </div>
+
+    <!-- Sort Dropdown -->
+    <div class="sort-section">
+      <label for="sortSelect">Sort by:</label>
+      <select
+        id="sortSelect"
+        [(ngModel)]="sort"
+        (ngModelChange)="onSortChange(sort)"
+        class="sort-select"
+      >
+        <option value="recent">Recent</option>
+        <option value="name">Name</option>
+        <option value="mostUsed">Most Used</option>
+      </select>
+    </div>
+
+    <!-- Query Cards -->
+    <div class="queries-list">
+      @if (filteredQueries.length === 0) {
+        <div class="empty-state">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path d="M24 8L8 16V32L24 40L40 32V16L24 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M24 8V24M24 24L8 16M24 24L40 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>No queries found</p>
+        </div>
+      } @else {
+        @for (query of filteredQueries; track query.id) {
+          <div class="query-card" (click)="onQueryClick(query)">
+            <div class="query-card-header">
+              <h3 class="query-name">{{ query.name }}</h3>
+              <div class="query-actions">
+                <button
+                  class="action-btn favorite-btn"
+                  [class.favorited]="query.isFavorite"
+                  (click)="onToggleFavorite($event, query)"
+                  title="Toggle favorite"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M8 2L9.5 6L14 6.5L10.5 9.5L11.5 14L8 11.5L4.5 14L5.5 9.5L2 6.5L6.5 6L8 2Z"
+                      [attr.fill]="query.isFavorite ? 'currentColor' : 'none'"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+                <div class="action-menu" (click)="onActionMenuClick($event)">
+                  <button class="action-btn menu-btn" title="More options">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+                      <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+                      <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+                    </svg>
+                  </button>
+                  <div class="menu-dropdown">
+                    <button (click)="onQueryClick(query)">Load</button>
+                    <button (click)="onEdit(query)">Edit</button>
+                    <button (click)="onDuplicate(query)">Duplicate</button>
+                    <button (click)="onShare(query)">Share</button>
+                    <button class="danger" (click)="onDelete(query)">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            @if (query.description) {
+              <p class="query-description">{{ query.description }}</p>
+            }
+
+            @if (query.tags.length > 0) {
+              <div class="query-tags">
+                @for (tag of query.tags; track tag) {
+                  <span class="tag">{{ tag }}</span>
+                }
+              </div>
+            }
+
+            <div class="query-meta">
+              <span class="meta-item">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M7 4V7L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                {{ getRelativeTime(query.createdTimestamp) }}
+              </span>
+              @if (query.lastRun) {
+                <span class="meta-item">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M2 7H12M7 2V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  Last run: {{ getRelativeTime(query.lastRun) }}
+                </span>
+              }
+              @if (query.avgExecutionTime) {
+                <span class="meta-item">
+                  {{ formatExecutionTime(query.avgExecutionTime) }}
+                </span>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>
+

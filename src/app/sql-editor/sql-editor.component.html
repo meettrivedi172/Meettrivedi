@@ -263,7 +263,39 @@
 
                     <div class="toolbar-spacer"></div>
 
-                    <button class="toolbar-button clear-btn" (click)="clearEditor()">
+                   
+
+                    <div class="toolbar-spacer"></div>
+
+                    <!-- <button class="toolbar-button save-btn" (click)="openSaveQueryModal()" title="Save Query">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M13 4L12 3L9 0H2C1.44772 0 1 0.447715 1 1V15C1 15.5523 1.44772 16 2 16H14C14.5523 16 15 15.5523 15 15V5L13 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 0V5H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 8H12M4 12H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                      <span>Save</span>
+                    </button>
+
+                    <button class="toolbar-button saved-queries-btn" (click)="openSavedQueriesSidebar()" title="Saved Queries">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M2 3C2 2.44772 2.44772 2 3 2H13C13.5523 2 14 2.44772 14 3V13C14 13.5523 13.5523 14 13 14H3C2.44772 14 2 13.5523 2 13V3Z" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M2 6H14M6 2V6M10 2V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                      <span>Saved</span>
+                    </button>
+
+                    
+                     <button class="toolbar-button history-btn" (click)="openQueryHistorySidebar()" title="Query History">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M8 4V8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <span>History</span>
+                    </button>
+                   -->
+
+
+                     <button class="toolbar-button clear-btn" (click)="clearEditor()">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                       </svg>
@@ -453,17 +485,15 @@
 
   <!-- Visual Builder Tab -->
   <div [style.display]="activeTab === 'visual' ? 'flex' : 'none'" class="tab-content visual-tab">
-    <div class="visual-builder-placeholder">
-      <div class="placeholder-content">
-        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-          <rect x="8" y="8" width="48" height="48" rx="4" stroke="currentColor" stroke-width="2" />
-          <path d="M20 24H44M20 32H44M20 40H36" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        </svg>
-        <h3>Visual Query Builder</h3>
-        <p>Drag and drop tables and fields to build queries visually.</p>
-        <p class="coming-soon">Coming Soon</p>
-      </div>
-    </div>
+    <app-visual-query-builder
+      [sqlQuery]="sqlQuery"
+      [forceParse]="forceVisualParse"
+      [isTabActive]="activeTab === 'visual'"
+      [isExecuting]="isExecuting"
+      (sqlQueryChange)="onVisualBuilderSQLChange($event)"
+      (syncWarning)="onVisualBuilderWarning($event)"
+      (executeQuery)="executeQuery()"
+    ></app-visual-query-builder>
   </div>
 
   <!-- Query JSON Tab -->
@@ -492,4 +522,28 @@
       </div> -->
     </div>
   </div>
+
+  <!-- Query Management Components -->
+  <app-save-query-modal
+    [isOpen]="showSaveQueryModal"
+    [existingQuery]="editingQuery"
+    [sqlText]="sqlQuery"
+    [queryJson]="getQueryJson()"
+    [parameterValues]="getParameterValues()"
+    (close)="closeSaveQueryModal()"
+    (save)="onSaveQuery($event)"
+  ></app-save-query-modal>
+
+  <app-saved-queries-sidebar
+    [isOpen]="showSavedQueriesSidebar"
+    (close)="closeSavedQueriesSidebar()"
+    (loadQuery)="onLoadSavedQuery($event)"
+    (editQuery)="onEditSavedQuery($event)"
+  ></app-saved-queries-sidebar>
+
+  <app-query-history-sidebar
+    [isOpen]="showQueryHistorySidebar"
+    (close)="closeQueryHistorySidebar()"
+    (loadQuery)="onLoadQueryFromHistory($event)"
+  ></app-query-history-sidebar>
 </div>

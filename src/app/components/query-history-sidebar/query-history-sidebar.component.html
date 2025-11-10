@@ -1,0 +1,86 @@
+<div class="sidebar" [class.open]="isOpen">
+  <div class="sidebar-header">
+    <h2>Query History</h2>
+    <div class="header-actions">
+      <button class="clear-btn" (click)="onClearHistory()" title="Clear history">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M2 4H14M6 4V2H10V4M6 4H10M12 6V13C12 13.5523 11.5523 14 11 14H5C4.44772 14 4 13.5523 4 13V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button class="sidebar-close" (click)="onClose()" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="sidebar-content">
+    @if (history.length === 0) {
+      <div class="empty-state">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <path d="M8 8H40V40H8V8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 16L24 24L32 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p>No query history</p>
+        <span class="empty-hint">Query execution history will appear here</span>
+      </div>
+    } @else {
+      <div class="history-list">
+        @for (item of history; track item.id) {
+          <div class="history-card" [class.success]="item.status === 'success'" [class.error]="item.status === 'error'">
+            <div class="history-header">
+              <div class="status-indicator">
+                @if (item.status === 'success') {
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M5 8L7 10L11 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                } @else {
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M8 5V8M8 11H8.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                }
+              </div>
+              <div class="history-meta">
+                <span class="history-time">{{ getRelativeTime(item.executionTimestamp, item.id) }}</span>
+                <span class="history-stats">
+                  @if (item.status === 'success') {
+                    {{ item.rowCount }} rows • {{ item.executionTime.toFixed(2) }}s
+                  } @else {
+                    Failed
+                  }
+                </span>
+              </div>
+            </div>
+
+            <div class="history-sql">
+              <pre class="sql-text">{{ isExpanded(item) ? item.sqlText : truncateSql(item.sqlText) }}</pre>
+              @if (item.sqlText.length > 100) {
+                <button class="expand-btn" (click)="expandSql(item)">
+                  {{ isExpanded(item) ? 'Show Less' : 'Show More' }}
+                </button>
+              }
+            </div>
+
+            @if (item.status === 'error' && item.errorMessage) {
+              <div class="history-error">
+                <strong>Error:</strong> {{ item.errorMessage }}
+              </div>
+            }
+
+            <button class="load-query-btn" (click)="onLoadQuery(item)">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 2V7M7 7L4 4M7 7L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 9V11C2 11.5523 2.44772 12 3 12H11C11.5523 12 12 11.5523 12 11V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Load Query
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
+
