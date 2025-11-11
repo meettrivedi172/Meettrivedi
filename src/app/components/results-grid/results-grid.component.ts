@@ -95,7 +95,8 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
   gridGroupSettings: any = {
     columns: [],
     showGroupedColumn: true, // Show grouped columns in the grouping bar
-    allowReordering: true // Allow reordering of grouped columns in the grouping bar
+    allowReordering: true, // Allow reordering of grouped columns in the grouping bar
+    sortByGroupedColumn: false // Prevent automatic sorting when grouping (user must manually sort if needed)
   };
   
   gridResizeSettings: any = {
@@ -815,16 +816,16 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
     } else if (event.requestType === 'grouping') {
       console.log('Grouping action complete event:', event);
 
-      // Read the current grouped columns from the grid after a small delay
-      // This ensures the grid has updated its internal state
-      setTimeout(() => {
+      // Use requestAnimationFrame for immediate update while ensuring grid state is ready
+      requestAnimationFrame(() => {
         this.handleGridGroups(event);
-      }, 100);
+      });
     } else if (event.requestType === 'ungrouping') {
       console.log('Ungrouping action complete event:', event);
-      setTimeout(() => {
+      // Use requestAnimationFrame for immediate update while ensuring grid state is ready
+      requestAnimationFrame(() => {
         this.handleGridGroups(event);
-      }, 100);
+      });
     } else if (event.requestType === 'reorder') {
       // Column reordering completed - sync the column order
       setTimeout(() => {
@@ -954,14 +955,26 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
       const sortSettings = (this.syncfusionGrid as any).sortSettings;
       const sorts: GridSort[] = [];
 
+      // Get currently grouped columns to exclude them from sorts
+      const groupedFields = new Set<string>();
+      if (this.currentGroupedColumns && this.currentGroupedColumns.size > 0) {
+        this.currentGroupedColumns.forEach(field => {
+          groupedFields.add(field.toLowerCase());
+        });
+      }
+
       // Syncfusion Grid sort settings structure: { columns: [{ field, direction }] }
       if (sortSettings && sortSettings.columns && Array.isArray(sortSettings.columns)) {
         sortSettings.columns.forEach((sortCol: any) => {
           if (sortCol.field) {
-            sorts.push({
-              field: sortCol.field,
-              direction: sortCol.direction === 'Descending' ? 'desc' : 'asc'
-            });
+            // Exclude sorts on grouped columns (they were auto-added by grouping)
+            const fieldLower = sortCol.field.toLowerCase();
+            if (!groupedFields.has(fieldLower)) {
+              sorts.push({
+                field: sortCol.field,
+                direction: sortCol.direction === 'Descending' ? 'desc' : 'asc'
+              });
+            }
           }
         });
       }
@@ -1143,8 +1156,26 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
       }
 
       // Sync our tracked columns with what we found
+      const previousGroupedFields = new Set(this.currentGroupedColumns);
       this.currentGroupedColumns.clear();
       groups.forEach(g => this.currentGroupedColumns.add(g.field));
+
+      // If grouping was removed, also remove any auto-added sorts on those columns
+      if (this.syncfusionGrid && previousGroupedFields.size > 0 && groups.length < previousGroupedFields.size) {
+        const removedFields = Array.from(previousGroupedFields).filter(f => !this.currentGroupedColumns.has(f));
+        if (removedFields.length > 0) {
+          const gridInstance = this.syncfusionGrid as any;
+          const sortSettings = gridInstance.sortSettings;
+          if (sortSettings && sortSettings.columns) {
+            // Remove sorts on ungrouped columns
+            const filteredSorts = sortSettings.columns.filter((sortCol: any) => {
+              const field = sortCol.field?.toLowerCase();
+              return !removedFields.some(removed => removed.toLowerCase() === field);
+            });
+            gridInstance.sortSettings = { ...sortSettings, columns: filteredSorts };
+          }
+        }
+      }
 
       console.log('Emitting groups:', groups.length > 0 ? groups.map(g => g.field).join(', ') : 'none');
       console.log('Groups array to emit:', groups);

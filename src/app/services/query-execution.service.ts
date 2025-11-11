@@ -50,7 +50,6 @@ export class QueryExecutionService {
     parameters: { [key: string]: any } = {},
     sqlParserService?: any
   ): Observable<QueryExecutionResponse> {
-    debugger
     // Convert SQL to QueryJson in the format expected by the API
     let queryJson: any = null;
     if (sqlParserService) {

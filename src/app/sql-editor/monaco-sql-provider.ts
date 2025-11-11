@@ -35,24 +35,52 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
 
   /**
    * Trigger characters for autocomplete - SSMS-like behavior
-   * CRITICAL: Include space to trigger after JOIN keywords
+   * CRITICAL: Include space, newline, and common SQL characters to trigger suggestions
    */
-  triggerCharacters = ['.', ' ', '\n', '\t', ',', '(', ')', '=', '<', '>', '!'];
+  triggerCharacters = ['.', ' ', '\n', '\t', ',', '(', ')', '=', '<', '>', '!', ';'];
   
   // Note: triggerKind is not a valid property, removed
 
   /**
    * Main completion provider method
+   * SIMPLIFIED: Always provides suggestions based on simple pattern matching
    */
   provideCompletionItems(
     model: monaco.editor.ITextModel,
     position: monaco.Position,
     context: monaco.languages.CompletionContext
   ): monaco.languages.ProviderResult<monaco.languages.CompletionList> {
-    // Get the word at cursor position - this is what user is currently typing
-    // CRITICAL: Use getWordAtPosition to get the full word including partial typing (like "wh")
-    const wordAtPosition = model.getWordAtPosition(position);
-    const word = wordAtPosition || model.getWordUntilPosition(position);
+    // DEBUG: Log when completion provider is called
+    console.log('[CompletionProvider] Called - Line:', position.lineNumber, 'Col:', position.column, 'Trigger:', context.triggerKind);
+    
+    // CRITICAL FIX: Always extract word from current line manually
+    // Monaco's getWordAtPosition doesn't work reliably for partial words
+    const currentLine = model.getLineContent(position.lineNumber);
+    const lineBeforeCursor = currentLine.substring(0, position.column - 1);
+    
+    // Extract the word being typed (word characters at the end of line before cursor)
+    const wordMatch = lineBeforeCursor.match(/(\w+)$/);
+    let word: { word: string; startColumn: number; endColumn: number };
+    
+    if (wordMatch && wordMatch[1]) {
+      const wordText = wordMatch[1];
+      const matchStart = position.column - wordText.length;
+      word = {
+        word: wordText,
+        startColumn: matchStart,
+        endColumn: position.column
+      };
+      console.log('[CompletionProvider] Extracted word from line:', word.word, 'at col', matchStart, '-', position.column);
+    } else {
+      // No word found, use empty word
+      word = {
+        word: '',
+        startColumn: position.column,
+        endColumn: position.column
+      };
+      console.log('[CompletionProvider] No word found at cursor');
+    }
+    
     const range = {
       startLineNumber: position.lineNumber,
       endLineNumber: position.lineNumber,
@@ -60,555 +88,260 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
       endColumn: word.endColumn
     };
 
-    // Get the text before the cursor position
-    const textBeforeCursor = model.getValueInRange({
+    // Get recent text (last 300 chars) for context - SIMPLE and FAST
+    // CRITICAL: Get text from current line and previous lines for better context
+    const fullTextBeforeCursor = model.getValueInRange({
       startLineNumber: 1,
       startColumn: 1,
       endLineNumber: position.lineNumber,
       endColumn: position.column
     });
-
-    // Extract table aliases from the query (pass full text up to cursor)
-    // CRITICAL: This must extract ALL aliases from ALL JOINs
-    this.extractTableAliases(textBeforeCursor);
     
-    // DEBUG: Log aliases extracted
-    if (this.aliasToTableMap.size > 0) {
-      console.log('Extracted aliases:', Array.from(this.aliasToTableMap.entries()));
-    }
-
-    // Detect SQL context first - let it do its job
-    const contextInfo = this.detectSqlContext(textBeforeCursor, position);
+    // Get current line and previous lines (up to 5 lines back) for better context
+    const linesToCheck = Math.max(1, position.lineNumber - 5);
+    const contextText = model.getValueInRange({
+      startLineNumber: linesToCheck,
+      startColumn: 1,
+      endLineNumber: position.lineNumber,
+      endColumn: position.column
+    });
     
-    // CRITICAL FIX: Check recent text for context detection
-    const recentText = textBeforeCursor.substring(Math.max(0, textBeforeCursor.length - 300));
+    const recentText = contextText.substring(Math.max(0, contextText.length - 300));
     const recentTextTrimmed = recentText.trim();
-    const textUpper = textBeforeCursor.toUpperCase();
-    
-    // Check clause positions to determine context
-    // CRITICAL: Must check all clauses to handle WHERE, GROUP BY, ORDER BY after multiple JOINs
-    const lastWhereIndex = textUpper.lastIndexOf('WHERE');
-    const lastGroupByIndex = textUpper.lastIndexOf('GROUP BY');
-    const lastOrderByIndex = textUpper.lastIndexOf('ORDER BY');
-    const lastHavingIndex = textUpper.lastIndexOf('HAVING');
-    const lastOnIndex = textUpper.lastIndexOf('ON');
-    const lastJoinIndex = Math.max(
-      textUpper.lastIndexOf('INNER JOIN'),
-      textUpper.lastIndexOf('LEFT JOIN'),
-      textUpper.lastIndexOf('RIGHT JOIN'),
-      textUpper.lastIndexOf('FULL JOIN'),
-      textUpper.lastIndexOf('JOIN')
-    );
-    
-    // CRITICAL: Check if we're typing WHERE clause - this takes highest priority
-    // Check multiple patterns to catch WHERE in different contexts
-    // Also check for partial WHERE (like "whe", "wher", "where")
-    const isTypingWhere = /\bWHERE\s*$/i.test(recentTextTrimmed) || 
-                          /\bWHERE\s+\w*\s*$/i.test(recentTextTrimmed) ||
-                          /\bWHE\w*\s*$/i.test(recentTextTrimmed) ||  // Partial WHERE like "whe", "wher"
-                          (lastWhereIndex > -1 && lastWhereIndex > lastJoinIndex);
-    
-    // Check if user is typing partial WHERE keyword (like "whe", "wher")
-    // Match: "whe", "wher", "wher" at the end of recent text (but not complete WHERE)
-    const isTypingPartialWhere = /\b(whe|wher)\w*\s*$/i.test(recentTextTrimmed) && 
-                                  !/\bWHERE\s/i.test(recentTextTrimmed.toUpperCase());
-    
-    // If we're in WHERE, GROUP BY, ORDER BY, HAVING, or ON clause, prioritize that over JOIN detection
-    // CRITICAL: Check if cursor is after these keywords (within reasonable distance)
-    // OR if user is typing partial WHERE keyword
-    // BUT: Don't set isInWhereClause to true if just typing partial WHERE - let keywords show first
-    const isInWhereClause = lastWhereIndex > -1 && 
-                           (textBeforeCursor.length - lastWhereIndex) <= 500 &&
-                           (lastWhereIndex > lastJoinIndex || isTypingWhere) &&
-                           !isTypingPartialWhere; // Don't treat partial WHERE as complete WHERE clause
-    const isInGroupByClause = lastGroupByIndex > -1 && 
-                             (textBeforeCursor.length - lastGroupByIndex) <= 500 &&
-                             lastGroupByIndex > lastJoinIndex;
-    const isInOrderByClause = lastOrderByIndex > -1 && 
-                              (textBeforeCursor.length - lastOrderByIndex) <= 500 &&
-                              lastOrderByIndex > lastJoinIndex;
-    const isInHavingClause = lastHavingIndex > -1 && 
-                            (textBeforeCursor.length - lastHavingIndex) <= 500 &&
-                            lastHavingIndex > lastJoinIndex;
-    const isInOnClause = lastOnIndex > -1 && lastOnIndex > lastJoinIndex;
-    
-    // CRITICAL: Check if we're right after a JOIN keyword (before WHERE/ON)
-    // This must work for ALL JOINs including second, third, etc.
-    // Check if cursor is immediately after JOIN keyword (within last 100 chars)
-    const veryRecentText = textBeforeCursor.substring(Math.max(0, textBeforeCursor.length - 100));
-    const veryRecentTextTrimmed = veryRecentText.trim();
-    
-    // More aggressive JOIN detection - check if JOIN appears at the end of recent text
-    // This catches: "INNER JOIN", "INNER JOIN ", "INNER JOIN tabd_", etc.
-    const isRightAfterJoin = 
-      /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*\w*\s*$/i.test(veryRecentTextTrimmed) ||
-      /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*$/i.test(veryRecentTextTrimmed) ||
-      /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*\w*\s*$/i.test(veryRecentText) ||
-      /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*$/i.test(veryRecentText);
-    
-    // Only override with JOIN detection if we're NOT in WHERE/GROUP BY/ORDER BY/HAVING/ON clause
-    // CRITICAL: This ensures suggestions work after multiple JOINs and in all clauses
-    if (!isInWhereClause && !isInGroupByClause && !isInOrderByClause && !isInHavingClause && !isInOnClause) {
-      // CRITICAL: Check if we're right after JOIN - this takes priority
-      if (isRightAfterJoin) {
-        contextInfo.needsTableNames = true;
-        contextInfo.needsFieldNames = false;
-        contextInfo.needsTableAliases = false;
-        // CRITICAL: Log for debugging
-        console.log('JOIN detected right after JOIN keyword - setting needsTableNames = true');
-        console.log('Recent text:', veryRecentTextTrimmed);
-      } else {
-        // Fallback: Check broader recent text for JOIN patterns
-        // This catches cases where user typed partial table name after JOIN
-        const hasJoinInRecentText = 
-          /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*\w*\s*$/i.test(recentTextTrimmed) ||
-          /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*\w*\s*$/i.test(recentText) ||
-          /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*$/i.test(recentTextTrimmed) ||
-          /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*$/i.test(recentText);
-        
-        if (hasJoinInRecentText) {
-          contextInfo.needsTableNames = true;
-          contextInfo.needsFieldNames = false;
-          contextInfo.needsTableAliases = false;
-          console.log('JOIN detected in recent text - setting needsTableNames = true');
-        }
-      }
-    } else if (isInWhereClause) {
-      // CRITICAL: In WHERE clause, we need fields and aliases, NOT table names
-      // Only set this if WHERE is complete (not partial)
-      contextInfo.needsTableNames = false;
-      contextInfo.needsFieldNames = true;
-      contextInfo.needsTableAliases = true;
-      // CRITICAL: Log for debugging
-      console.log('WHERE clause detected - setting needsFieldNames = true, needsTableAliases = true');
-      console.log('Aliases available:', Array.from(this.aliasToTableMap.keys()));
-    } else if (isInGroupByClause) {
-      // CRITICAL: In GROUP BY clause, we need fields and aliases, NOT table names
-      contextInfo.needsTableNames = false;
-      contextInfo.needsFieldNames = true;
-      contextInfo.needsTableAliases = true;
-      console.log('GROUP BY clause detected - setting needsFieldNames = true, needsTableAliases = true');
-    } else if (isInOrderByClause) {
-      // CRITICAL: In ORDER BY clause, we need fields and aliases, NOT table names
-      contextInfo.needsTableNames = false;
-      contextInfo.needsFieldNames = true;
-      contextInfo.needsTableAliases = true;
-      console.log('ORDER BY clause detected - setting needsFieldNames = true, needsTableAliases = true');
-    } else if (isInHavingClause) {
-      // CRITICAL: In HAVING clause, we need fields and aliases, NOT table names
-      contextInfo.needsTableNames = false;
-      contextInfo.needsFieldNames = true;
-      contextInfo.needsTableAliases = true;
-      console.log('HAVING clause detected - setting needsFieldNames = true, needsTableAliases = true');
-    } else if (isTypingPartialWhere) {
-      // User is typing partial WHERE keyword (like "whe", "wher")
-      // Don't override context - let keywords show first
-      // After WHERE is complete, the WHERE clause detection will kick in
-      console.log('Typing partial WHERE keyword - showing WHERE keyword suggestion');
-      // Don't override contextInfo - let keyword suggestions show
-    }
-    
-    // Store clause positions for later use (for SSMS-like suggestions)
-    // Note: textUpper and lastJoinIndex already declared above
-    const lastFromIndex = textUpper.lastIndexOf('FROM');
+    const recentTextUpper = recentText.toUpperCase();
+
+    // Always extract aliases (simple and reliable - no complex caching)
+    this.extractTableAliases(fullTextBeforeCursor);
 
     const suggestions: monaco.languages.CompletionItem[] = [];
-
-    // Check if we're after a dot (table alias.field context)
-    // CRITICAL: This must work in WHERE clause too!
-    if (contextInfo.isAfterDot && contextInfo.aliasOrTable) {
-      // Get the table name for this alias
-      const tableName = this.getTableNameForAlias(contextInfo.aliasOrTable);
-      if (tableName) {
-        // Suggest field names for the table (filtered by what user is typing)
-        const fields = this.schemaData.get(tableName.toLowerCase()) || [];
-        const wordLower = word.word.toLowerCase();
-        
-        fields.forEach(fieldName => {
-          const fieldNameLower = fieldName.toLowerCase();
-          // Show suggestion if it matches what user is typing (contains, starts with, or empty)
-          const shouldShow = 
-            word.word === '' ||  // Show all if nothing typed
-            fieldNameLower.includes(wordLower) || 
-            fieldNameLower.startsWith(wordLower);
+    const wordLower = word.word.toLowerCase();
+    
+    // SIMPLE PATTERN MATCHING: Check what user is typing and what comes before
+    
+    // 1. Check if after a dot (table.field) - highest priority
+    const lastDotIndex = recentText.lastIndexOf('.');
+    if (lastDotIndex > 0 && lastDotIndex >= recentText.length - 20) {
+      const textAfterDot = recentText.substring(lastDotIndex + 1).trim();
+      if (textAfterDot.length <= 5) {
+        const textBeforeDot = recentText.substring(Math.max(0, lastDotIndex - 50), lastDotIndex).trim();
+        const tableMatch = textBeforeDot.match(/(\w+)\s*$/);
+        if (tableMatch) {
+          const aliasOrTable = tableMatch[1].toLowerCase();
+          const tableName = this.getTableNameForAlias(aliasOrTable) || aliasOrTable;
+          const fields = this.schemaData.get(tableName) || [];
           
-          if (shouldShow) {
-            suggestions.push({
-              label: fieldName,
-              kind: monaco.languages.CompletionItemKind.Field,
-              documentation: `Field from ${contextInfo.aliasOrTable} (${tableName})`,
-              insertText: fieldName,
-              range: range,
-              sortText: '1' + fieldName.toLowerCase(), // High priority for fields
-              preselect: fieldNameLower === wordLower
-            });
+          fields.forEach(fieldName => {
+            const fieldNameLower = fieldName.toLowerCase();
+            if (word.word === '' || fieldNameLower.startsWith(wordLower) || fieldNameLower.includes(wordLower)) {
+              suggestions.push({
+                label: fieldName,
+                kind: monaco.languages.CompletionItemKind.Field,
+                documentation: `Field from ${aliasOrTable}`,
+                insertText: fieldName,
+                range: range,
+                sortText: '1' + fieldName.toLowerCase()
+              });
+            }
+          });
+          
+          if (suggestions.length > 0) {
+            return { suggestions, incomplete: false };
           }
-        });
-      }
-      
-      // CRITICAL: Return early if we have field suggestions from dot
-      // This ensures field suggestions appear even in WHERE clause
-      if (suggestions.length > 0) {
-        return {
-          suggestions: suggestions,
-          incomplete: false
-        };
+        }
       }
     }
-
-    // Suggest table names (after FROM, JOIN, etc.)
-    // CRITICAL: This must always show suggestions when needsTableNames is true
-    // This works for ALL JOINs including second, third, etc.
-    if (contextInfo.needsTableNames) {
-      console.log('Showing table suggestions - needsTableNames is true');
-      const wordLower = word.word.toLowerCase();
-      
-      // Filter out "as" keyword if user typed it
+    
+    // 2. Check if after FROM, JOIN, or AS - show table names
+    // BUT: Don't block keywords - show both tables AND keywords
+    const isAfterFrom = /\bFROM\s+\w*\s*$/i.test(recentTextTrimmed) || /\bFROM\s+AS\s*$/i.test(recentTextTrimmed);
+    const isAfterJoin = /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s+\w*\s*$/i.test(recentTextTrimmed) || 
+                       /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*$/i.test(recentTextTrimmed);
+    const isAfterAs = /\bAS\s+\w*\s*$/i.test(recentTextTrimmed) || /\bAS\s*$/i.test(recentTextTrimmed);
+    
+    // CRITICAL: Only show tables if user hasn't typed a keyword-like pattern
+    // If user typed "inn", "inne", "whe", etc., they want keywords, not tables
+    const isTypingKeyword = wordLower.length >= 2 && (
+      wordLower.startsWith('inn') || wordLower.startsWith('whe') || 
+      wordLower.startsWith('se') || wordLower.startsWith('fr') ||
+      wordLower.startsWith('gro') || wordLower.startsWith('order') ||
+      wordLower.startsWith('left') || wordLower.startsWith('right')
+    );
+    
+    if ((isAfterFrom || isAfterJoin || isAfterAs) && !isTypingKeyword) {
       const filterWord = wordLower === 'as' ? '' : wordLower;
-      
-      // SSMS-like: Always show all tables when needsTableNames is true
-      // Filter by what user is typing if they've typed something
-      // CRITICAL: Show suggestions even if word is empty (immediately after JOIN)
-      let tableSuggestionsCount = 0;
       this.tableNames.forEach(tableName => {
         const tableNameLower = tableName.toLowerCase();
-        // Show table if:
-        // 1. User hasn't typed anything (show all tables) - CRITICAL for immediate suggestions
-        // 2. User typed "as" (show all tables)
-        // 3. Table name matches what user is typing (starts with or contains)
-        const shouldShow = 
-            filterWord === '' ||  // Show all if nothing typed (immediately after JOIN)
-            tableNameLower.startsWith(filterWord) ||  // Starts with (for partial matches like "tabd_e" -> "tabd_environment")
-            tableNameLower.includes(filterWord);  // Contains (fuzzy matching)
-        
-        if (shouldShow) {
-          tableSuggestionsCount++;
-          const displayName = this.getTableDisplayName(tableName);
+        if (filterWord === '' || tableNameLower.startsWith(filterWord) || tableNameLower.includes(filterWord)) {
           suggestions.push({
             label: tableName,
             kind: monaco.languages.CompletionItemKind.Class,
-            documentation: `Table: ${displayName}`,
+            documentation: `Table: ${this.getTableDisplayName(tableName)}`,
             insertText: tableName,
             range: range,
-            sortText: '1' + tableName.toLowerCase(),
-            preselect: tableNameLower === filterWord
+            sortText: '1' + tableNameLower
           });
         }
       });
-      
-      console.log(`Added ${tableSuggestionsCount} table suggestions`);
-      
-      // CRITICAL: Return immediately if we have table suggestions
-      // This ensures suggestions appear even if other logic tries to interfere
-      // This works for ALL JOINs including second, third, etc.
-      if (suggestions.length > 0) {
-        console.log('Returning table suggestions immediately');
-        return {
-          suggestions: suggestions,
-          incomplete: false
-        };
-      } else {
-        console.warn('needsTableNames is true but no table suggestions were generated!');
-      }
     }
-
-    // Suggest table aliases (in SELECT, WHERE, ON clauses after FROM)
-    // CRITICAL: This must work in WHERE clause!
-    // Allow aliases and field names to both show in SELECT clause
-    if (contextInfo.needsTableAliases && !contextInfo.isAfterDot && !contextInfo.needsTableNames) {
-      const wordLower = word.word.toLowerCase();
-      
-      // Show ALL aliases if we have any
+    
+    // 3. Check if in WHERE, ORDER BY, GROUP BY - show fields and aliases
+    const isInWhere = recentTextUpper.includes('WHERE') && !recentTextUpper.endsWith('WHERE');
+    const isInOrderBy = recentTextUpper.includes('ORDER BY') && !recentTextUpper.endsWith('ORDER BY');
+    const isInGroupBy = recentTextUpper.includes('GROUP BY') && !recentTextUpper.endsWith('GROUP BY');
+    
+    if (isInWhere || isInOrderBy || isInGroupBy) {
+      // Show table aliases
       this.aliasToTableMap.forEach((tableName, alias) => {
-        // Suggest ALL aliases (including ones that match table name)
-        // In WHERE clause, we want to show all aliases for easy selection
-        const shouldShow = 
-          word.word === '' ||  // Show all if nothing typed
-          alias.includes(wordLower) || 
-          alias.startsWith(wordLower) ||
-          // Also show if table name matches (for self-referencing aliases)
-          (alias === tableName.toLowerCase() && (word.word === '' || tableName.toLowerCase().includes(wordLower)));
-        
-        if (shouldShow) {
+        if (word.word === '' || alias.includes(wordLower) || alias.startsWith(wordLower)) {
           suggestions.push({
             label: alias,
             kind: monaco.languages.CompletionItemKind.Variable,
             documentation: `Table alias for ${tableName}`,
             insertText: alias,
             range: range,
-            sortText: '0' + alias.toLowerCase()
+            sortText: '0' + alias
           });
         }
       });
-    }
-
-    // Suggest field names (in SELECT clause, WHERE clause, or after table.field)
-    // CRITICAL: This must work in WHERE clause!
-    if (contextInfo.needsFieldNames && !contextInfo.isAfterDot) {
-      // DEBUG: Log if we're trying to show field names
-      console.log(`Trying to show field names - needsFieldNames: ${contextInfo.needsFieldNames}, aliasCount: ${this.aliasToTableMap.size}, schemaCount: ${this.schemaData.size}`);
-      // If we have a current table, suggest its fields
-      if (contextInfo.currentTable) {
-        const tableName = this.getTableNameForAlias(contextInfo.currentTable) || contextInfo.currentTable;
-        const fields = this.schemaData.get(tableName.toLowerCase()) || [];
-        const wordLower = word.word.toLowerCase();
-        
+      
+      // Show fields from all tables
+      this.aliasToTableMap.forEach((tableName, alias) => {
+        const fields = this.schemaData.get(tableName) || [];
         fields.forEach(fieldName => {
           const fieldNameLower = fieldName.toLowerCase();
-          // Show field if it matches what user is typing (contains, starts with, or empty)
-          const shouldShow = 
-            word.word === '' ||  // Show all if nothing typed
-            fieldNameLower.includes(wordLower) || 
-            fieldNameLower.startsWith(wordLower);
-          
-          if (shouldShow) {
+          if (word.word === '' || fieldNameLower.startsWith(wordLower) || fieldNameLower.includes(wordLower)) {
             suggestions.push({
-              label: fieldName,
+              label: `${alias}.${fieldName}`,
               kind: monaco.languages.CompletionItemKind.Field,
-              documentation: `Field from ${contextInfo.currentTable} (${tableName})`,
-              insertText: fieldName,
+              documentation: `Field ${fieldName} from ${alias}`,
+              insertText: `${alias}.${fieldName}`,
               range: range,
-              sortText: '2' + fieldName.toLowerCase(),
-              preselect: fieldNameLower === wordLower
+              sortText: '2' + alias + fieldNameLower
             });
           }
         });
-      } else if (contextInfo.needsFieldNames && this.aliasToTableMap.size > 0) {
-        // If no specific table but we need field names, suggest from all tables
-        // CRITICAL: This is important for WHERE clause - show all fields from all tables
-        const wordLower = word.word.toLowerCase();
-        this.aliasToTableMap.forEach((tableName, alias) => {
-          const fields = this.schemaData.get(tableName.toLowerCase()) || [];
-          fields.forEach(fieldName => {
-            const fieldNameLower = fieldName.toLowerCase();
-            const shouldShow = 
-              word.word === '' ||  // Show all if nothing typed
-              fieldNameLower.includes(wordLower) || 
-              fieldNameLower.startsWith(wordLower);
-            
-            if (shouldShow) {
-              // Show field with table alias prefix (e.g., "r.Id", "ar.Name")
-              suggestions.push({
-                label: `${alias}.${fieldName}`,
-                kind: monaco.languages.CompletionItemKind.Field,
-                documentation: `Field ${fieldName} from ${alias} (${tableName})`,
-                insertText: `${alias}.${fieldName}`,
-                range: range,
-                sortText: '2' + alias.toLowerCase() + fieldName.toLowerCase(),
-                preselect: fieldNameLower === wordLower
-              });
-            }
-          });
-        });
-      }
+      });
     }
-
-    // SSMS-like behavior: Always suggest SQL keywords (unless we're specifically in a field context after dot)
-    // Show keywords even when typing to provide full SQL intelligence - like SSMS
-    // CRITICAL: This must work when typing partial WHERE (like "whe")
-    // CRITICAL: Always show keywords when typing partial WHERE, even if isAfterDot is true
-    // This ensures WHERE keyword appears even if dot detection incorrectly triggered
+    
+    // 4. ALWAYS show SQL keywords with partial matching (simple pattern matching)
+    // CRITICAL: This must work even on new lines after pressing Enter
+    // CRITICAL: Show keywords ALWAYS when user types 2+ characters that match
     const sqlKeywords = this.getSqlKeywords();
-    const wordLower = word.word.toLowerCase();
     
-    // CRITICAL: Check if user is typing partial WHERE - if so, always show keywords
-    const isTypingPartialWhereKeyword = wordLower.length >= 2 && wordLower.startsWith('wh');
-    
-    // Allow keywords if:
-    // 1. Not after dot (normal case)
-    // 2. After dot BUT typing partial WHERE (override dot detection for WHERE)
-    const shouldShowKeywords = !contextInfo.isAfterDot || isTypingPartialWhereKeyword;
-    
-    if (shouldShowKeywords) {
-      
-      // CRITICAL: Check if user is typing partial WHERE (like "wh", "whe", "wher")
-      const veryRecentTextForKeyword = textBeforeCursor.substring(Math.max(0, textBeforeCursor.length - 50));
-      const isTypingPartialWhere = /\b(wh|whe|wher)\w*\s*$/i.test(veryRecentTextForKeyword.trim()) && 
-                                  !/\bWHERE\s/i.test(veryRecentTextForKeyword.toUpperCase());
-      
-      // DEBUG: Log for WHERE keyword detection
-      console.log('Keyword suggestions - word:', word.word, 'wordLower:', wordLower);
-      console.log('isTypingPartialWhere:', isTypingPartialWhere);
-      console.log('Very recent text:', veryRecentTextForKeyword.trim());
-      
-      // SSMS shows keywords even when user hasn't typed anything yet (on space, newline, etc.)
-      // Show keywords more aggressively
+    // Check if user is typing something - ALWAYS show matching keywords
+    // Show suggestions for 1+ chars to appear immediately
+    if (word.word.length >= 1) {
       sqlKeywords.forEach(keyword => {
         const keywordLower = keyword.toLowerCase();
         
-        // CRITICAL: If typing partial WHERE, prioritize WHERE keyword
-        const isWhereKeyword = keywordLower === 'where';
+        // Simple pattern matching - be more aggressive:
+        // - "s" → "SELECT" (starts with)
+        // - "se" → "SELECT"
+        // - "fr" → "FROM"
+        // - "whe" → "WHERE"
+        // - "inn" → "INNER"
+        // - "inne" → "INNER"
+        // - "gro" → "GROUP"
+        // - "order" → "ORDER"
+        // For 1 char, only show if keyword starts with that char (to avoid too many suggestions)
+        // For 2+ chars, show if keyword starts with or contains the typed text
+        const matches = word.word.length === 1
+          ? keywordLower.startsWith(wordLower)  // For 1 char, only show keywords that start with it
+          : (keywordLower.startsWith(wordLower) || keywordLower.includes(wordLower));  // For 2+ chars, be more flexible
         
-        // CRITICAL: Check if user typed "wh", "whe", "wher", "where" - match partial WHERE
-        const matchesPartialWhere = isTypingPartialWhere && isWhereKeyword;
-        // CRITICAL: Check if word starts with "wh" (partial WHERE) - this catches "wh", "whe", "wher", "where"
-        const matchesPartialWhereByWord = wordLower.length >= 2 && wordLower.startsWith('wh') && isWhereKeyword;
-        
-        // CRITICAL: Check if keyword starts with what user typed (e.g., "wh" -> "where")
-        const keywordStartsWithWord = keywordLower.startsWith(wordLower);
-        
-        // Show keyword if:
-        // 1. CRITICAL: If typing partial WHERE (like "wh", "whe", "wher"), show WHERE keyword
-        // 2. CRITICAL: If word starts with "wh" and keyword is WHERE, show it
-        // 3. CRITICAL: Keyword starts with what user typed (e.g., "wh" -> "where")
-        // 4. It matches what user is typing (starts with, contains, or exact match)
-        // 5. User just typed a space or trigger character (always show relevant keywords)
-        // 6. User hasn't typed anything yet (show all keywords)
-        const shouldShow = 
-          matchesPartialWhere ||  // CRITICAL: Show WHERE when typing "wh"/"whe" in recent text
-          matchesPartialWhereByWord ||  // CRITICAL: Show WHERE when word starts with "wh"
-          keywordStartsWithWord ||  // CRITICAL: Show WHERE when typing "wh" (keyword starts with "wh")
-          wordLower.length === 0 || 
-          keywordLower.includes(wordLower) ||
-          (word.word.length === 0 && context.triggerKind === monaco.languages.CompletionTriggerKind.TriggerCharacter);
-        
-        if (shouldShow) {
-          console.log('Adding keyword suggestion:', keyword, 'wordLower:', wordLower, 'keywordLower:', keywordLower, 'keywordStartsWithWord:', keywordStartsWithWord);
+        if (matches) {
+          // Special handling for multi-word keywords
+          let insertText = keyword;
+          let sortPriority = '9'; // Lower priority for keywords
+          
+          // Handle "ORDER BY" and "GROUP BY"
+          if (wordLower === 'order' || wordLower.startsWith('order')) {
+            if (keyword === 'ORDER') {
+              insertText = 'ORDER BY';
+              sortPriority = '0'; // Higher priority
+            }
+          } else if (wordLower === 'gro' || wordLower === 'group' || wordLower.startsWith('gro')) {
+            if (keyword === 'GROUP') {
+              insertText = 'GROUP BY';
+              sortPriority = '0'; // Higher priority
+            }
+          } else if (wordLower === 'whe' || wordLower === 'wher' || wordLower === 'where' || wordLower.startsWith('whe')) {
+            if (keyword === 'WHERE') {
+              sortPriority = '0'; // Higher priority for WHERE
+            }
+          } else if (wordLower === 'se' || wordLower === 'sel' || wordLower.startsWith('se')) {
+            if (keyword === 'SELECT') {
+              sortPriority = '0'; // Higher priority for SELECT
+            }
+          } else if (wordLower === 'fr' || wordLower === 'fro' || wordLower.startsWith('fr')) {
+            if (keyword === 'FROM') {
+              sortPriority = '0'; // Higher priority for FROM
+            }
+          } else if (wordLower === 'inn' || wordLower === 'inne' || wordLower.startsWith('inn')) {
+            if (keyword === 'INNER') {
+              sortPriority = '0'; // Higher priority for INNER
+            }
+          }
+          
           suggestions.push({
             label: keyword,
             kind: monaco.languages.CompletionItemKind.Keyword,
             documentation: `SQL keyword: ${keyword}`,
-            insertText: keyword,
+            insertText: insertText,
             range: range,
-            sortText: (isWhereKeyword && (matchesPartialWhere || matchesPartialWhereByWord || keywordStartsWithWord)) ? '0' + keyword.toLowerCase() : '9' + keyword.toLowerCase(), // Higher priority for WHERE when typing partial
-            preselect: keywordLower === wordLower || matchesPartialWhere || matchesPartialWhereByWord || keywordStartsWithWord // Preselect if exact match or matching partial WHERE
+            sortText: sortPriority + keywordLower,
+            preselect: keywordLower === wordLower || keywordLower.startsWith(wordLower)
           });
         }
       });
-      
-      console.log('Total keyword suggestions:', suggestions.filter(s => s.kind === monaco.languages.CompletionItemKind.Keyword).length);
-    }
-
-    // CRITICAL: If we're in WHERE, GROUP BY, ORDER BY, or HAVING clause and have no suggestions yet, show aliases and fields
-    // This is a fallback to ensure clause suggestions always appear after multiple JOINs
-    if (suggestions.length === 0 && contextInfo.needsFieldNames && contextInfo.needsTableAliases) {
-      console.log('Clause (WHERE/GROUP BY/ORDER BY/HAVING): No suggestions yet, showing aliases and fields as fallback');
-      
-      // Show table aliases
-      if (this.aliasToTableMap.size > 0 && !contextInfo.isAfterDot) {
-        this.aliasToTableMap.forEach((tableName, alias) => {
-          suggestions.push({
-            label: alias,
-            kind: monaco.languages.CompletionItemKind.Variable,
-            documentation: `Table alias for ${tableName}`,
-            insertText: alias,
-            range: range,
-            sortText: '0' + alias.toLowerCase()
-          });
+    } else if (word.word.length === 0 && context.triggerKind === monaco.languages.CompletionTriggerKind.TriggerCharacter) {
+      // Show all keywords on trigger characters (space, newline, etc.)
+      sqlKeywords.forEach(keyword => {
+        const keywordLower = keyword.toLowerCase();
+        suggestions.push({
+          label: keyword,
+          kind: monaco.languages.CompletionItemKind.Keyword,
+          documentation: `SQL keyword: ${keyword}`,
+          insertText: keyword,
+          range: range,
+          sortText: '9' + keywordLower
         });
-      }
-      
-      // Show fields from all tables
-      if (this.aliasToTableMap.size > 0 && !contextInfo.isAfterDot) {
-        this.aliasToTableMap.forEach((tableName, alias) => {
-          const fields = this.schemaData.get(tableName.toLowerCase()) || [];
-          fields.forEach(fieldName => {
-            suggestions.push({
-              label: `${alias}.${fieldName}`,
-              kind: monaco.languages.CompletionItemKind.Field,
-              documentation: `Field ${fieldName} from ${alias} (${tableName})`,
-              insertText: `${alias}.${fieldName}`,
-              range: range,
-              sortText: '2' + alias.toLowerCase() + fieldName.toLowerCase()
-            });
-          });
-        });
-      }
+      });
     }
     
-    // SSMS-like: If no suggestions yet and user just typed a space or trigger character,
-    // show all relevant suggestions (tables, aliases, fields, keywords)
-    if (suggestions.length === 0 && (word.word.length === 0 || context.triggerKind === monaco.languages.CompletionTriggerKind.TriggerCharacter)) {
-      // Show table aliases if available
-      if (this.aliasToTableMap.size > 0 && !contextInfo.isAfterDot) {
-        this.aliasToTableMap.forEach((tableName, alias) => {
-          if (alias !== tableName.toLowerCase()) {
-            suggestions.push({
-              label: alias,
-              kind: monaco.languages.CompletionItemKind.Variable,
-              documentation: `Table alias for ${tableName}`,
-              insertText: alias,
-              range: range,
-              sortText: '0' + alias.toLowerCase()
-            });
-          }
-        });
-      }
-      
-      // Show table names if we're in a context where tables make sense
-      if (!contextInfo.isAfterDot && !contextInfo.needsFieldNames && (lastFromIndex > -1 || lastJoinIndex > -1)) {
-        this.tableNames.forEach(tableName => {
-          const tableNameLower = tableName.toLowerCase();
-          const displayName = this.getTableDisplayName(tableName);
-          suggestions.push({
-            label: tableName,
-            kind: monaco.languages.CompletionItemKind.Class,
-            documentation: `Table: ${displayName}`,
-            insertText: tableName,
-            range: range,
-            sortText: '1' + tableName.toLowerCase()
-          });
-        });
-      }
-    }
-
-    // DEBUG: Log final suggestions before returning
-    console.log('Final suggestions count:', suggestions.length, 'Context:', {
-      needsTableNames: contextInfo.needsTableNames,
-      needsFieldNames: contextInfo.needsFieldNames,
-      needsTableAliases: contextInfo.needsTableAliases,
-      isAfterDot: contextInfo.isAfterDot,
-      aliasCount: this.aliasToTableMap.size,
-      tableCount: this.tableNames.length,
-      schemaCount: this.schemaData.size
-    });
-    
-    // CRITICAL: If WHERE, GROUP BY, ORDER BY, or HAVING clause detected but no suggestions, force show them
-    // This ensures suggestions work after multiple JOINs
-    const textUpperForClause = textBeforeCursor.toUpperCase();
-    const lastWhereIndexForForce = textUpperForClause.lastIndexOf('WHERE');
-    const lastGroupByIndexForForce = textUpperForClause.lastIndexOf('GROUP BY');
-    const lastOrderByIndexForForce = textUpperForClause.lastIndexOf('ORDER BY');
-    const lastHavingIndexForForce = textUpperForClause.lastIndexOf('HAVING');
-    const isInClause = (lastWhereIndexForForce > -1 || lastGroupByIndexForForce > -1 || 
-                       lastOrderByIndexForForce > -1 || lastHavingIndexForForce > -1) && 
-                       suggestions.length === 0 && !contextInfo.needsTableNames;
-    
-    if (isInClause) {
-      const clauseName = lastWhereIndexForForce > -1 ? 'WHERE' : 
-                        lastGroupByIndexForForce > -1 ? 'GROUP BY' :
-                        lastOrderByIndexForForce > -1 ? 'ORDER BY' : 'HAVING';
-      console.log(`${clauseName} clause detected but no suggestions - forcing suggestions`);
-      // Force show aliases and fields
-      if (this.aliasToTableMap.size > 0) {
-        this.aliasToTableMap.forEach((tableName, alias) => {
-          // Show alias
-          suggestions.push({
-            label: alias,
-            kind: monaco.languages.CompletionItemKind.Variable,
-            documentation: `Table alias for ${tableName}`,
-            insertText: alias,
-            range: range,
-            sortText: '0' + alias.toLowerCase()
-          });
+    // CRITICAL FALLBACK: If user typed something but got no suggestions, show keywords anyway
+    // This ensures suggestions ALWAYS appear when typing (even for 1 char)
+    if (suggestions.length === 0 && word.word.length >= 1) {
+      console.log('[CompletionProvider] No suggestions found, showing keywords for:', word.word);
+      const sqlKeywords = this.getSqlKeywords();
+      sqlKeywords.forEach(keyword => {
+        const keywordLower = keyword.toLowerCase();
+        if (keywordLower.startsWith(wordLower) || keywordLower.includes(wordLower)) {
+          let insertText = keyword;
+          let sortPriority = '0';
           
-          // Show fields from this table
-          const fields = this.schemaData.get(tableName.toLowerCase()) || [];
-          fields.forEach(fieldName => {
-            suggestions.push({
-              label: `${alias}.${fieldName}`,
-              kind: monaco.languages.CompletionItemKind.Field,
-              documentation: `Field ${fieldName} from ${alias} (${tableName})`,
-              insertText: `${alias}.${fieldName}`,
-              range: range,
-              sortText: '2' + alias.toLowerCase() + fieldName.toLowerCase()
-            });
+          if (wordLower.startsWith('gro') && keyword === 'GROUP') {
+            insertText = 'GROUP BY';
+          } else if (wordLower.startsWith('order') && keyword === 'ORDER') {
+            insertText = 'ORDER BY';
+          }
+          
+          suggestions.push({
+            label: keyword,
+            kind: monaco.languages.CompletionItemKind.Keyword,
+            documentation: `SQL keyword: ${keyword}`,
+            insertText: insertText,
+            range: range,
+            sortText: sortPriority + keywordLower,
+            preselect: keywordLower.startsWith(wordLower)
           });
-        });
-      }
-      console.log(`After forcing ${clauseName} suggestions, count:`, suggestions.length);
+        }
+      });
     }
     
+    console.log('[CompletionProvider] Returning', suggestions.length, 'suggestions');
+    
+    // Return all suggestions
     return {
       suggestions: suggestions,
       incomplete: false
@@ -699,6 +432,7 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
   /**
    * Detect the SQL context to determine what to suggest
    * Improved for long queries - analyzes full query context
+   * OPTIMIZED: Uses smaller text chunks for faster processing
    */
   private detectSqlContext(text: string, position: monaco.Position): {
     needsTableNames: boolean;
@@ -708,7 +442,10 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
     aliasOrTable: string | null;
     isAfterDot: boolean;
   } {
-    const textUpper = text.toUpperCase();
+    // OPTIMIZATION: Use smaller text chunk for faster processing
+    // 300 chars is sufficient for context detection
+    const recentText = text.substring(Math.max(0, text.length - 300));
+    const textUpper = recentText.toUpperCase();
     
     let needsTableNames = false;
     let needsFieldNames = false;
@@ -717,27 +454,25 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
     let aliasOrTable: string | null = null;
     let isAfterDot = false;
 
-    // Get the last 500 characters for better context analysis (increased for complex queries)
-    // This ensures we capture context even in very long queries with multiple JOINs
-    const recentText = text.substring(Math.max(0, text.length - 500));
     const recentTextUpper = recentText.toUpperCase().trim();
     
+    // OPTIMIZATION: Check for dot in recent text only (faster)
     // Check if cursor is immediately after a dot (table.field context)
     // CRITICAL: This must work in WHERE clause too!
     // CRITICAL: Only detect dot if it's VERY close to cursor (within last 20 chars)
     // This prevents false positives from dots in JOIN clauses
-    const lastDotIndex = text.lastIndexOf('.');
+    const lastDotIndex = recentText.lastIndexOf('.');
     // Check if dot is VERY close to the cursor (within last 20 characters)
     // This ensures we only detect dots that are actually relevant to current typing
-    if (lastDotIndex > 0 && lastDotIndex >= text.length - 20) {
+    if (lastDotIndex > 0 && lastDotIndex >= recentText.length - 20) {
       // Get text after the dot to see if cursor is right after it
-      const textAfterDot = text.substring(lastDotIndex + 1).trim();
+      const textAfterDot = recentText.substring(lastDotIndex + 1).trim();
       // Only set isAfterDot if there's very little text after the dot (cursor is right after dot)
       // This prevents false detection from dots in JOIN clauses like "a.Id = u.Id"
       if (textAfterDot.length <= 5) {
         // Extract table name/alias before the dot
         // Get more context before the dot to find the alias
-        const textBeforeDot = text.substring(Math.max(0, lastDotIndex - 50), lastDotIndex).trim();
+        const textBeforeDot = recentText.substring(Math.max(0, lastDotIndex - 50), lastDotIndex).trim();
         // Match word characters (alias/table name) right before the dot
         // This handles "WHERE r." - should find "r" as the alias
         const tableMatch = textBeforeDot.match(/(\w+)\s*$/);
@@ -761,7 +496,8 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
       }
     }
     
-    // Find all clause positions in the full query
+    // OPTIMIZATION: Find clause positions in recent text only (faster)
+    // Find all clause positions in the recent query text
     const lastSelectIndex = textUpper.lastIndexOf('SELECT');
     const lastFromIndex = textUpper.lastIndexOf('FROM');
     const lastWhereIndex = textUpper.lastIndexOf('WHERE');
@@ -791,15 +527,13 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
     // Get the current clause (the one we're in based on position)
     const currentClause = clausePositions.length > 0 ? clausePositions[0].name : null;
     
+    // OPTIMIZATION: Use already computed recentText (no need to recompute)
     // SSMS-like detection: Check if we're after FROM, JOIN keywords (needs table names)
     // Improved pattern to detect JOIN contexts better - more aggressive like SSMS
     const recentTextTrimmed = recentText.trim();
-    const lastWord = recentTextTrimmed.match(/(\w+)\s*$/)?.[1]?.toLowerCase() || '';
     
     // SIMPLIFIED and RELIABLE detection - check if we're after JOIN keywords
     // This simple approach works for ALL cases including second JOIN
-    const recentTextRaw = recentText;
-    
     // Simple, reliable pattern: Match "INNER JOIN" (or any JOIN) followed by optional word at end
     // This catches: "INNER JOIN", "INNER JOIN ", "INNER JOIN tabd_e"
     const needsTableAfterKeyword = 
@@ -808,7 +542,6 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
       // After any JOIN keyword - SIMPLE and RELIABLE pattern
       // Matches: "JOIN", "JOIN ", "JOIN tabd_e", "INNER JOIN", "INNER JOIN ", "INNER JOIN tabd_e"
       /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*\w*\s*$/i.test(recentTextTrimmed) ||
-      /\b(INNER|LEFT|RIGHT|FULL|OUTER|CROSS)?\s*JOIN\s*\w*\s*$/i.test(recentTextRaw) ||
       // Match "JOIN AS" cases
       /\bJOIN\s+AS\s*$/i.test(recentTextTrimmed) ||
       /FROM\s+AS\s*$/i.test(recentTextTrimmed);
@@ -824,13 +557,14 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
     // This handles multiple JOINs - find the JOIN we're currently typing after
     // Only check if recent text detection didn't already find it
     if (!needsTableNames) {
+      // OPTIMIZATION: Search in recent text only (faster)
       // Find all JOIN positions and check if cursor is right after any of them
       // Use a more comprehensive pattern to find all JOIN types
       const allJoinPatterns = [
         /(INNER\s+JOIN|LEFT\s+JOIN|RIGHT\s+JOIN|FULL\s+JOIN|CROSS\s+JOIN|OUTER\s+JOIN|JOIN)/gi
       ];
       
-      // Find all JOIN keywords in the query
+      // Find all JOIN keywords in the recent query text
       const joinMatches: Array<{ index: number; match: string; length: number }> = [];
       for (const pattern of allJoinPatterns) {
         // Reset regex lastIndex to ensure we search from the beginning
@@ -853,10 +587,11 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
       for (const joinMatch of joinMatches) {
         const joinIndex = joinMatch.index;
         const joinEndIndex = joinIndex + joinMatch.length;
+        // OPTIMIZATION: Use recent text for distance calculation
         // Get text after JOIN without trimming first (to check for whitespace)
-        const textAfterJoinRaw = text.substring(joinEndIndex);
+        const textAfterJoinRaw = recentText.substring(joinEndIndex);
         const textAfterJoinTrimmed = textAfterJoinRaw.trim();
-        const cursorDistance = text.length - joinEndIndex;
+        const cursorDistance = recentText.length - joinEndIndex;
         
         // Only check JOINs that are close to the cursor (within 500 chars)
         // CRITICAL: Check if cursor is RIGHT AFTER the JOIN keyword
@@ -918,8 +653,9 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
     if ((currentClause === 'WHERE' || lastWhereIndex > -1) && !isAfterDot) {
       // CRITICAL: If WHERE comes after any JOIN, we're definitely in WHERE clause
       // Also check if cursor is after WHERE keyword
+      // OPTIMIZATION: Use recentText.length instead of text.length
       const cursorAfterWhere = lastWhereIndex > -1 && 
-                              (text.length - lastWhereIndex) <= 500;
+                              (recentText.length - lastWhereIndex) <= 300;
       
       if (cursorAfterWhere || currentClause === 'WHERE') {
         // In WHERE clause, we should NOT need table names (we need fields and aliases)

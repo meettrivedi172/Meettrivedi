@@ -130,11 +130,9 @@ export class DatabaseSchemaComponent implements OnInit {
     this.metadataService.searchSchema(this.searchTerm).subscribe({
       next: (schema) => {
         this.treeNodes = this.buildTreeNodes(schema.appObjects);
-        // Auto-expand matching nodes
+        // Keep all nodes collapsed - user must click to expand
         this.treeNodes.forEach(node => {
-          if (this.matchesSearch(node)) {
-            node.isExpanded = true;
-          }
+          node.isExpanded = false;
         });
         this.isLoading = false;
       },

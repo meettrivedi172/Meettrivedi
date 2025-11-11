@@ -168,6 +168,11 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     // Check if editor is already initialized
     if (this.editor) {
       // Editor already exists, just update the value and trigger layout
+      // CRITICAL: Ensure language mode is maintained
+      const model = this.editor.getModel();
+      if (model && model.getLanguageId() !== 'sql') {
+        monaco.editor.setModelLanguage(model, 'sql');
+      }
       this.editor.setValue(this.sqlQuery);
       // Use setTimeout to ensure the container is rendered
       setTimeout(() => {
@@ -252,9 +257,66 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       // Fallback to basic registration if nothing worked
       if (!sqlLanguageRegistered) {
         monaco.languages.register({ id: 'sql' });
-        console.log('⚠ SQL language registered with basic registration (no syntax highlighting)');
+        
+        // CRITICAL: Add basic SQL syntax highlighting manually
+        monaco.languages.setMonarchTokensProvider('sql', {
+          tokenizer: {
+            root: [
+              // SQL Keywords
+              [/\b(SELECT|FROM|WHERE|JOIN|INNER|LEFT|RIGHT|FULL|OUTER|CROSS|ON|AS|AND|OR|NOT|IN|LIKE|BETWEEN|IS|NULL|GROUP|BY|ORDER|HAVING|LIMIT|OFFSET|INSERT|INTO|VALUES|UPDATE|SET|DELETE|UNION|ALL|DISTINCT|COUNT|SUM|AVG|MAX|MIN|CASE|WHEN|THEN|ELSE|END|ASC|DESC|EXISTS|ANY|SOME)\b/i, 'keyword'],
+              // Comments
+              [/--.*$/, 'comment'],
+              [/\/\*[\s\S]*?\*\//, 'comment'],
+              // Strings
+              [/'([^'\\]|\\.)*'/, 'string'],
+              [/"/, 'string', '@doubleString'],
+              // Numbers
+              [/\d+\.?\d*/, 'number'],
+              // Operators
+              [/[=<>!]+/, 'operator'],
+              // Identifiers (table/column names)
+              [/[a-zA-Z_][a-zA-Z0-9_]*/, 'identifier']
+            ],
+            doubleString: [
+              [/[^\\"]+/, 'string'],
+              [/"/, 'string', '@pop']
+            ]
+          }
+        });
+        
+        // Set SQL theme colors
+        monaco.editor.defineTheme('sql-dark', {
+          base: 'vs-dark',
+          inherit: true,
+          rules: [
+            { token: 'keyword', foreground: '569CD6', fontStyle: 'bold' },
+            { token: 'string', foreground: 'CE9178' },
+            { token: 'comment', foreground: '6A9955', fontStyle: 'italic' },
+            { token: 'number', foreground: 'B5CEA8' },
+            { token: 'operator', foreground: 'D4D4D4' },
+            { token: 'identifier', foreground: 'D4D4D4' }
+          ],
+          colors: {}
+        });
+        
+        monaco.editor.setTheme('sql-dark');
+        console.log('✓ SQL language registered with basic syntax highlighting');
       }
     }
+    
+    // CRITICAL: Always ensure SQL language is set on the model
+    // This must be done AFTER editor creation
+    setTimeout(() => {
+      if (this.editor) {
+        const model = this.editor.getModel();
+        if (model) {
+          if (model.getLanguageId() !== 'sql') {
+            monaco.editor.setModelLanguage(model, 'sql');
+            console.log('[SQL Editor] Language set to SQL');
+          }
+        }
+      }
+    }, 0);
 
     // Create Monaco Editor instance
     this.editor = monaco.editor.create(containerElement, {
@@ -276,7 +338,12 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
         comments: false,
         strings: false
       },
-      quickSuggestionsDelay: 50,  // Faster suggestions (SSMS-like) - reduced from 100ms
+      // CRITICAL: Enable suggestions on all characters, not just trigger characters
+      suggest: {
+        showKeywords: true,
+        showSnippets: true
+      },
+      quickSuggestionsDelay: 0,  // Instant suggestions - show immediately on typing
       suggestSelection: 'first',
       wordBasedSuggestions: 'allDocuments',
       acceptSuggestionOnCommitCharacter: true,
@@ -286,6 +353,37 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       insertSpaces: true
     });
 
+    // CRITICAL: Trigger suggestions on every keystroke (including after backspace)
+    // This ensures suggestions appear immediately when typing
+    this.editor.onKeyDown((e) => {
+      // Trigger suggestions on any character key or backspace
+      const isCharacterKey = e.keyCode >= 48 && e.keyCode <= 90; // A-Z, 0-9
+      const isBackspace = e.keyCode === monaco.KeyCode.Backspace;
+      const isDelete = e.keyCode === monaco.KeyCode.Delete;
+      
+      if (isCharacterKey || isBackspace || isDelete) {
+        // Small delay to let the character be inserted/deleted first
+        setTimeout(() => {
+          if (this.editor) {
+            // Only trigger if user is typing (not if suggestions are already showing)
+            const position = this.editor.getPosition();
+            if (position) {
+              const currentLine = this.editor.getModel()?.getLineContent(position.lineNumber) || '';
+              const lineBeforeCursor = currentLine.substring(0, position.column - 1);
+              const hasWord = /(\w+)$/.test(lineBeforeCursor);
+              
+              // Trigger suggestions if there's a word being typed (1+ chars)
+              // This ensures suggestions appear immediately, even for single characters
+              const wordMatch = lineBeforeCursor.match(/(\w+)$/);
+              if (wordMatch && wordMatch[1] && wordMatch[1].length >= 1) {
+                this.editor.trigger('keyboard', 'editor.action.triggerSuggest', {});
+              }
+            }
+          }
+        }, 10);
+      }
+    });
+
     // Listen to editor content changes
     this.editor.onDidChangeModelContent(() => {
       const value = this.editor?.getValue() || '';
@@ -293,11 +391,16 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       this.onQueryChange();
     });
 
-    // Initialize completion provider only if not already registered
-    if (!this.completionProvider) {
-      this.completionProvider = new SqlCompletionProvider([]);
-      this.completionProviderDisposable = monaco.languages.registerCompletionItemProvider('sql', this.completionProvider);
+    // Initialize completion provider - ALWAYS register to ensure it's active
+    // CRITICAL: Dispose old provider if exists to avoid duplicates
+    if (this.completionProviderDisposable) {
+      this.completionProviderDisposable.dispose();
     }
+    
+    // Always create new provider to ensure it's fresh
+    this.completionProvider = new SqlCompletionProvider([]);
+    this.completionProviderDisposable = monaco.languages.registerCompletionItemProvider('sql', this.completionProvider);
+    console.log('[SQL Editor] Completion provider registered');
 
     // Set up ResizeObserver to handle splitter resize events
     this.resizeObserver = new ResizeObserver(() => {
@@ -363,6 +466,11 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       if (editorValue !== this.sqlQuery) {
         // Only update if the change came from SQL editor itself, not from visual builder
         // Check if we're currently on SQL tab to avoid updating when visual builder changes SQL
+        // CRITICAL: Ensure language mode is maintained when updating
+        const model = this.editor.getModel();
+        if (model && model.getLanguageId() !== 'sql') {
+          monaco.editor.setModelLanguage(model, 'sql');
+        }
         this.editor.setValue(this.sqlQuery);
       }
     }
@@ -833,6 +941,37 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
           );
         }
         
+        // CRITICAL: After query execution, ensure completion provider and syntax highlighting are active
+        if (this.editor) {
+          setTimeout(() => {
+            // Ensure model language is SQL (for syntax highlighting)
+            const model = this.editor?.getModel();
+            if (model) {
+              const currentLanguage = model.getLanguageId();
+              if (currentLanguage !== 'sql') {
+                monaco.editor.setModelLanguage(model, 'sql');
+                console.log('[SQL Editor] Language reset to SQL after query execution');
+              }
+              
+              // Syntax highlighting will refresh automatically when language is set
+              // No need to force refresh - Monaco handles it
+            }
+            
+            // Update completion provider with latest schema
+            if (this.completionProvider && this.schemaData) {
+              const tableNames = this.schemaData.appObjects.map(obj => obj.name);
+              const schemaMap = new Map<string, string[]>();
+              this.schemaData.appObjects.forEach(appObject => {
+                const fieldNames = appObject.fields.map(field => field.name);
+                schemaMap.set(appObject.name.toLowerCase(), fieldNames);
+              });
+              this.completionProvider.updateTables(tableNames);
+              this.completionProvider.updateSchema(schemaMap);
+              console.log('[SQL Editor] Completion provider refreshed after query execution');
+            }
+          }, 100);
+        }
+        
         if (response.success) {
           this.toastService.success(
             `Query executed successfully: ${response.metadata.rowCount} rows in ${response.metadata.executionTime}s`,
@@ -924,6 +1063,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   private parsedOriginalQueryBase: string = ''; // Track base query string used for cache
 
   onGridFilterChange(filters: GridFilter[]): void {
+    debugger
     this.currentGridFilters = filters;
     this.updateSQLFromGrid();
   }
@@ -943,6 +1083,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSQLUpdateRequested(): void {
+    debugger
     this.updateSQLFromGrid();
   }
 
@@ -951,60 +1092,66 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    // Debounce to avoid too many updates
-    clearTimeout((this as any).updateSQLTimeout);
-    (this as any).updateSQLTimeout = setTimeout(() => {
-      this.isUpdatingFromGrid = true;
-      
-      try {
-        // Store original query if not already stored
-        // This should be the base query without any grid modifications
-        if (!this.originalQuery || this.originalQuery === '') {
-          this.originalQuery = this.sqlQuery;
-        }
-        
-        // If originalQuery is still empty, use current query
-        const baseQuery = this.originalQuery || this.sqlQuery;
-        if (!baseQuery.trim()) {
-          return;
-        }
-        
-        // Parse original SQL (without grid modifications) with caching to avoid repeated parsing
-        let parsedQuery: any;
-        if (this.parsedOriginalQuery && this.parsedOriginalQueryBase === baseQuery) {
-          parsedQuery = this.parsedOriginalQuery;
-        } else {
-          parsedQuery = this.sqlParserService.parseQuery(baseQuery);
-          this.parsedOriginalQuery = parsedQuery;
-          this.parsedOriginalQueryBase = baseQuery;
-        }
-        
-        // Build new SQL query with grid filters/sorts/groups
-        let newQuery = this.buildSQLFromParsedQuery(parsedQuery, baseQuery);
-        
-        // Update the query if it changed
-        if (newQuery !== this.sqlQuery) {
-          this.sqlQuery = newQuery;
-          
-          // Update Monaco editor
-          if (this.editor) {
-            this.editor.setValue(newQuery);
-          }
-          
-          // Trigger change detection (but don't update originalQuery here)
-          // Skip the onQueryChange logic that might update originalQuery
-          this.formatQuery(); // Optional: format the new query
-          this.detectParameters();
-          this.queryChangeSubject.next(this.sqlQuery);
-          
-          console.log('SQL updated from grid filters/sorts/groups');
-        }
-      } catch (error) {
-        console.error('Error updating SQL from grid:', error);
-      } finally {
-        this.isUpdatingFromGrid = false;
+    // Execute immediately for instant updates
+    this.isUpdatingFromGrid = true;
+    
+    try {
+      // Store original query if not already stored
+      // This should be the base query without any grid modifications
+      if (!this.originalQuery || this.originalQuery === '') {
+        this.originalQuery = this.sqlQuery;
       }
-    }, 500);
+      
+      // If originalQuery is still empty, use current query
+      const baseQuery = this.originalQuery || this.sqlQuery;
+      if (!baseQuery.trim()) {
+        return;
+      }
+      
+      // Parse original SQL (without grid modifications) with caching to avoid repeated parsing
+      let parsedQuery: any;
+      if (this.parsedOriginalQuery && this.parsedOriginalQueryBase === baseQuery) {
+        parsedQuery = this.parsedOriginalQuery;
+      } else {
+        parsedQuery = this.sqlParserService.parseQuery(baseQuery);
+        this.parsedOriginalQuery = parsedQuery;
+        this.parsedOriginalQueryBase = baseQuery;
+      }
+      
+      // Build new SQL query with grid filters/sorts/groups
+      let newQuery = this.buildSQLFromParsedQuery(parsedQuery, baseQuery);
+      
+      // Update the query if it changed
+      if (newQuery !== this.sqlQuery) {
+        this.sqlQuery = newQuery;
+        
+        // Update Monaco editor immediately
+        if (this.editor) {
+          // CRITICAL: Ensure language mode is maintained
+          const model = this.editor.getModel();
+          if (model && model.getLanguageId() !== 'sql') {
+            monaco.editor.setModelLanguage(model, 'sql');
+          }
+          this.editor.setValue(newQuery);
+        }
+        
+        // Trigger change detection (but don't update originalQuery here)
+        // Skip the onQueryChange logic that might update originalQuery
+        this.detectParameters();
+        this.queryChangeSubject.next(this.sqlQuery);
+        
+        // Format query asynchronously to avoid blocking immediate update
+        setTimeout(() => {
+          this.formatQuery();
+        }, 0);
+        
+        console.log('SQL updated from grid filters/sorts/groups');
+      }
+    } catch (error) {
+      console.error('Error updating SQL from grid:', error);
+    } finally {
+      this.isUpdatingFromGrid = false;
+    }
   }
 
   private buildSQLFromParsedQuery(parsedQuery: any, baseQuery: string): string {
@@ -1460,6 +1607,11 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       
       // Update Monaco editor
       if (this.editor) {
+        // CRITICAL: Ensure language mode is maintained
+        const model = this.editor.getModel();
+        if (model && model.getLanguageId() !== 'sql') {
+          monaco.editor.setModelLanguage(model, 'sql');
+        }
         this.editor.setValue(sqlQuery);
       }
       
@@ -1559,6 +1711,11 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     // Load SQL
     this.sqlQuery = query.sqlText;
     if (this.editor) {
+      // CRITICAL: Ensure language mode is maintained
+      const model = this.editor.getModel();
+      if (model && model.getLanguageId() !== 'sql') {
+        monaco.editor.setModelLanguage(model, 'sql');
+      }
       this.editor.setValue(query.sqlText);
     }
 
@@ -1609,6 +1766,11 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     // Load SQL
     this.sqlQuery = historyItem.sqlText;
     if (this.editor) {
+      // CRITICAL: Ensure language mode is maintained
+      const model = this.editor.getModel();
+      if (model && model.getLanguageId() !== 'sql') {
+        monaco.editor.setModelLanguage(model, 'sql');
+      }
       this.editor.setValue(historyItem.sqlText);
     }
 
