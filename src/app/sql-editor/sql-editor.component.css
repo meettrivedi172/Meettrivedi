@@ -74,6 +74,15 @@
   position: relative;
 }
 
+.microeditor-tab {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #1f2937;
+}
+
 /* Tabs */
 .tabs {
   display: flex;

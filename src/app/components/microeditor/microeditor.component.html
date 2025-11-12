@@ -1,0 +1,248 @@
+<div class="microeditor-container">
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button class="toolbar-button execute-btn" (click)="executeQuery()" [disabled]="isExecuting" title="Execute Query">
+      @if (isExecuting) {
+        <div class="spinner-small"></div>
+      } @else {
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3L13 8L3 13V3Z" fill="currentColor"/>
+        </svg>
+      }
+      <span>Execute Query</span>
+    </button>
+    
+    <button class="toolbar-button validate-btn" (click)="validateQueryOnly()" title="Validate Query">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M13.5 4L6 11.5L2.5 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Validate</span>
+    </button>
+    
+    <button class="toolbar-button format-btn" (click)="formatQuery()" title="Format SQL">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M5 4H13M5 8H13M5 12H11M3 3H3V5H3M3 7H3V9H3M3 11H3V13H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span>Format SQL</span>
+    </button>
+    
+    <button class="toolbar-button suggest-btn" 
+            [class.active]="enableSuggestions"
+            (click)="toggleSuggestions()" 
+            [title]="enableSuggestions ? 'Disable Auto Suggestions' : 'Enable Auto Suggestions'">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M8 2L10 6L14 7L11 10L11.5 14L8 12L4.5 14L5 10L2 7L6 6L8 2Z" 
+              [attr.fill]="enableSuggestions ? 'currentColor' : 'none'"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>{{ enableSuggestions ? 'Suggestions ON' : 'Suggestions OFF' }}</span>
+    </button>
+    
+    @if (enableSuggestions) {
+      <button class="toolbar-button trigger-suggest-btn" (click)="triggerSuggestions()" title="Trigger Suggestions Now (Ctrl+Space)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 2L10 6L14 7L11 10L11.5 14L8 12L4.5 14L5 10L2 7L6 6L8 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Show Now</span>
+      </button>
+    }
+    
+    <div class="toolbar-spacer"></div>
+    
+    @if (validationErrors.length > 0) {
+      <button class="toolbar-button validation-btn" 
+              [class.has-errors]="hasErrors()"
+              [class.has-warnings]="hasOnlyWarnings()"
+              (click)="toggleValidationErrors()" 
+              title="Validation Errors">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          @if (hasErrors()) {
+            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 5V8M8 11H8.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          } @else {
+            <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 6V8M8 10H8.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          }
+        </svg>
+        <span>Validation ({{ validationErrors.length }})</span>
+      </button>
+    }
+  </div>
+
+  <!-- Splitter Container -->
+  <div id="target" class="control-section default-splitter">
+    <div class="pane1">
+      <ejs-splitter #vertical height='800px' separatorSize=2 width='100%' orientation='Vertical'>
+        <e-panes>
+          <e-pane size='50%' min='60px'>
+            <ng-template #content>
+              <div class="content pane-content">
+                <!-- Editor Wrapper -->
+                <div class="editor-wrapper" #editorWrapper>
+                  <ngx-monaco-editor 
+                    [(ngModel)]="code" 
+                    [options]="editorOptions"
+                    (onInit)="onEditorInit($event)">
+                  </ngx-monaco-editor>
+    
+                  <!-- Manual Suggestions Dropdown -->
+                  @if (showSuggestionsDropdown && suggestions.length > 0) {
+                    <div class="suggestions-dropdown" 
+                         [style.top.px]="suggestionPosition.top"
+                         [style.left.px]="suggestionPosition.left"
+                         (mousedown)="$event.preventDefault()"
+                         (click)="$event.stopPropagation()">
+                      @for (suggestion of suggestions; track $index; let i = $index) {
+                        <div class="suggestion-item"
+                             [class.selected]="i === selectedSuggestionIndex"
+                             (click)="onSuggestionClick(suggestion, i, $event)"
+                             (dblclick)="onSuggestionDoubleClick(suggestion, i, $event)"
+                             (mousedown)="$event.preventDefault(); onSuggestionClick(suggestion, i, $event)"
+                             (mouseenter)="onSuggestionMouseEnter(i)"
+                             [attr.data-index]="i"
+                             [attr.aria-selected]="i === selectedSuggestionIndex">
+                          <span class="suggestion-icon" [attr.data-kind]="suggestion.kind">
+                            @if (suggestion.kind === 'table') {
+                              📊
+                            } @else if (suggestion.kind === 'field') {
+                              📝
+                            } @else {
+                              🔑
+                            }
+                          </span>
+                          <span class="suggestion-label">{{ suggestion.label }}</span>
+                          @if (suggestion.description) {
+                            <span class="suggestion-description">{{ suggestion.description }}</span>
+                          }
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </ng-template>
+          </e-pane>
+          <e-pane size='50%' min='60px'>
+            <ng-template #content>
+              <div class="content pane-content">
+                <!-- Query Results Panel -->
+                @if (showResults && queryResults && queryResults.success && queryResults.data) {
+                  <div class="query-results-panel">
+                    <app-results-grid 
+                      [data]="queryResults.data" 
+                      [columns]="getResultColumns()"
+                      [metadata]="queryResults.metadata" 
+                      [enableFiltering]="true"
+                      [enableSorting]="true"
+                      [enableGrouping]="true"
+                      [pageSize]="50"
+                      (filterChange)="onGridFilterChange($event)"
+                      (sortChange)="onGridSortChange($event)"
+                      (groupChange)="onGridGroupChange($event)"
+                      (sqlUpdate)="onSQLUpdateRequested()">
+                    </app-results-grid>
+                  </div>
+                } @else if (showResults && queryResults && !queryResults.success) {
+                  <div class="query-results-panel">
+                    <div class="query-results-error">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 8V12M12 16H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <h3>Query Execution Failed</h3>
+                      <p>{{ queryResults.error || 'Unknown error occurred' }}</p>
+                    </div>
+                  </div>
+                }
+              </div>
+            </ng-template>
+          </e-pane>
+        </e-panes>
+      </ejs-splitter>
+    </div>
+  </div>
+
+  <!-- Validation Errors Panel -->
+  @if (showValidationErrors) {
+    @if (validationErrors.length > 0) {
+      <div class="validation-errors-panel">
+      <div class="validation-errors-header">
+        <div class="validation-errors-title">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 6V10M10 14H10.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Validation Errors ({{ validationErrors.length }})</span>
+        </div>
+        <button class="close-errors-btn" (click)="dismissValidationErrors()" title="Close">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="validation-errors-list">
+        @for (error of validationErrors; track $index) {
+          <div class="validation-error-item" 
+               [class.error]="error.severity === 'error'"
+               [class.warning]="error.severity === 'warning'">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              @if (error.severity === 'error') {
+                <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 5V8M8 11H8.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              } @else {
+                <path d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 6V8M8 10H8.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              }
+            </svg>
+            <div class="error-content">
+              <div class="error-message">{{ error.message }}</div>
+              @if (error.line) {
+                <div class="error-location">{{ getErrorLocation(error) }}</div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+    } @else if (validationSuccess) {
+      <div class="validation-success-panel">
+        <div class="validation-success-header">
+          <div class="validation-success-title">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 10L9 13L14 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Query is valid!</span>
+          </div>
+          <button class="close-errors-btn" (click)="dismissValidationErrors()" title="Close">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    }
+  }
+
+  <!-- Parameters Panel -->
+  @if (showParameters && parameters.length > 0) {
+    <div class="parameters-panel">
+      <div class="parameters-header">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+          <path d="M8 3V4M8 12V13M13 8H12M4 8H3M11.4645 4.53553L10.6569 5.34315M5.34315 10.6569L4.53553 11.4645M11.4645 11.4645L10.6569 10.6569M5.34315 5.34315L4.53553 4.53553" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span>Query Parameters ({{ parameters.length }})</span>
+      </div>
+      <div class="parameters-list">
+        @for (param of parameters; track param.name) {
+          <div class="parameter-item">
+            <div class="parameter-name">&#64;{{ param.name }}</div>
+            <div class="parameter-type">{{ param.type }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

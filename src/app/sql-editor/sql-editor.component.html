@@ -10,6 +10,9 @@
     <button class="tab-button" [class.active]="activeTab === 'json'" (click)="onTabChange('json')">
       Query JSON
     </button>
+    <button class="tab-button" [class.active]="activeTab === 'microeditor'" (click)="onTabChange('microeditor')">
+      Microeditor
+    </button>
   </div>
 
   <!-- SQL Editor Tab -->
@@ -313,6 +316,8 @@
                       style="width: 100%; height: 100%; min-height: 400px;"></div>
                   </div>
 
+                  <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+
                   <!-- Validation Errors Panel -->
                   @if (showValidationErrors) {
                   @if (validationErrors.length > 0) {
@@ -521,6 +526,11 @@
         <pre class="json-output">{{ formattedQuery }}</pre>
       </div> -->
     </div>
+  </div>
+
+  <!-- Microeditor Tab -->
+  <div [style.display]="activeTab === 'microeditor' ? 'flex' : 'none'" class="tab-content microeditor-tab">
+    <app-microeditor></app-microeditor>
   </div>
 
   <!-- Query Management Components -->

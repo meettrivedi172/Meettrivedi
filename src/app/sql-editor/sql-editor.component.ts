@@ -12,12 +12,16 @@ import { SaveQueryModalComponent } from '../components/save-query-modal/save-que
 import { SavedQueriesSidebarComponent } from '../components/saved-queries-sidebar/saved-queries-sidebar.component';
 import { QueryHistorySidebarComponent } from '../components/query-history-sidebar/query-history-sidebar.component';
 import { VisualQueryBuilderComponent } from '../components/visual-query-builder/visual-query-builder.component';
+import { MicroeditorComponent } from '../components/microeditor/microeditor.component';
 import * as monaco from 'monaco-editor';
 import { SqlCompletionProvider } from './monaco-sql-provider';
 import { SplitterModule } from '@syncfusion/ej2-angular-layouts';
 // Import SQL language support
 import * as monacoSqlLanguages from 'monaco-sql-languages';
 import { format } from 'sql-formatter';
+
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+
 
 interface QueryParameter {
   name: string;
@@ -45,21 +49,24 @@ interface ValidationError {
     SaveQueryModalComponent,
     SavedQueriesSidebarComponent,
     QueryHistorySidebarComponent,
-    VisualQueryBuilderComponent
+    VisualQueryBuilderComponent,
+    MicroeditorComponent,
+    MonacoEditorModule
   ],
   templateUrl: './sql-editor.component.html',
   styleUrl: './sql-editor.component.css'
 })
 export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef<HTMLDivElement>;
-  
+  editorOptions = {theme: 'vs-dark', language: 'mysql', automaticLayout: true};
+  code: string= 'function x() {\nconsole.log("Hello world!");\n}';
   private editor: monaco.editor.IStandaloneCodeEditor | null = null;
   private completionProvider: SqlCompletionProvider | null = null;
   private completionProviderDisposable: monaco.IDisposable | null = null;
   private resizeObserver?: ResizeObserver;
   private editorInitialized: boolean = false;
 
-  activeTab: 'sql' | 'visual' | 'json' = 'sql';
+  activeTab: 'sql' | 'visual' | 'json' | 'microeditor' | 'mysql'= 'sql';
   sqlQuery: string = '';
   forceVisualParse: boolean = false;
   formattedQuery: string = '';
@@ -1433,7 +1440,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onTabChange(tab: 'sql' | 'visual' | 'json'): void {
+  onTabChange(tab: 'sql' | 'visual' | 'json' | 'microeditor'): void {
     this.activeTab = tab;
     
     if (tab === 'sql') {
@@ -1478,6 +1485,8 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
         this.formattedQuery = `Error converting SQL to JSON: ${error.message}`;
       }
     }
+    
+    // microeditor tab doesn't need special handling - it's a standalone component
   }
 
   onVisualBuilderSQLChange(newSQL: string): void {

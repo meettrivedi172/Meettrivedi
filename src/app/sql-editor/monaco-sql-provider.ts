@@ -738,13 +738,98 @@ export class SqlCompletionProvider implements monaco.languages.CompletionItemPro
    */
   private getSqlKeywords(): string[] {
     return [
-      'SELECT', 'FROM', 'WHERE', 'JOIN', 'INNER', 'LEFT', 'RIGHT', 'FULL', 'OUTER',
-      'ON', 'GROUP', 'BY', 'ORDER', 'HAVING', 'LIMIT', 'OFFSET',
-      'INSERT', 'INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE',
-      'AS', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'BETWEEN', 'IS', 'NULL',
-      'COUNT', 'SUM', 'AVG', 'MAX', 'MIN', 'DISTINCT',
-      'ASC', 'DESC', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END',
-      'UNION', 'ALL', 'EXISTS', 'ANY', 'SOME'
+      // Query Keywords
+      'SELECT', 'FROM', 'WHERE', 'JOIN', 'INNER', 'LEFT', 'RIGHT', 'FULL', 'OUTER', 'CROSS',
+      'ON', 'GROUP', 'BY', 'ORDER', 'HAVING', 'LIMIT', 'OFFSET', 'TOP', 'FETCH', 'NEXT',
+      'UNION', 'UNION ALL', 'INTERSECT', 'EXCEPT', 'MINUS',
+      
+      // DML Keywords
+      'INSERT', 'INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE', 'TRUNCATE',
+      
+      // DDL Keywords
+      'CREATE', 'ALTER', 'DROP', 'TABLE', 'VIEW', 'INDEX', 'DATABASE', 'SCHEMA',
+      'ADD', 'MODIFY', 'COLUMN', 'CONSTRAINT', 'PRIMARY', 'KEY', 'FOREIGN', 'REFERENCES',
+      'UNIQUE', 'CHECK', 'DEFAULT', 'AUTO_INCREMENT', 'IDENTITY',
+      
+      // Clauses and Modifiers
+      'AS', 'ALIAS', 'DISTINCT', 'ALL', 'ANY', 'SOME',
+      
+      // Logical Operators
+      'AND', 'OR', 'NOT', 'XOR',
+      
+      // Comparison Operators (as keywords for suggestions)
+      'IN', 'NOT IN', 'LIKE', 'NOT LIKE', 'BETWEEN', 'NOT BETWEEN',
+      'IS', 'IS NOT', 'NULL', 'IS NULL', 'IS NOT NULL',
+      'EXISTS', 'NOT EXISTS',
+      
+      // Aggregate Functions
+      'COUNT', 'SUM', 'AVG', 'MAX', 'MIN', 'GROUP_CONCAT', 'STRING_AGG',
+      
+      // String Functions
+      'CONCAT', 'SUBSTRING', 'SUBSTR', 'LENGTH', 'CHAR_LENGTH', 'UPPER', 'LOWER',
+      'TRIM', 'LTRIM', 'RTRIM', 'REPLACE', 'REVERSE', 'LEFT', 'RIGHT', 'MID',
+      'LOCATE', 'POSITION', 'INSTR', 'LPAD', 'RPAD', 'SPACE',
+      
+      // Numeric Functions
+      'ABS', 'ROUND', 'FLOOR', 'CEIL', 'CEILING', 'TRUNCATE', 'MOD', 'POWER', 'SQRT',
+      'RAND', 'RANDOM', 'SIGN', 'EXP', 'LOG', 'LOG10', 'LN',
+      
+      // Date/Time Functions
+      'NOW', 'CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP', 'CURDATE', 'CURTIME',
+      'DATE', 'TIME', 'YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE', 'SECOND',
+      'DAYOFWEEK', 'DAYOFMONTH', 'DAYOFYEAR', 'WEEK', 'WEEKDAY', 'MONTHNAME', 'DAYNAME',
+      'DATE_ADD', 'DATE_SUB', 'DATEDIFF', 'TIMEDIFF', 'TIMESTAMPADD', 'TIMESTAMPDIFF',
+      'DATE_FORMAT', 'STR_TO_DATE', 'FROM_UNIXTIME', 'UNIX_TIMESTAMP',
+      
+      // Conditional Functions
+      'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'IF', 'IFNULL', 'NULLIF', 'COALESCE',
+      
+      // Window Functions
+      'OVER', 'PARTITION', 'ROWS', 'RANGE', 'PRECEDING', 'FOLLOWING', 'UNBOUNDED',
+      'ROW_NUMBER', 'RANK', 'DENSE_RANK', 'PERCENT_RANK', 'CUME_DIST',
+      'LAG', 'LEAD', 'FIRST_VALUE', 'LAST_VALUE', 'NTH_VALUE',
+      
+      // Type Conversion
+      'CAST', 'CONVERT', 'CAST AS',
+      
+      // Sorting
+      'ASC', 'DESC', 'NULLS FIRST', 'NULLS LAST',
+      
+      // Transaction Control
+      'BEGIN', 'COMMIT', 'ROLLBACK', 'SAVEPOINT', 'TRANSACTION',
+      
+      // Other Keywords
+      'WITH', 'RECURSIVE', 'AS', 'USING', 'NATURAL',
+      'ON DUPLICATE KEY', 'ON CONFLICT', 'IGNORE', 'REPLACE',
+      'FOR', 'LOCK', 'SHARE', 'UPDATE', 'OF',
+      'EXPLAIN', 'ANALYZE', 'DESCRIBE', 'DESC', 'SHOW',
+      'GRANT', 'REVOKE', 'PRIVILEGES', 'TO', 'FROM',
+      'USE', 'DATABASE', 'SCHEMA',
+      
+      // MySQL Specific
+      'AUTO_INCREMENT', 'ENGINE', 'CHARSET', 'COLLATE', 'ROW_FORMAT',
+      'PARTITION BY', 'SUBPARTITION',
+      
+      // PostgreSQL Specific
+      'SERIAL', 'BIGSERIAL', 'RETURNING', 'RETURNING *',
+      
+      // Common Data Types (for suggestions)
+      'INT', 'INTEGER', 'BIGINT', 'SMALLINT', 'TINYINT', 'MEDIUMINT',
+      'DECIMAL', 'NUMERIC', 'FLOAT', 'DOUBLE', 'REAL',
+      'VARCHAR', 'CHAR', 'TEXT', 'TINYTEXT', 'MEDIUMTEXT', 'LONGTEXT',
+      'BLOB', 'TINYBLOB', 'MEDIUMBLOB', 'LONGBLOB',
+      'DATE', 'TIME', 'DATETIME', 'TIMESTAMP', 'YEAR',
+      'BOOLEAN', 'BOOL', 'BIT', 'ENUM', 'SET', 'JSON',
+      
+      // Constraints
+      'PRIMARY KEY', 'FOREIGN KEY', 'UNIQUE', 'CHECK', 'DEFAULT', 'NOT NULL',
+      
+      // Joins
+      'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'FULL JOIN', 'CROSS JOIN',
+      'LEFT OUTER JOIN', 'RIGHT OUTER JOIN', 'FULL OUTER JOIN',
+      
+      // Subqueries
+      'EXISTS', 'NOT EXISTS', 'IN', 'NOT IN', 'ANY', 'SOME', 'ALL'
     ];
   }
 
