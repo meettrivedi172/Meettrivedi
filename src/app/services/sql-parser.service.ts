@@ -774,17 +774,58 @@ export class SqlParserService {
   }
 
   /**
+   * Look up Field ID from schema data based on table name and field name
+   * @param schemaData Schema data containing appObjects with fields
+   * @param tableName Table name (case-insensitive)
+   * @param fieldName Field name (case-insensitive)
+   * @returns Field ID if found, null otherwise
+   */
+  private getFieldIdFromSchema(schemaData: any, tableName: string, fieldName: string): string | null {
+    if (!schemaData || !schemaData.appObjects || !tableName || !fieldName) {
+      return null;
+    }
+
+    // Find the table/object in schema
+    const table = schemaData.appObjects.find((obj: any) => 
+      (obj.name || obj.ObjectName || '').toLowerCase() === tableName.toLowerCase()
+    );
+
+    if (!table || !table.fields) {
+      return null;
+    }
+
+    // Find the field in the table
+    const field = table.fields.find((f: any) => {
+      const fName = (f.FieldName || f.name || '').toLowerCase();
+      const fSystemName = (f.SystemDBFieldName || '').toLowerCase();
+      const searchName = fieldName.toLowerCase();
+      return fName === searchName || fSystemName === searchName;
+    });
+
+    return field ? (field.ID || field.id) : null;
+  }
+
+  /**
    * Convert SQL query string to JSON query object
    * @param sqlQuery SQL query string
+   * @param schemaData Optional schema data to look up Field IDs
    * @returns JSON query object with QueryObjectID, ResultField_AppfieldIds, WhereClause, etc.
    */
-  sqlToJson(sqlQuery: string): any {
+  sqlToJson(sqlQuery: string, schemaData?: any): any {
     // Remove comments and normalize whitespace
     const cleanedQuery = this.removeComments(sqlQuery);
     
     // Extract table name from FROM clause
-    const fromMatch = cleanedQuery.match(/FROM\s+(\w+)/i);
+    const fromMatch = cleanedQuery.match(/FROM\s+(\w+)(?:\s+(?:AS\s+)?(\w+))?/i);
     const queryObjectID = fromMatch ? fromMatch[1] : '';
+    const tableAlias = fromMatch ? fromMatch[2] : null;
+
+    // Build alias to table name mapping
+    const aliasToTable = new Map<string, string>();
+    if (tableAlias) {
+      aliasToTable.set(tableAlias.toLowerCase(), queryObjectID.toLowerCase());
+    }
+    aliasToTable.set(queryObjectID.toLowerCase(), queryObjectID.toLowerCase());
 
     // Parse SELECT fields
     const resultField_AppfieldIds = this.parseSelectFields(cleanedQuery);
@@ -793,19 +834,39 @@ export class SqlParserService {
     const whereClause: any = { Filters: [] };
     const parsedWhere = this.parseWhereClause(cleanedQuery);
     if (parsedWhere && parsedWhere.Filters) {
-      whereClause.Filters = parsedWhere.Filters.map((filter: QueryFilter) => ({
-        ConjuctionClause: filter.Conjunction || 1,
-        FieldID: this.generateGuid(), // Generate FieldID if not available
-        RelationalOperator: this.getRelationalOperatorFromSQLOperator(filter.Operator),
-        Value: filter.Value,
-        ValueType: filter.ValueType,
-        GroupID: filter.GroupId || 1,
-        Sequence: filter.Sequence || 1,
-        FieldType: 1, // Default field type
-        FieldName: filter.FieldName,
-        LookUpDetail: null,
-        ID: filter.Id || this.generateGuid()
-      }));
+      whereClause.Filters = parsedWhere.Filters.map((filter: QueryFilter) => {
+        // Extract table and field name from FieldName (could be "table.field" or just "field")
+        let tableName = queryObjectID;
+        let fieldName = filter.FieldName;
+        
+        if (filter.FieldName.includes('.')) {
+          const parts = filter.FieldName.split('.');
+          const tableRef = parts[0].toLowerCase();
+          fieldName = parts[1];
+          tableName = aliasToTable.get(tableRef) || tableRef;
+        }
+
+        // Look up Field ID from schema
+        let fieldId = this.getFieldIdFromSchema(schemaData, tableName, fieldName);
+        if (!fieldId) {
+          // Fallback to GUID if not found in schema
+          fieldId = this.generateGuid();
+        }
+
+        return {
+          ConjuctionClause: filter.Conjunction || 1,
+          FieldID: fieldId,
+          RelationalOperator: this.getRelationalOperatorFromSQLOperator(filter.Operator),
+          Value: filter.Value,
+          ValueType: filter.ValueType,
+          GroupID: filter.GroupId || 1,
+          Sequence: filter.Sequence || 1,
+          FieldType: 1, // Default field type
+          FieldName: filter.FieldName,
+          LookUpDetail: null,
+          ID: filter.Id || this.generateGuid()
+        };
+      });
     }
 
     // Parse GROUP BY
@@ -860,12 +921,18 @@ export class SqlParserService {
       });
     }
 
+    // Format WhereClause - should have Filters array when filters exist, empty object when no filters
+    // Note: FilterLogic is not included in the output format
+    const formattedWhereClause: any = whereClause.Filters.length > 0 
+      ? { Filters: whereClause.Filters } 
+      : {};
+
     return {
       QueryObjectID: queryObjectID,
       ResultField_AppfieldIds: resultField_AppfieldIds,
       RawSQL_AppfieldIds: [],
-      GroupByFields: groupByFields,
-      WhereClause: whereClause.Filters.length > 0 ? whereClause : {},
+      GroupByFields: groupByFields || [],
+      WhereClause: formattedWhereClause,
       HavingClause: {},
       Joins: joins,
       Sort: sort

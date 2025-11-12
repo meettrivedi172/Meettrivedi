@@ -43,18 +43,20 @@ export class QueryExecutionService {
    * @param sqlQuery The SQL query string
    * @param parameters Query parameters (key-value pairs)
    * @param sqlParserService Service to convert SQL to QueryJson
+   * @param schemaData Optional schema data to look up Field IDs
    * @returns Observable with query execution results
    */
   executeQuery(
     sqlQuery: string, 
     parameters: { [key: string]: any } = {},
-    sqlParserService?: any
+    sqlParserService?: any,
+    schemaData?: any
   ): Observable<QueryExecutionResponse> {
     // Convert SQL to QueryJson in the format expected by the API
     let queryJson: any = null;
     if (sqlParserService) {
       try {
-        queryJson = sqlParserService.sqlToJson(sqlQuery);
+        queryJson = sqlParserService.sqlToJson(sqlQuery, schemaData);
       } catch (error) {
         console.error('Failed to parse SQL to QueryJson:', error);
         return this.handleError('Failed to parse SQL to QueryJson');

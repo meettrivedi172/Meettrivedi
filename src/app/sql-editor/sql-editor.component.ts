@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subject, debounceTime } from 'rxjs';
@@ -142,6 +142,27 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.editor) {
       this.editor.dispose();
       this.editor = null;
+    }
+  }
+
+  /**
+   * Handle F5 key press to execute query
+   * Prevents default browser refresh behavior when F5 is pressed while Monaco editor is focused
+   */
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent): void {
+    // Check if F5 is pressed
+    if (event.key === 'F5' || event.keyCode === 116) {
+      // Check if Monaco editor is focused
+      if (this.editor && this.editor.hasTextFocus()) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        // Execute query if we have a query and not already executing
+        if (this.sqlQuery.trim() && !this.isExecuting) {
+          this.executeQuery();
+        }
+      }
     }
   }
 
@@ -637,7 +658,142 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
     
-    // Check for JOIN without ON
+    // Check for WHERE clause without conditions
+    const whereMatch = query.match(/\bWHERE\b/gi);
+    if (whereMatch) {
+      // Find all WHERE occurrences and check if they have conditions
+      const whereRegex = /\bWHERE\b/gi;
+      let whereIndex;
+      while ((whereIndex = whereRegex.exec(query)) !== null) {
+        // Get text after WHERE and remove comments
+        const afterWhereRaw = query.substring(whereIndex.index + whereIndex[0].length);
+        const cleanedAfterWhere = afterWhereRaw
+          .replace(/--.*$/gm, '') // Remove single-line comments
+          .replace(/\/\*[\s\S]*?\*\//g, '') // Remove multi-line comments
+          .trim();
+        
+        // Check if there's nothing after WHERE or only whitespace/comments
+        if (!cleanedAfterWhere || cleanedAfterWhere === '') {
+          this.validationErrors.push({
+            message: 'WHERE clause is missing conditions. Please add a condition after WHERE (e.g., column = value)',
+            severity: 'error'
+          });
+          continue;
+        }
+        
+        // Check if what follows WHERE is a SQL keyword that shouldn't be there without conditions
+        // Invalid: GROUP BY, ORDER BY, HAVING, LIMIT, etc. immediately after WHERE
+        const nextKeywordMatch = cleanedAfterWhere.match(/^\s*(GROUP\s+BY|ORDER\s+BY|HAVING|LIMIT|UNION|INTERSECT|EXCEPT)\b/i);
+        if (nextKeywordMatch) {
+          this.validationErrors.push({
+            message: `WHERE clause is missing conditions. Found '${nextKeywordMatch[1]}' immediately after WHERE`,
+            severity: 'error'
+          });
+          continue;
+        }
+        
+        // Check for incomplete conditions (operator without value)
+        // This is a critical check - operators like =, !=, >, <, LIKE require values
+        
+        // Pattern 1: field operator at end of string (no value)
+        // Matches: "Id =", "field LIKE", "table.field >", etc.
+        const operatorAtEndPattern = /^\s*\w+(\.\w+)?\s*(=|!=|<>|>|<|>=|<=|LIKE)\s*$/i;
+        if (operatorAtEndPattern.test(cleanedAfterWhere)) {
+          this.validationErrors.push({
+            message: 'WHERE clause is incomplete. Operator found but no value provided. Please add a value after the operator (e.g., Id = 123)',
+            severity: 'error'
+          });
+          continue;
+        }
+        
+        // Pattern 2: field operator followed by only whitespace
+        // Matches: "Id = ", "field LIKE  ", etc.
+        const operatorWithOnlyWhitespacePattern = /^\s*\w+(\.\w+)?\s*(=|!=|<>|>|<|>=|<=|LIKE)\s+$/i;
+        if (operatorWithOnlyWhitespacePattern.test(cleanedAfterWhere)) {
+          this.validationErrors.push({
+            message: 'WHERE clause is incomplete. Operator found but no value provided. Please add a value after the operator (e.g., Id = 123)',
+            severity: 'error'
+          });
+          continue;
+        }
+        
+        // Pattern 3: field operator followed by invalid SQL keywords (no value between)
+        // Matches: "Id = AND", "field > GROUP BY", etc.
+        const operatorBeforeKeywordPattern = /^\s*\w+(\.\w+)?\s*(=|!=|<>|>|<|>=|<=|LIKE)\s+(GROUP\s+BY|ORDER\s+BY|HAVING|LIMIT|UNION|AND|OR)\b/i;
+        if (operatorBeforeKeywordPattern.test(cleanedAfterWhere)) {
+          this.validationErrors.push({
+            message: 'WHERE clause is incomplete. Operator found but no value provided. Please add a value after the operator (e.g., Id = 123)',
+            severity: 'error'
+          });
+          continue;
+        }
+        
+        // Pattern 4: More comprehensive - extract what's after operator and validate
+        const operatorMatch = cleanedAfterWhere.match(/^\s*(\w+(\.\w+)?)\s*(=|!=|<>|>|<|>=|<=|LIKE)\s+/i);
+        if (operatorMatch) {
+          const afterOperator = cleanedAfterWhere.substring(operatorMatch[0].length).trim();
+          // If nothing meaningful after operator
+          if (!afterOperator || afterOperator === '') {
+            this.validationErrors.push({
+              message: 'WHERE clause is incomplete. Operator found but no value provided. Please add a value after the operator (e.g., Id = 123)',
+              severity: 'error'
+            });
+            continue;
+          }
+          // If only SQL keywords that shouldn't be there (without a value)
+          if (/^(GROUP\s+BY|ORDER\s+BY|HAVING|LIMIT|UNION|AND|OR)\b/i.test(afterOperator)) {
+            this.validationErrors.push({
+              message: 'WHERE clause is incomplete. Operator found but no value provided. Please add a value after the operator (e.g., Id = 123)',
+              severity: 'error'
+            });
+            continue;
+          }
+        }
+        
+        // Check for valid condition patterns
+        // Valid: field operator value, field IN (...), field IS NULL, (condition), @parameter, etc.
+        const validPatterns = [
+          /^\s*\(/,  // Starts with parenthesis (subquery or grouped condition)
+          /^\s*@\w+/,  // Parameter reference
+          /^\s*\w+\.\w+/,  // Table.field reference
+          /^\s*\w+\s*(=|!=|<>|>|<|>=|<=|LIKE)\s+[^\s]/,  // Field with operator and value (must have non-whitespace after operator)
+          /^\s*\w+\s+IN\s*\(/i,  // Field IN (list)
+          /^\s*\w+\s+NOT\s+IN\s*\(/i,  // Field NOT IN (list)
+          /^\s*\w+\s+BETWEEN\s+/i,  // Field BETWEEN (must have value after)
+          /^\s*\w+\s+EXISTS\s*\(/i,  // EXISTS (subquery)
+          /^\s*\w+\s+IS\s+(NOT\s+)?NULL/i  // IS NULL or IS NOT NULL
+        ];
+        
+        const hasValidCondition = validPatterns.some(pattern => pattern.test(cleanedAfterWhere));
+        
+        if (!hasValidCondition) {
+          // Check if it's just a field name without operator (incomplete condition)
+          const justFieldName = /^\s*\w+(\.\w+)?\s*$/i.test(cleanedAfterWhere);
+          if (justFieldName) {
+            this.validationErrors.push({
+              message: 'WHERE clause appears incomplete. Please add an operator and value after the field name (e.g., field = value)',
+              severity: 'error'
+            });
+          } else {
+            // Check for BETWEEN without values
+            if (/^\s*\w+\s+BETWEEN\s*$/i.test(cleanedAfterWhere)) {
+              this.validationErrors.push({
+                message: 'WHERE clause is incomplete. BETWEEN operator requires two values (e.g., field BETWEEN value1 AND value2)',
+                severity: 'error'
+              });
+            } else {
+              // Unknown pattern - might be invalid
+              this.validationErrors.push({
+                message: 'WHERE clause may be incomplete or invalid. Please ensure you have a valid condition after WHERE',
+                severity: 'error'
+              });
+            }
+          }
+        }
+      }
+    }
+    
+    // Check for JOIN without ON and validate JOIN aliases
     const joinMatches = query.match(/(INNER|LEFT|RIGHT|FULL)?\s+JOIN/gi);
     if (joinMatches) {
       const onMatches = query.match(/\bON\b/gi);
@@ -646,6 +802,190 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
           message: 'JOIN statement(s) missing ON clause',
           severity: 'error'
         });
+      }
+      
+      // Check if FROM table has an alias
+      const fromMatch = query.match(/FROM\s+(\w+)(?:\s+(?:AS\s+)?(\w+))?/i);
+      const fromTableHasAlias = fromMatch && fromMatch[2];
+      
+      // Validate each JOIN clause
+      const joinPattern = /(INNER|LEFT|RIGHT|FULL)?\s+JOIN\s+(\w+)(?:\s+(?:AS\s+)?(\w+))?/gi;
+      let joinMatch;
+      let joinIndex = 0;
+      while ((joinMatch = joinPattern.exec(query)) !== null) {
+        joinIndex++;
+        const joinType = joinMatch[1] || 'INNER';
+        const joinTable = joinMatch[2];
+        const joinAlias = joinMatch[3];
+        
+        // If FROM table has an alias, JOIN tables should also have aliases
+        if (fromTableHasAlias && !joinAlias) {
+          this.validationErrors.push({
+            message: `JOIN table '${joinTable}' is missing an alias. When the main table has an alias, JOIN tables should also have aliases (e.g., ${joinType} JOIN ${joinTable} alias ON ...)`,
+            severity: 'error'
+          });
+        }
+        
+        // Check if neither table has an alias - this can cause ambiguity in ON clauses
+        // We'll check this more specifically in the ON clause validation below
+        
+        // Find the corresponding ON clause for this JOIN
+        const joinEndIndex = joinMatch.index + joinMatch[0].length;
+        const queryAfterJoin = query.substring(joinEndIndex);
+        const onMatch = queryAfterJoin.match(/\bON\s+(.+?)(?=\s+(?:INNER|LEFT|RIGHT|FULL)?\s+JOIN|\s+WHERE|\s+GROUP\s+BY|\s+ORDER\s+BY|\s+HAVING|\s+LIMIT|$)/i);
+        
+        if (onMatch) {
+          const onCondition = onMatch[1].trim();
+          
+          // Check for unqualified field names in ON clause
+          // Extract field references from ON condition
+          const sqlKeywords = ['AND', 'OR', 'NOT', 'IN', 'LIKE', 'BETWEEN', 'IS', 'NULL', 'EXISTS', 'ON', 'SELECT', 'FROM', 'WHERE', 'JOIN'];
+          
+          // Find all field references in ON clause (words that are not keywords and not qualified)
+          const fieldPattern = /\b(\w+)\s*[=<>!]+|\s*[=<>!]+\s*(\w+)\b/gi;
+          let fieldMatch;
+          const foundFields = new Set<string>();
+          
+          while ((fieldMatch = fieldPattern.exec(onCondition)) !== null) {
+            const leftField = fieldMatch[1];
+            const rightField = fieldMatch[2];
+            
+            if (leftField && !leftField.includes('.') && !sqlKeywords.includes(leftField.toUpperCase())) {
+              foundFields.add(leftField);
+            }
+            if (rightField && !rightField.includes('.') && !sqlKeywords.includes(rightField.toUpperCase())) {
+              foundFields.add(rightField);
+            }
+          }
+          
+          // Check for unqualified fields
+          foundFields.forEach(fieldName => {
+            // Skip if it's a number or string literal
+            if (/^\d+$/.test(fieldName) || /^['"].*['"]$/.test(fieldName)) {
+              return;
+            }
+            
+            // Check if field appears in ON condition without table qualification
+            const unqualifiedFieldRegex = new RegExp(`\\b${fieldName}\\s*[=<>!]+|[=<>!]+\\s*${fieldName}\\b`, 'i');
+            if (unqualifiedFieldRegex.test(onCondition)) {
+              // Determine which table this field should belong to
+              // If FROM has alias and JOIN doesn't, suggest JOIN alias
+              if (fromTableHasAlias && !joinAlias) {
+                this.validationErrors.push({
+                  message: `JOIN ON clause field '${fieldName}' is ambiguous. The JOIN table '${joinTable}' needs an alias, and the field should be qualified (e.g., INNER JOIN ${joinTable} alias ON alias.${fieldName} = ${fromMatch[2]}.ID)`,
+                  severity: 'error'
+                });
+              } else if (fromTableHasAlias && joinAlias) {
+                // Both have aliases - suggest proper qualification
+                this.validationErrors.push({
+                  message: `JOIN ON clause field '${fieldName}' should be qualified with a table alias (e.g., ${fromMatch[2]}.${fieldName} or ${joinAlias}.${fieldName})`,
+                  severity: 'error'
+                });
+              } else if (!fromTableHasAlias && joinAlias) {
+                this.validationErrors.push({
+                  message: `JOIN ON clause field '${fieldName}' should be qualified with a table alias (e.g., ${joinAlias}.${fieldName})`,
+                  severity: 'error'
+                });
+              }
+            }
+          });
+          
+          // Special case: simple pattern like "id = w.ID" or "field = field"
+          const simplePattern = /^(\w+)\s*=\s*(\w+\.\w+)$|^(\w+\.\w+)\s*=\s*(\w+)$|^(\w+)\s*=\s*(\w+)$/i;
+          const simpleMatch = onCondition.match(simplePattern);
+          if (simpleMatch) {
+            const leftField = simpleMatch[1] || simpleMatch[3] || simpleMatch[5];
+            const rightField = simpleMatch[2] || simpleMatch[4] || simpleMatch[6];
+            
+            // Check if both sides are the same unqualified field (e.g., "id = id")
+            if (leftField && rightField && 
+                leftField.toLowerCase() === rightField.toLowerCase() && 
+                !leftField.includes('.') && 
+                !rightField.includes('.') &&
+                !sqlKeywords.includes(leftField.toUpperCase())) {
+              // Both sides are the same unqualified field - this is ambiguous
+              const fromTableName = fromMatch ? fromMatch[1] : 'table1';
+              
+              // Determine suggested aliases
+              let fromAlias: string;
+              let joinAliasName: string;
+              
+              if (fromTableHasAlias) {
+                fromAlias = fromMatch[2];
+                joinAliasName = joinAlias || 'alias';
+              } else if (joinAlias) {
+                fromAlias = fromTableName.substring(0, 1).toLowerCase(); // Suggest first letter as alias
+                joinAliasName = joinAlias;
+              } else {
+                // Neither has alias - suggest both
+                fromAlias = fromTableName.substring(0, 1).toLowerCase();
+                joinAliasName = joinTable.substring(0, 1).toLowerCase();
+              }
+              
+              this.validationErrors.push({
+                message: `JOIN ON clause is ambiguous: '${leftField} = ${rightField}'. Both tables need aliases and fields must be qualified. Use 'INNER JOIN ${joinTable} ${joinAliasName} ON ${fromAlias}.${leftField} = ${joinAliasName}.${rightField}'`,
+                severity: 'error'
+              });
+              
+              // Also check if tables need aliases
+              if (!fromTableHasAlias) {
+                this.validationErrors.push({
+                  message: `Table '${fromTableName}' needs an alias. Use 'FROM ${fromTableName} ${fromAlias}'`,
+                  severity: 'error'
+                });
+              }
+              
+              if (!joinAlias) {
+                this.validationErrors.push({
+                  message: `JOIN table '${joinTable}' is missing an alias. Both tables in a JOIN should have aliases when using the same field name (e.g., INNER JOIN ${joinTable} ${joinAliasName} ON ...)`,
+                  severity: 'error'
+                });
+              }
+              
+              continue; // Skip other checks for this case
+            }
+            
+            // If one side is qualified and other is not, or both are unqualified
+            const leftQualified = leftField && leftField.includes('.');
+            const rightQualified = rightField && rightField.includes('.');
+            
+            if (!leftQualified && rightQualified && !sqlKeywords.includes(leftField.toUpperCase())) {
+              // Left side unqualified, right side qualified
+              if (fromTableHasAlias && !joinAlias) {
+                this.validationErrors.push({
+                  message: `JOIN table '${joinTable}' needs an alias. Use 'INNER JOIN ${joinTable} alias ON alias.${leftField} = ${rightField}'`,
+                  severity: 'error'
+                });
+              }
+            } else if (leftQualified && !rightQualified && !sqlKeywords.includes(rightField.toUpperCase())) {
+              // Right side unqualified, left side qualified
+              if (fromTableHasAlias && !joinAlias) {
+                this.validationErrors.push({
+                  message: `JOIN table '${joinTable}' needs an alias. Use 'INNER JOIN ${joinTable} alias ON ${leftField} = alias.${rightField}'`,
+                  severity: 'error'
+                });
+              }
+            } else if (!leftQualified && !rightQualified && 
+                       !sqlKeywords.includes(leftField.toUpperCase()) && 
+                       !sqlKeywords.includes(rightField.toUpperCase())) {
+              // Both unqualified and different fields
+              const fromTableName = fromMatch ? fromMatch[1] : 'table1';
+              const fromAlias = fromTableHasAlias ? fromMatch[2] : fromTableName;
+              
+              if (!joinAlias) {
+                this.validationErrors.push({
+                  message: `JOIN table '${joinTable}' needs an alias, and fields should be qualified. Use 'INNER JOIN ${joinTable} alias ON ${fromAlias}.${leftField} = alias.${rightField}'`,
+                  severity: 'error'
+                });
+              } else {
+                this.validationErrors.push({
+                  message: `JOIN ON clause fields should be qualified with table aliases. Use '${fromAlias}.${leftField} = ${joinAlias}.${rightField}' instead of '${leftField} = ${rightField}'`,
+                  severity: 'error'
+                });
+              }
+            }
+          }
+        }
       }
     }
     
@@ -661,8 +1001,244 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
     
+    // Comprehensive SQL syntax error validation
+    this.validateComprehensiveSyntaxErrors(query, upperQuery);
+    
     // Validate table aliases - check if all referenced table aliases exist
     this.validateTableAliases(query);
+  }
+  
+  /**
+   * Comprehensive validation for common SQL syntax errors
+   */
+  private validateComprehensiveSyntaxErrors(query: string, upperQuery: string): void {
+    // 1. Missing Comma - Check for columns without commas in SELECT
+    const selectMatch1 = query.match(/SELECT\s+(.+?)\s+FROM/i);
+    if (selectMatch1) {
+      const selectClause = selectMatch1[1].trim();
+      // Check for pattern like "name age" (missing comma)
+      const missingCommaPattern = /\b\w+\s+\w+\b/i;
+      if (missingCommaPattern.test(selectClause) && !selectClause.includes(',')) {
+        // Check if it's not a function call or alias
+        const words = selectClause.split(/\s+/);
+        if (words.length >= 2) {
+          const firstWord = words[0];
+          const secondWord = words[1];
+          // Skip if it's a function or keyword
+          if (!/^(COUNT|SUM|AVG|MAX|MIN|CASE|WHEN|AS|DISTINCT)$/i.test(firstWord) &&
+              !/^(AS|FROM)$/i.test(secondWord)) {
+            this.validationErrors.push({
+              message: `Missing comma between columns in SELECT clause. Use comma to separate columns (e.g., ${words[0]}, ${words[1]})`,
+              severity: 'error'
+            });
+          }
+        }
+      }
+    }
+    
+    // 2. Misspelled Keyword - Check for common misspellings
+    const keywordMisspellings: { [key: string]: string } = {
+      'SELEC': 'SELECT',
+      'SELET': 'SELECT',
+      'FRM': 'FROM',
+      'WHER': 'WHERE',
+      'WHRE': 'WHERE',
+      'GROP': 'GROUP',
+      'ORDR': 'ORDER',
+      'JOIN': 'JOIN' // This is correct, but check for common errors
+    };
+    
+    Object.keys(keywordMisspellings).forEach(misspelling => {
+      const regex = new RegExp(`\\b${misspelling}\\b`, 'i');
+      if (regex.test(query) && !regex.test(upperQuery.replace(misspelling.toUpperCase(), keywordMisspellings[misspelling]))) {
+        this.validationErrors.push({
+          message: `Possible misspelled keyword: '${misspelling}'. Did you mean '${keywordMisspellings[misspelling]}'?`,
+          severity: 'error'
+        });
+      }
+    });
+    
+    // 3. Mismatched Quotes - Already checked above, but enhance message
+    
+    // 4. Unbalanced Parentheses - Already checked above
+    
+    // 5. Invalid Alias Usage - Check for AS without alias name
+    const invalidAliasPattern = /\bAS\s+(FROM|WHERE|GROUP|ORDER|HAVING|JOIN|INNER|LEFT|RIGHT|ON|LIMIT)\b/i;
+    if (invalidAliasPattern.test(query)) {
+      this.validationErrors.push({
+        message: 'Invalid alias usage: AS keyword must be followed by an alias name, not a SQL keyword',
+        severity: 'error'
+      });
+    }
+    
+    // 6. Missing FROM Clause - Already checked above
+    
+    // 7. Invalid Table Name - Checked in schema validation
+    
+    // 8. Invalid Column Name - Checked in schema validation
+    
+    // 9. Wrong ORDER BY Column - Check ORDER BY columns
+    const orderByMatch = query.match(/ORDER\s+BY\s+(.+?)(?:\s+(?:GROUP|HAVING|LIMIT|$))/i);
+    if (orderByMatch) {
+      const orderByClause = orderByMatch[1].trim();
+      // Extract column names from ORDER BY
+      const orderByColumns = orderByClause.split(',').map(col => {
+        const parts = col.trim().split(/\s+/);
+        return parts[0]; // Get column name (before ASC/DESC)
+      });
+      
+      // This will be validated against schema in validateAgainstSchema
+      // But we can check for obvious syntax errors
+      if (orderByClause.trim() === '') {
+        this.validationErrors.push({
+          message: 'ORDER BY clause is missing column names',
+          severity: 'error'
+        });
+      }
+    }
+    
+    // 10. WHERE with Aggregate - Check for aggregate functions in WHERE clause
+    const whereMatch = query.match(/\bWHERE\s+(.+?)(?:\s+(?:GROUP|ORDER|HAVING|LIMIT|$))/i);
+    if (whereMatch) {
+      const whereClause = whereMatch[1];
+      const aggregateInWhere = /\b(COUNT|SUM|AVG|MAX|MIN|GROUP_CONCAT)\s*\(/i.test(whereClause);
+      if (aggregateInWhere) {
+        this.validationErrors.push({
+          message: 'Aggregate functions (COUNT, SUM, AVG, etc.) are not allowed in WHERE clause. Use HAVING clause instead',
+          severity: 'error'
+        });
+      }
+    }
+    
+    // 11. GROUP BY Missing - Check for aggregates without GROUP BY
+    const hasAggregates = /\b(COUNT|SUM|AVG|MAX|MIN|GROUP_CONCAT)\s*\(/i.test(query);
+    if (hasAggregates && !upperQuery.includes('GROUP BY')) {
+      // Check if SELECT has non-aggregate columns
+      const selectMatch2 = query.match(/SELECT\s+(.+?)\s+FROM/i);
+      if (selectMatch2) {
+        const selectFields = selectMatch2[1];
+        // Check if there are non-aggregate columns
+        const nonAggregateFields = selectFields.split(',').filter(field => {
+          const trimmed = field.trim();
+          return !/^(COUNT|SUM|AVG|MAX|MIN|GROUP_CONCAT)\s*\(/i.test(trimmed) && 
+                 trimmed !== '*' &&
+                 !trimmed.match(/^\w+\.\*$/); // table.*
+        });
+        
+        if (nonAggregateFields.length > 0 && nonAggregateFields.some(f => f.trim() !== '')) {
+          this.validationErrors.push({
+            message: 'When using aggregate functions, non-aggregated columns must appear in GROUP BY clause',
+            severity: 'error'
+          });
+        }
+      }
+    }
+    
+    // 12. Alias in WHERE - Check for alias usage in WHERE clause
+    if (whereMatch) {
+      const whereClause = whereMatch[1];
+      // Extract aliases from SELECT clause
+      const selectMatch3 = query.match(/SELECT\s+(.+?)\s+FROM/i);
+      if (selectMatch3) {
+        const selectFields = selectMatch3[1];
+        const aliasPattern = /\b(\w+)\s+AS\s+(\w+)\b|\b(\w+)\s+(\w+)\b/i;
+        const aliases: string[] = [];
+        
+        // Extract aliases (simplified - may need enhancement)
+        const aliasMatches = selectFields.matchAll(/\bAS\s+(\w+)\b/gi);
+        for (const match of aliasMatches) {
+          aliases.push(match[1]);
+        }
+        
+        // Check if any alias is used in WHERE
+        aliases.forEach(alias => {
+          const aliasInWhere = new RegExp(`\\b${alias}\\b`, 'i').test(whereClause);
+          if (aliasInWhere) {
+            this.validationErrors.push({
+              message: `Alias '${alias}' cannot be used in WHERE clause. Use the original column name instead`,
+              severity: 'error'
+            });
+          }
+        });
+      }
+    }
+    
+    // 13. Extra Comma - Check for trailing comma before FROM
+    const extraCommaPattern = /,\s+FROM\b/i;
+    if (extraCommaPattern.test(query)) {
+      this.validationErrors.push({
+        message: 'Extra comma before FROM clause. Remove the trailing comma',
+        severity: 'error'
+      });
+    }
+    
+    // 14. Double Quotes for String - Check for double quotes used as string literals
+    // Look for patterns like WHERE name = "John" (should be 'John')
+    const doubleQuoteStringPattern = /=\s*"([^"]+)"|IN\s*\(\s*"([^"]+)"|LIKE\s*"([^"]+)"|>\s*"([^"]+)"|<\s*"([^"]+)"|>=\s*"([^"]+)"|<=\s*"([^"]+)"|!=\s*"([^"]+)"|<>=\s*"([^"]+)"/i;
+    if (doubleQuoteStringPattern.test(query)) {
+      this.validationErrors.push({
+        message: 'Double quotes are used for identifiers, not string literals. Use single quotes for string values (e.g., \'John\' instead of "John")',
+        severity: 'error'
+      });
+    }
+    
+    // 15. Missing Semicolon - Not critical, but can be a warning
+    
+    // 16. Improper JOIN Condition - Already checked above
+    
+    // 17. Ambiguous Column - Already checked in JOIN validation
+    
+    // 18. Missing Keyword (e.g., WHERE) - Check for conditions without WHERE
+    // Pattern: FROM table condition (missing WHERE)
+    const missingWherePattern = /FROM\s+\w+\s+(\w+\s*[=<>!]+\s*[^WHEREGROUPORDERHAVINGLIMIT])/i;
+    if (missingWherePattern.test(query) && !upperQuery.includes('WHERE')) {
+      // Check if it looks like a condition
+      const fromMatch = query.match(/FROM\s+(\w+)\s+(.+?)(?:\s+(?:GROUP|ORDER|HAVING|JOIN|LIMIT|$))/i);
+      if (fromMatch) {
+        const afterFrom = fromMatch[2].trim();
+        // Check if it looks like a WHERE condition
+        if (/^\w+\s*[=<>!]/.test(afterFrom) || /^\w+\s+(LIKE|IN|BETWEEN|IS)/i.test(afterFrom)) {
+          this.validationErrors.push({
+            message: 'Missing WHERE keyword before condition. Use WHERE clause for filtering (e.g., WHERE column = value)',
+            severity: 'error'
+          });
+        }
+      }
+    }
+    
+    // 19. Invalid Operator - Check for invalid operators like =>
+    const invalidOperatorPattern = /=\s*>|<\s*=|!\s*>/;
+    if (invalidOperatorPattern.test(query)) {
+      this.validationErrors.push({
+        message: 'Invalid operator. Use >= (greater than or equal) or <= (less than or equal) instead of => or <=',
+        severity: 'error'
+      });
+    }
+    
+    // 20. Using Reserved Word as Identifier - Check for reserved words used as identifiers
+    const sqlReservedWords = [
+      'SELECT', 'FROM', 'WHERE', 'GROUP', 'ORDER', 'BY', 'HAVING', 'JOIN', 'INNER', 'LEFT', 'RIGHT', 'FULL',
+      'OUTER', 'ON', 'AS', 'AND', 'OR', 'NOT', 'IN', 'LIKE', 'BETWEEN', 'IS', 'NULL', 'EXISTS', 'CASE', 'WHEN',
+      'THEN', 'ELSE', 'END', 'COUNT', 'SUM', 'AVG', 'MAX', 'MIN', 'DISTINCT', 'UNION', 'ALL', 'LIMIT', 'OFFSET',
+      'INSERT', 'UPDATE', 'DELETE', 'CREATE', 'ALTER', 'DROP', 'TABLE', 'INDEX', 'VIEW', 'DATABASE', 'SCHEMA'
+    ];
+    
+    // Check for reserved words used as column/table names without quotes
+    const identifierPattern = /\b(FROM|SELECT|WHERE|GROUP|ORDER|HAVING|JOIN|AS|AND|OR|NOT|IN|LIKE|BETWEEN|IS|NULL|EXISTS|CASE|WHEN|THEN|ELSE|END|COUNT|SUM|AVG|MAX|MIN|DISTINCT|UNION|ALL|LIMIT|OFFSET|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TABLE|INDEX|VIEW|DATABASE|SCHEMA)\b/gi;
+    
+    // Check in SELECT clause for reserved words as column names
+    const selectMatch4 = query.match(/SELECT\s+(.+?)\s+FROM/i);
+    if (selectMatch4) {
+      const selectFields = selectMatch4[1];
+      // Check if reserved word is used as column name (not as keyword)
+      const reservedWordAsColumn = selectFields.match(/\b(SELECT|FROM|WHERE|GROUP|ORDER|HAVING|JOIN|AS|AND|OR|NOT|IN|LIKE|BETWEEN|IS|NULL|EXISTS|CASE|WHEN|THEN|ELSE|END|COUNT|SUM|AVG|MAX|MIN|DISTINCT|UNION|ALL|LIMIT|OFFSET|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TABLE|INDEX|VIEW|DATABASE|SCHEMA)\s*,|\b(SELECT|FROM|WHERE|GROUP|ORDER|HAVING|JOIN|AS|AND|OR|NOT|IN|LIKE|BETWEEN|IS|NULL|EXISTS|CASE|WHEN|THEN|ELSE|END|COUNT|SUM|AVG|MAX|MIN|DISTINCT|UNION|ALL|LIMIT|OFFSET|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|TABLE|INDEX|VIEW|DATABASE|SCHEMA)\s+FROM/i);
+      if (reservedWordAsColumn) {
+        this.validationErrors.push({
+          message: 'Reserved SQL keyword used as column/table name. Use double quotes to escape reserved words (e.g., "select" FROM data) or rename the column',
+          severity: 'error'
+        });
+      }
+    }
   }
   
   private validateTableAliases(query: string): void {
@@ -783,14 +1359,58 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   private validateAgainstSchema(query: string): void {
     if (!this.schemaData) return;
     
-    const tableMap = new Map<string, AppObject>();
+    // Build table and field maps with Field IDs
+    const tableMap = new Map<string, any>();
+    const fieldMap = new Map<string, Map<string, any>>(); // tableName -> fieldName -> fieldData
+    
     this.schemaData.appObjects.forEach(obj => {
-      tableMap.set(obj.name.toLowerCase(), obj);
+      const tableNameLower = obj.name.toLowerCase();
+      tableMap.set(tableNameLower, obj);
+      
+      // Build field map for this table
+      const fields = new Map<string, any>();
+      if (obj.fields && Array.isArray(obj.fields)) {
+        obj.fields.forEach((field: any) => {
+          const fieldNameLower = (field.FieldName || field.name || '').toLowerCase();
+          if (fieldNameLower) {
+            fields.set(fieldNameLower, {
+              id: field.ID || field.id,
+              name: field.FieldName || field.name,
+              displayName: field.DisplayName || field.displayName,
+              systemDBFieldName: field.SystemDBFieldName,
+              dataType: field.FieldType?.DataType || field.dataType,
+              isRequired: field.IsRequired || field.isRequired,
+              isPrimaryKey: field.IsPrimaryKey || field.isPrimaryKey
+            });
+          }
+        });
+      }
+      fieldMap.set(tableNameLower, fields);
     });
     
     // Extract table names from FROM and JOIN clauses
-    const fromMatch = query.match(/FROM\s+(\w+)/i);
-    const joinMatches = Array.from(query.matchAll(/(?:INNER|LEFT|RIGHT|FULL)?\s+JOIN\s+(\w+)/gi));
+    const fromMatch = query.match(/FROM\s+(\w+)(?:\s+(?:AS\s+)?(\w+))?/i);
+    const joinMatches = Array.from(query.matchAll(/(?:INNER|LEFT|RIGHT|FULL)?\s+JOIN\s+(\w+)(?:\s+(?:AS\s+)?(\w+))?/gi));
+    
+    // Build alias to table name mapping
+    const aliasToTable = new Map<string, string>();
+    if (fromMatch) {
+      const tableName = fromMatch[1];
+      const alias = fromMatch[2];
+      if (alias) {
+        aliasToTable.set(alias.toLowerCase(), tableName.toLowerCase());
+      }
+      aliasToTable.set(tableName.toLowerCase(), tableName.toLowerCase());
+    }
+    
+    joinMatches.forEach(match => {
+      const tableName = match[1];
+      const alias = match[2];
+      if (alias) {
+        aliasToTable.set(alias.toLowerCase(), tableName.toLowerCase());
+      }
+      aliasToTable.set(tableName.toLowerCase(), tableName.toLowerCase());
+    });
     
     // Validate FROM table
     if (fromMatch) {
@@ -800,6 +1420,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
           message: `Table '${fromMatch[1]}' not found in database schema`,
           severity: 'error'
         });
+        return; // Can't validate fields if table doesn't exist
       }
     }
     
@@ -814,34 +1435,162 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
     
-    // Extract and validate field names (basic check)
-    const fieldMatches = Array.from(query.matchAll(/\b(\w+)\.(\w+)\b/gi));
-    fieldMatches.forEach(match => {
-      const tableName = match[1].toLowerCase();
-      const fieldName = match[2].toLowerCase();
+    // Validate fields in SELECT clause
+    const selectMatch = query.match(/SELECT\s+(.+?)\s+FROM/i);
+    if (selectMatch && fromMatch) {
+      const selectClause = selectMatch[1].trim();
+      const mainTableName = fromMatch[1].toLowerCase();
+      const mainTableFields = fieldMap.get(mainTableName);
       
-      const table = tableMap.get(tableName);
-      if (table) {
-        const fieldExists = table.fields.some(f => f.name.toLowerCase() === fieldName);
-        if (!fieldExists) {
-          this.validationErrors.push({
-            message: `Field '${match[2]}' not found in table '${match[1]}'`,
-            severity: 'error'
+      if (mainTableFields) {
+        // Extract field names from SELECT (handle * separately)
+        if (selectClause.trim() !== '*') {
+          const selectFields = selectClause.split(',').map(f => {
+            // Remove AS alias if present
+            const fieldPart = f.split(/\s+AS\s+/i)[0].trim();
+            // Extract field name (handle table.field or just field)
+            const fieldMatch = fieldPart.match(/(?:(\w+)\.)?(\w+)/);
+            return fieldMatch ? { table: fieldMatch[1]?.toLowerCase(), field: fieldMatch[2] } : null;
+          }).filter(f => f !== null);
+          
+          selectFields.forEach((fieldInfo: any) => {
+            if (fieldInfo) {
+              const tableName = fieldInfo.table ? aliasToTable.get(fieldInfo.table) || fieldInfo.table : mainTableName;
+              const fieldName = fieldInfo.field.toLowerCase();
+              const tableFields = fieldMap.get(tableName);
+              
+              if (tableFields && !tableFields.has(fieldName)) {
+                const fieldData = tableFields.get(fieldName);
+                this.validationErrors.push({
+                  message: `Field '${fieldInfo.field}' not found in table '${tableName}'. Available fields: ${Array.from(tableFields.keys()).slice(0, 5).join(', ')}${tableFields.size > 5 ? '...' : ''}`,
+                  severity: 'error'
+                });
+              }
+            }
           });
         }
       }
-    });
+    }
     
-    // Validate fields without table prefix (check in main FROM table)
-    if (fromMatch) {
-      const mainTable = tableMap.get(fromMatch[1].toLowerCase());
-      if (mainTable) {
-        // Extract simple field names (not table.field)
-        const simpleFieldMatches = Array.from(query.matchAll(/\b(?<!\.)(\w+)\b/gi));
-        // This is a basic check - might have false positives
-        // Could be enhanced to be more accurate
+    // Validate fields in WHERE clause
+    const whereMatch = query.match(/\bWHERE\s+(.+?)(?:\s+(?:GROUP|ORDER|HAVING|LIMIT|$))/i);
+    if (whereMatch && fromMatch) {
+      const whereClause = whereMatch[1];
+      const mainTableName = fromMatch[1].toLowerCase();
+      const mainTableFields = fieldMap.get(mainTableName);
+      
+      if (mainTableFields) {
+        // Extract field names from WHERE conditions
+        const whereFieldPattern = /(\w+\.)?(\w+)\s*[=<>!]+|(\w+\.)?(\w+)\s+(?:LIKE|IN|NOT\s+IN|BETWEEN|IS\s+(?:NOT\s+)?NULL)/gi;
+        const whereFields = Array.from(whereClause.matchAll(whereFieldPattern));
+        
+        whereFields.forEach(match => {
+          const tableRef = match[1] || match[3];
+          const fieldName = (match[2] || match[4]).toLowerCase();
+          
+          if (fieldName && !['and', 'or', 'not', 'in', 'like', 'between', 'is', 'null'].includes(fieldName)) {
+            const tableName = tableRef ? (aliasToTable.get(tableRef.toLowerCase()) || tableRef.toLowerCase()) : mainTableName;
+            const tableFields = fieldMap.get(tableName);
+            
+            if (tableFields && !tableFields.has(fieldName)) {
+              this.validationErrors.push({
+                message: `Field '${fieldName}' in WHERE clause not found in table '${tableName}'`,
+                severity: 'error'
+              });
+            } else if (tableFields && tableFields.has(fieldName)) {
+              // Field exists - could log Field ID for reference (optional)
+              const fieldData = tableFields.get(fieldName);
+              // Field ID: fieldData.id would be available here for mapping
+            }
+          }
+        });
       }
     }
+    
+    // Validate fields in ORDER BY
+    const orderByMatch = query.match(/ORDER\s+BY\s+(.+?)(?:\s+(?:GROUP|HAVING|LIMIT|$))/i);
+    if (orderByMatch && fromMatch) {
+      const orderByClause = orderByMatch[1];
+      const mainTableName = fromMatch[1].toLowerCase();
+      const mainTableFields = fieldMap.get(mainTableName);
+      
+      if (mainTableFields) {
+        const orderByFields = orderByClause.split(',').map(f => {
+          const parts = f.trim().split(/\s+/);
+          const fieldPart = parts[0];
+          const fieldMatch = fieldPart.match(/(?:(\w+)\.)?(\w+)/);
+          return fieldMatch ? { table: fieldMatch[1]?.toLowerCase(), field: fieldMatch[2] } : null;
+        }).filter(f => f !== null);
+        
+        orderByFields.forEach((fieldInfo: any) => {
+          if (fieldInfo) {
+            const tableName = fieldInfo.table ? (aliasToTable.get(fieldInfo.table) || fieldInfo.table) : mainTableName;
+            const fieldName = fieldInfo.field.toLowerCase();
+            const tableFields = fieldMap.get(tableName);
+            
+            if (tableFields && !tableFields.has(fieldName)) {
+              this.validationErrors.push({
+                message: `Field '${fieldInfo.field}' in ORDER BY clause not found in table '${tableName}'`,
+                severity: 'error'
+              });
+            }
+          }
+        });
+      }
+    }
+    
+    // Validate fields in GROUP BY
+    const groupByMatch = query.match(/GROUP\s+BY\s+(.+?)(?:\s+(?:ORDER|HAVING|LIMIT|$))/i);
+    if (groupByMatch && fromMatch) {
+      const groupByClause = groupByMatch[1];
+      const mainTableName = fromMatch[1].toLowerCase();
+      const mainTableFields = fieldMap.get(mainTableName);
+      
+      if (mainTableFields) {
+        const groupByFields = groupByClause.split(',').map(f => {
+          const fieldMatch = f.trim().match(/(?:(\w+)\.)?(\w+)/);
+          return fieldMatch ? { table: fieldMatch[1]?.toLowerCase(), field: fieldMatch[2] } : null;
+        }).filter(f => f !== null);
+        
+        groupByFields.forEach((fieldInfo: any) => {
+          if (fieldInfo) {
+            const tableName = fieldInfo.table ? (aliasToTable.get(fieldInfo.table) || fieldInfo.table) : mainTableName;
+            const fieldName = fieldInfo.field.toLowerCase();
+            const tableFields = fieldMap.get(tableName);
+            
+            if (tableFields && !tableFields.has(fieldName)) {
+              this.validationErrors.push({
+                message: `Field '${fieldInfo.field}' in GROUP BY clause not found in table '${tableName}'`,
+                severity: 'error'
+              });
+            }
+          }
+        });
+      }
+    }
+    
+    // Validate qualified fields (table.field pattern)
+    const qualifiedFieldMatches = Array.from(query.matchAll(/\b(\w+)\.(\w+)\b/gi));
+    qualifiedFieldMatches.forEach(match => {
+      const tableRef = match[1].toLowerCase();
+      const fieldName = match[2].toLowerCase();
+      
+      // Skip SQL keywords
+      const sqlKeywords = ['select', 'from', 'where', 'group', 'order', 'by', 'having', 'join', 'inner', 'left', 'right', 'full', 'on', 'as', 'and', 'or', 'not', 'in', 'like', 'between', 'is', 'null', 'exists', 'case', 'when', 'then', 'else', 'end', 'count', 'sum', 'avg', 'max', 'min', 'distinct', 'union', 'all', 'limit', 'offset'];
+      if (sqlKeywords.includes(tableRef) || sqlKeywords.includes(fieldName)) {
+        return;
+      }
+      
+      const tableName = aliasToTable.get(tableRef) || tableRef;
+      const tableFields = fieldMap.get(tableName);
+      
+      if (tableFields && !tableFields.has(fieldName)) {
+        this.validationErrors.push({
+          message: `Field '${match[2]}' not found in table '${match[1]}'`,
+          severity: 'error'
+        });
+      }
+    });
   }
 
   formatQuery(): void {
@@ -868,19 +1617,64 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   executeQuery(): void {
-    // Validate query before execution
-    if (this.hasValidationErrors) {
-      this.toastService.error('Please fix validation errors before executing', 'Validation Error');
+    // Immediate validation check - run validation synchronously first
+    if (!this.sqlQuery.trim()) {
+      this.toastService.error('Please enter a SQL query to execute', 'Empty Query');
+      return;
+    }
+
+    // Run validation immediately (synchronously) before execution
+    this.validateQuery(this.sqlQuery);
+    
+    // Check for validation errors immediately
+    if (this.hasValidationErrors && this.validationErrors.length > 0) {
+      // Show validation errors panel
+      this.showValidationErrors = true;
+      
+      // Get error messages
+      const errorMessages = this.validationErrors
+        .filter(e => e.severity === 'error')
+        .map(e => e.message)
+        .join('; ');
+      
+      if (errorMessages) {
+        this.toastService.error(
+          `SQL Validation Error: ${errorMessages}`,
+          'Validation Failed'
+        );
+      } else {
+        this.toastService.error('Please fix validation errors before executing', 'Validation Error');
+      }
+      
+      // Scroll to validation errors
+      setTimeout(() => {
+        const errorPanel = document.querySelector('.validation-errors-panel');
+        if (errorPanel) {
+          errorPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 100);
+      
+      return;
+    }
+
+    // Validate SQL can be parsed to QueryJson (required for execution)
+    let queryJson: any = null;
+    try {
+      queryJson = this.sqlParserService.sqlToJson(this.sqlQuery, this.schemaData);
+      if (!queryJson) {
+        this.toastService.error('Failed to parse SQL query. Please check your SQL syntax.', 'Parse Error');
+        return;
+      }
+    } catch (parseError: any) {
+      this.toastService.error(
+        `SQL Parse Error: ${parseError.message || 'Failed to parse query. Please check your SQL syntax.'}`,
+        'Parse Error'
+      );
       return;
     }
 
     if (!this.validateParameters()) {
       this.toastService.error('Please fill in all required parameters', 'Parameter Error');
-      return;
-    }
-
-    if (!this.sqlQuery.trim()) {
-      this.toastService.warning('Please enter a SQL query to execute', 'Empty Query');
       return;
     }
 
@@ -899,20 +1693,13 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    // Get QueryJson for history
-    let queryJson: any = null;
-    try {
-      queryJson = this.sqlParserService.sqlToJson(this.sqlQuery);
-    } catch (error) {
-      console.warn('Failed to generate QueryJson for history:', error);
-    }
-
     const startTime = Date.now();
 
     // Call query execution service with SQL parser for QueryJson conversion
     // FOR PRODUCTION: The API call code is in QueryExecutionService
     // Currently using mock data for development
-    this.queryExecutionService.executeQuery(this.sqlQuery, paramsObj, this.sqlParserService).subscribe({
+    // Pass schemaData to ensure correct Field IDs are used
+    this.queryExecutionService.executeQuery(this.sqlQuery, paramsObj, this.sqlParserService, this.schemaData).subscribe({
       next: (response: QueryExecutionResponse) => {
         this.isExecuting = false;
         this.queryResults = response;
@@ -1470,7 +2257,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     if (tab === 'json') {
       // Generate JSON representation in the format: QueryObjectID, ResultField_AppfieldIds, WhereClause, etc.
       try {
-        const jsonQuery = this.sqlParserService.sqlToJson(this.sqlQuery);
+        const jsonQuery = this.sqlParserService.sqlToJson(this.sqlQuery, this.schemaData);
         this.jsonInput = JSON.stringify(jsonQuery, null, 2);
         this.formattedQuery = '';
       } catch (error: any) {
@@ -1636,7 +2423,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   loadJsonFromSql(): void {
     try {
-      const jsonQuery = this.sqlParserService.sqlToJson(this.sqlQuery);
+      const jsonQuery = this.sqlParserService.sqlToJson(this.sqlQuery, this.schemaData);
       this.jsonInput = JSON.stringify(jsonQuery, null, 2);
       this.formattedQuery = '';
       this.toastService.success('JSON loaded from SQL successfully', 'Load Success');
@@ -1803,7 +2590,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getQueryJson(): any {
     try {
-      return this.sqlParserService.sqlToJson(this.sqlQuery);
+      return this.sqlParserService.sqlToJson(this.sqlQuery, this.schemaData);
     } catch (error) {
       return null;
     }
