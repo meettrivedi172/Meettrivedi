@@ -750,44 +750,60 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
         
+        // FIRST: Check if it's just a field name without operator (incomplete condition)
+        // This check must come BEFORE checking for valid patterns to catch incomplete WHERE clauses
+        // Pattern matches: "field", "table.field", "field ", "table.field " (with optional whitespace)
+        const justFieldNamePattern = /^\s*(\w+(\.\w+)?)\s*$/i;
+        const justFieldNameMatch = cleanedAfterWhere.match(justFieldNamePattern);
+        if (justFieldNameMatch) {
+          this.validationErrors.push({
+            message: `WHERE clause is incomplete. Field '${justFieldNameMatch[1]}' found without an operator. Please add an operator and value (e.g., ${justFieldNameMatch[1]} = value or ${justFieldNameMatch[1]} IS NULL)`,
+            severity: 'error'
+          });
+          continue;
+        }
+        
+        // Check for field name followed by SQL keywords without operator (incomplete)
+        // This catches cases like "field GROUP BY" or "table.field ORDER BY"
+        const fieldNameBeforeKeywordPattern = /^\s*(\w+(\.\w+)?)\s+(GROUP\s+BY|ORDER\s+BY|HAVING|LIMIT|UNION|INTERSECT|EXCEPT)\b/i;
+        const fieldNameBeforeKeywordMatch = cleanedAfterWhere.match(fieldNameBeforeKeywordPattern);
+        if (fieldNameBeforeKeywordMatch) {
+          // Field name directly followed by SQL keyword (no operator in between)
+          this.validationErrors.push({
+            message: `WHERE clause is incomplete. Field '${fieldNameBeforeKeywordMatch[1]}' found without an operator before '${fieldNameBeforeKeywordMatch[2]}'. Please add an operator and value (e.g., ${fieldNameBeforeKeywordMatch[1]} = value or ${fieldNameBeforeKeywordMatch[1]} IS NULL)`,
+            severity: 'error'
+          });
+          continue;
+        }
+        
         // Check for valid condition patterns
         // Valid: field operator value, field IN (...), field IS NULL, (condition), @parameter, etc.
         const validPatterns = [
           /^\s*\(/,  // Starts with parenthesis (subquery or grouped condition)
           /^\s*@\w+/,  // Parameter reference
-          /^\s*\w+\.\w+/,  // Table.field reference
-          /^\s*\w+\s*(=|!=|<>|>|<|>=|<=|LIKE)\s+[^\s]/,  // Field with operator and value (must have non-whitespace after operator)
-          /^\s*\w+\s+IN\s*\(/i,  // Field IN (list)
-          /^\s*\w+\s+NOT\s+IN\s*\(/i,  // Field NOT IN (list)
-          /^\s*\w+\s+BETWEEN\s+/i,  // Field BETWEEN (must have value after)
-          /^\s*\w+\s+EXISTS\s*\(/i,  // EXISTS (subquery)
-          /^\s*\w+\s+IS\s+(NOT\s+)?NULL/i  // IS NULL or IS NOT NULL
+          /^\s*\w+(\.\w+)?\s*(=|!=|<>|>|<|>=|<=|LIKE)\s+[^\s]/,  // Table.field or field with operator and value (must have non-whitespace after operator)
+          /^\s*\w+(\.\w+)?\s+IN\s*\(/i,  // Field or table.field IN (list)
+          /^\s*\w+(\.\w+)?\s+NOT\s+IN\s*\(/i,  // Field or table.field NOT IN (list)
+          /^\s*\w+(\.\w+)?\s+BETWEEN\s+/i,  // Field or table.field BETWEEN (must have value after)
+          /^\s*\w+(\.\w+)?\s+EXISTS\s*\(/i,  // EXISTS (subquery)
+          /^\s*\w+(\.\w+)?\s+IS\s+(NOT\s+)?NULL/i  // IS NULL or IS NOT NULL
         ];
         
         const hasValidCondition = validPatterns.some(pattern => pattern.test(cleanedAfterWhere));
         
         if (!hasValidCondition) {
-          // Check if it's just a field name without operator (incomplete condition)
-          const justFieldName = /^\s*\w+(\.\w+)?\s*$/i.test(cleanedAfterWhere);
-          if (justFieldName) {
+          // Check for BETWEEN without values
+          if (/^\s*\w+(\.\w+)?\s+BETWEEN\s*$/i.test(cleanedAfterWhere)) {
             this.validationErrors.push({
-              message: 'WHERE clause appears incomplete. Please add an operator and value after the field name (e.g., field = value)',
+              message: 'WHERE clause is incomplete. BETWEEN operator requires two values (e.g., field BETWEEN value1 AND value2)',
               severity: 'error'
             });
           } else {
-            // Check for BETWEEN without values
-            if (/^\s*\w+\s+BETWEEN\s*$/i.test(cleanedAfterWhere)) {
-              this.validationErrors.push({
-                message: 'WHERE clause is incomplete. BETWEEN operator requires two values (e.g., field BETWEEN value1 AND value2)',
-                severity: 'error'
-              });
-            } else {
-              // Unknown pattern - might be invalid
-              this.validationErrors.push({
-                message: 'WHERE clause may be incomplete or invalid. Please ensure you have a valid condition after WHERE',
-                severity: 'error'
-              });
-            }
+            // Unknown pattern - might be invalid
+            this.validationErrors.push({
+              message: 'WHERE clause may be incomplete or invalid. Please ensure you have a valid condition after WHERE',
+              severity: 'error'
+            });
           }
         }
       }
@@ -1335,8 +1351,8 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
             severity: 'error'
           });
         }
-        if (filter.Operator && !filter.Value && filter.Operator !== 10 && filter.Operator !== 11) {
-          // IS NULL (10) and IS NOT NULL (11) don't need values
+        if (filter.Operator && !filter.Value && filter.Operator !== 6 && filter.Operator !== 7) {
+          // IsNULL (6) and IsNotNULL (7) don't need values
           this.validationErrors.push({
             message: `Filter ${index + 1}: Operator requires a value but none provided`,
             severity: 'error'
@@ -1442,15 +1458,56 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       const mainTableName = fromMatch[1].toLowerCase();
       const mainTableFields = fieldMap.get(mainTableName);
       
+      // SQL aggregate functions and keywords to skip
+      const sqlAggregateFunctions = ['count', 'sum', 'avg', 'max', 'min', 'group_concat', 'string_agg', 'array_agg'];
+      const sqlKeywords = ['select', 'from', 'where', 'group', 'order', 'by', 'having', 'join', 'inner', 'left', 'right', 'full', 'on', 'as', 'and', 'or', 'not', 'in', 'like', 'between', 'is', 'null', 'exists', 'case', 'when', 'then', 'else', 'end', 'distinct', 'union', 'all', 'limit', 'offset', 'cast', 'convert'];
+      
       if (mainTableFields) {
         // Extract field names from SELECT (handle * separately)
         if (selectClause.trim() !== '*') {
           const selectFields = selectClause.split(',').map(f => {
             // Remove AS alias if present
             const fieldPart = f.split(/\s+AS\s+/i)[0].trim();
+            
+            // Check if it's an aggregate function (e.g., COUNT(field), SUM(field))
+            const aggregateMatch = fieldPart.match(/^\s*(\w+)\s*\(/i);
+            if (aggregateMatch) {
+              const functionName = aggregateMatch[1].toLowerCase();
+              // If it's an aggregate function, extract the field from inside the parentheses
+              if (sqlAggregateFunctions.includes(functionName)) {
+                // Extract field name from inside function: COUNT(WorkItemTypeName) -> WorkItemTypeName
+                const innerMatch = fieldPart.match(/\([^)]*?((?:\w+\.)?\w+)[^)]*\)/);
+                if (innerMatch && innerMatch[1]) {
+                  const innerFieldMatch = innerMatch[1].match(/(?:(\w+)\.)?(\w+)/);
+                  if (innerFieldMatch) {
+                    // Only validate if it's not * (COUNT(*) is valid)
+                    if (innerFieldMatch[2] !== '*') {
+                      return { table: innerFieldMatch[1]?.toLowerCase(), field: innerFieldMatch[2] };
+                    }
+                  }
+                }
+                // COUNT(*) or COUNT(1) - skip validation
+                return null;
+              }
+            }
+            
+            // Check if it's a SQL keyword - skip validation
+            const simpleFieldMatch = fieldPart.match(/^(\w+)$/);
+            if (simpleFieldMatch && sqlKeywords.includes(simpleFieldMatch[1].toLowerCase())) {
+              return null;
+            }
+            
             // Extract field name (handle table.field or just field)
             const fieldMatch = fieldPart.match(/(?:(\w+)\.)?(\w+)/);
-            return fieldMatch ? { table: fieldMatch[1]?.toLowerCase(), field: fieldMatch[2] } : null;
+            if (fieldMatch) {
+              const extractedField = fieldMatch[2].toLowerCase();
+              // Skip if it's a SQL keyword or aggregate function name
+              if (sqlKeywords.includes(extractedField) || sqlAggregateFunctions.includes(extractedField)) {
+                return null;
+              }
+              return { table: fieldMatch[1]?.toLowerCase(), field: fieldMatch[2] };
+            }
+            return null;
           }).filter(f => f !== null);
           
           selectFields.forEach((fieldInfo: any) => {
@@ -1570,14 +1627,27 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     
     // Validate qualified fields (table.field pattern)
+    // But skip patterns inside function calls like COUNT(WorkItemTypeName) - only validate actual table.field patterns
     const qualifiedFieldMatches = Array.from(query.matchAll(/\b(\w+)\.(\w+)\b/gi));
     qualifiedFieldMatches.forEach(match => {
       const tableRef = match[1].toLowerCase();
       const fieldName = match[2].toLowerCase();
       
-      // Skip SQL keywords
-      const sqlKeywords = ['select', 'from', 'where', 'group', 'order', 'by', 'having', 'join', 'inner', 'left', 'right', 'full', 'on', 'as', 'and', 'or', 'not', 'in', 'like', 'between', 'is', 'null', 'exists', 'case', 'when', 'then', 'else', 'end', 'count', 'sum', 'avg', 'max', 'min', 'distinct', 'union', 'all', 'limit', 'offset'];
-      if (sqlKeywords.includes(tableRef) || sqlKeywords.includes(fieldName)) {
+      // Skip SQL keywords and aggregate functions
+      const sqlKeywords = ['select', 'from', 'where', 'group', 'order', 'by', 'having', 'join', 'inner', 'left', 'right', 'full', 'on', 'as', 'and', 'or', 'not', 'in', 'like', 'between', 'is', 'null', 'exists', 'case', 'when', 'then', 'else', 'end', 'distinct', 'union', 'all', 'limit', 'offset', 'cast', 'convert'];
+      const sqlAggregateFunctions = ['count', 'sum', 'avg', 'max', 'min', 'group_concat', 'string_agg', 'array_agg'];
+      
+      // Skip if either part is a SQL keyword or aggregate function
+      if (sqlKeywords.includes(tableRef) || sqlKeywords.includes(fieldName) || 
+          sqlAggregateFunctions.includes(tableRef) || sqlAggregateFunctions.includes(fieldName)) {
+        return;
+      }
+      
+      // Check if this match is inside a function call - if so, it's already validated in SELECT clause
+      const matchIndex = match.index || 0;
+      const beforeMatch = query.substring(Math.max(0, matchIndex - 20), matchIndex);
+      // If there's a function name before this match, skip it (already handled in SELECT validation)
+      if (/\b(count|sum|avg|max|min|group_concat|string_agg|array_agg)\s*\(/i.test(beforeMatch)) {
         return;
       }
       
@@ -1595,26 +1665,561 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   formatQuery(): void {
     try {
-      // Use sql-formatter library for professional SQL formatting
-      const formatted = format(this.sqlQuery, {
-        language: 'sql',
-        tabWidth: 4, // Number of spaces for indentation
-        keywordCase: 'upper', // Uppercase SQL keywords
-        linesBetweenQueries: 2 // Number of line breaks between queries
-      });
-      
-      this.sqlQuery = formatted;
-      // Update Monaco editor
-      if (this.editor) {
-        this.editor.setValue(formatted);
+      if (!this.sqlQuery || !this.sqlQuery.trim()) {
+        this.toastService.error('No SQL query to format', 'Empty Query');
+        return;
       }
-      this.onQueryChange();
-    } catch (error) {
+
+      let formatted: string;
+      
+      // Use sql-formatter library for formatting
+      try {
+        // Preprocess query to handle SQL Server specific syntax
+        let queryToFormat = this.sqlQuery;
+        
+        // Temporarily replace NOLOCK hints to avoid parsing issues
+        const nolockPlaceholder = '___NOLOCK___';
+        const nolockMatches: string[] = [];
+        let nolockIndex = 0;
+        queryToFormat = queryToFormat.replace(/\(NOLOCK\)/gi, (match) => {
+          nolockMatches.push(match);
+          return `(${nolockPlaceholder}${nolockIndex++})`;
+        });
+
+        // Format with sql-formatter using SQL Server compatible settings
+        // sql-formatter supports these core options
+        formatted = format(queryToFormat, {
+          language: 'sql', // Use standard SQL dialect (supports SQL Server syntax)
+          tabWidth: 4, // 4 spaces for indentation
+          keywordCase: 'upper', // Uppercase SQL keywords (SELECT, FROM, WHERE, etc.)
+          linesBetweenQueries: 1 // Single line between queries
+        });
+
+        // Restore NOLOCK hints
+        nolockMatches.forEach((match, index) => {
+          formatted = formatted.replace(
+            new RegExp(`\\(${nolockPlaceholder}${index}\\)`, 'gi'),
+            match
+          );
+        });
+        
+        // Post-process to keep SELECT *, FROM table, WHERE condition on same lines
+        formatted = this.postProcessFormattedQuery(formatted);
+        
+        this.sqlQuery = formatted;
+        // Update Monaco editor
+        if (this.editor) {
+          this.editor.setValue(formatted);
+        }
+        this.onQueryChange();
+        this.toastService.success('SQL query formatted successfully', 'Format Success');
+      } catch (formatError: any) {
+        // If sql-formatter fails, use our enhanced formatter as fallback
+        console.warn('sql-formatter failed, using enhanced formatter:', formatError);
+        formatted = this.enhancedFormatQuery(this.sqlQuery);
+
+        this.sqlQuery = formatted;
+        // Update Monaco editor
+        if (this.editor) {
+          this.editor.setValue(formatted);
+        }
+        this.onQueryChange();
+        this.toastService.success('SQL query formatted with enhanced formatter', 'Format Success');
+      }
+    } catch (error: any) {
       console.error('Error formatting SQL query:', error);
-      // Fallback to original query if formatting fails
-      this.toastService.error('Failed to format SQL query. Please check your SQL syntax.');
+      this.toastService.error(
+        `Failed to format SQL query: ${error.message || 'Unknown error'}`,
+        'Format Error'
+      );
     }
   }
+
+  /**
+   * Enhanced SQL formatter that handles complex SQL Server queries
+   * with EXISTS subqueries, NOLOCK hints, and nested structures
+   */
+  private enhancedFormatQuery(query: string): string {
+    let formatted = query.trim();
+    
+    // Preserve NOLOCK hints and other SQL Server specific syntax
+    // Normalize whitespace but be careful with brackets and parentheses
+    formatted = formatted.replace(/\s+/g, ' ');
+    
+    // Add line breaks before major SQL keywords (but not inside strings or brackets)
+    const addLineBreak = (text: string, keyword: string, indent: number = 0): string => {
+      const indentStr = '    '.repeat(indent);
+      const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+      return text.replace(regex, `\n${indentStr}${keyword}`);
+    };
+    
+    // Format major clauses
+    formatted = addLineBreak(formatted, 'SELECT', 0);
+    formatted = addLineBreak(formatted, 'FROM', 0);
+    formatted = addLineBreak(formatted, 'WHERE', 0);
+    formatted = addLineBreak(formatted, 'LEFT JOIN', 0);
+    formatted = addLineBreak(formatted, 'RIGHT JOIN', 0);
+    formatted = addLineBreak(formatted, 'INNER JOIN', 0);
+    formatted = addLineBreak(formatted, 'FULL JOIN', 0);
+    formatted = formatted.replace(/\bJOIN\b/gi, (match, offset, str) => {
+      // Only replace if not already part of LEFT/RIGHT/INNER/FULL JOIN
+      const before = str.substring(Math.max(0, offset - 10), offset);
+      if (!before.match(/(LEFT|RIGHT|INNER|FULL)\s+$/i)) {
+        return '\nJOIN';
+      }
+      return match;
+    });
+    formatted = addLineBreak(formatted, 'ON', 1);
+    formatted = addLineBreak(formatted, 'GROUP BY', 0);
+    formatted = addLineBreak(formatted, 'ORDER BY', 0);
+    formatted = addLineBreak(formatted, 'HAVING', 0);
+    formatted = addLineBreak(formatted, 'UNION ALL', 0);
+    formatted = addLineBreak(formatted, 'UNION', 0);
+    
+    // Handle EXISTS with proper indentation
+    formatted = formatted.replace(/\b(AND|OR)\s+(EXISTS)\s*\(/gi, '\n    $1 EXISTS (');
+    formatted = formatted.replace(/\bEXISTS\s*\(/gi, '\n    EXISTS (');
+    
+    // Handle AND/OR in WHERE clauses with proper indentation
+    formatted = formatted.replace(/\b(AND|OR)\s+(?![EXISTS])/gi, '\n    $1 ');
+    
+    // Format SELECT field list - put each field on new line
+    formatted = formatted.replace(/SELECT\s+(.+?)\s+FROM/gi, (match, selectClause) => {
+      // Split by comma, but be careful with nested parentheses
+      const fields = this.splitSelectFields(selectClause);
+      const formattedFields = fields.map((field: string, index: number) => {
+        const indent = index === 0 ? '' : '    ';
+        return indent + field.trim();
+      }).join(',\n');
+      return `SELECT ${formattedFields}\nFROM`;
+    });
+    
+    // Process lines with proper indentation
+    const lines = formatted.split('\n');
+    const result: string[] = [];
+    let indentLevel = 0;
+    let inSubquery = false;
+    let parenStack: number[] = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+      let line = lines[i].trim();
+      if (!line) continue;
+      
+      const upperLine = line.toUpperCase();
+      
+      // Count parentheses to track subquery depth
+      const openParens = (line.match(/\(/g) || []).length;
+      const closeParens = (line.match(/\)/g) || []).length;
+      
+      for (let j = 0; j < openParens; j++) {
+        parenStack.push(indentLevel);
+        inSubquery = true;
+      }
+      for (let j = 0; j < closeParens; j++) {
+        if (parenStack.length > 0) {
+          indentLevel = parenStack.pop() || 0;
+        }
+        if (parenStack.length === 0) {
+          inSubquery = false;
+        }
+      }
+      
+      // Adjust indent based on SQL structure
+      if (upperLine.startsWith('FROM ')) {
+        indentLevel = 0;
+      } else if (upperLine.startsWith('WHERE ')) {
+        indentLevel = 0;
+      } else if (upperLine.startsWith('GROUP BY ') || upperLine.startsWith('ORDER BY ') || upperLine.startsWith('HAVING ')) {
+        indentLevel = 0;
+      } else if (upperLine.startsWith('SELECT ')) {
+        indentLevel = 0;
+      } else if (upperLine.match(/^(LEFT|RIGHT|INNER|FULL)\s+JOIN/)) {
+        indentLevel = 0;
+      } else if (upperLine.startsWith('ON ')) {
+        indentLevel = 1;
+      } else if (upperLine.startsWith('EXISTS (')) {
+        // Keep current indent for EXISTS
+      } else if (upperLine.startsWith('AND ') || upperLine.startsWith('OR ')) {
+        if (!inSubquery) {
+          indentLevel = 1;
+        }
+      }
+      
+      // Apply indentation
+      const indent = '    '.repeat(Math.max(0, indentLevel));
+      result.push(indent + line);
+      
+      // Increase indent for subqueries
+      if (upperLine.includes('EXISTS (') || (upperLine.includes('SELECT ') && inSubquery)) {
+        indentLevel++;
+      }
+    }
+    
+    formatted = result.join('\n');
+    
+    // Clean up: ensure commas in SELECT are on the same line or properly formatted
+    formatted = formatted.replace(/,\s*\n\s*([A-Z])/g, ',\n    $1');
+    
+    // Clean up multiple blank lines
+    formatted = formatted.replace(/\n{3,}/g, '\n\n');
+    
+    // Ensure proper spacing around operators
+    formatted = formatted.replace(/\s*=\s*/g, ' = ');
+    formatted = formatted.replace(/\s*<>\s*/g, ' <> ');
+    formatted = formatted.replace(/\s*>\s*/g, ' > ');
+    formatted = formatted.replace(/\s*<\s*/g, ' < ');
+    formatted = formatted.replace(/\s*>=\s*/g, ' >= ');
+    formatted = formatted.replace(/\s*<=\s*/g, ' <= ');
+    
+    return formatted.trim();
+  }
+
+  /**
+   * Post-process formatted query to match desired formatting style:
+   * - For simple queries: SELECT *, FROM table, WHERE condition on same lines
+   * - For complex queries: Keep sql-formatter's formatting but adjust SELECT field list
+   * - Ensure proper indentation for nested structures
+   */
+  private postProcessFormattedQuery(formatted: string): string {
+    const lines = formatted.split('\n');
+    const result: string[] = [];
+    let i = 0;
+    
+    // Check if this is a simple query (SELECT * or single field)
+    const isSimpleQuery = /SELECT\s+\*\s+FROM/i.test(formatted) || 
+                         /SELECT\s+[^,\n]+\s+FROM/i.test(formatted.replace(/\s+/g, ' '));
+    
+    while (i < lines.length) {
+      const line = lines[i].trim();
+      
+      // Handle SELECT clause
+      if (line.toUpperCase().startsWith('SELECT')) {
+        // For simple queries, keep SELECT * on one line
+        if (isSimpleQuery) {
+          let selectLine = line;
+          i++;
+          
+          // Collect all content until we hit FROM
+          while (i < lines.length) {
+            const nextLine = lines[i].trim();
+            const upperNext = nextLine.toUpperCase();
+            
+            if (upperNext.startsWith('FROM')) {
+              break;
+            }
+            
+            if (!nextLine) {
+              i++;
+              continue;
+            }
+            
+            selectLine += ' ' + nextLine;
+            i++;
+          }
+          
+          result.push(selectLine);
+          continue;
+        } else {
+          // For complex queries, format to match desired style:
+          // SELECT [field1] AS [alias1]
+          // ,[field2] AS [alias2]
+          // ,[field3] AS [alias3]
+          // FROM ...
+          
+          // Check if SELECT line already has content
+          const trimmedLine = line.trim();
+          if (trimmedLine.toUpperCase().startsWith('SELECT') && trimmedLine.length > 6) {
+            // SELECT already has first field on same line
+            result.push(line);
+            i++;
+          } else {
+            // SELECT is alone, we'll get first field from next line
+            result.push('SELECT');
+            i++;
+          }
+          
+          let isFirstField = true;
+          
+          // Process SELECT field list
+          while (i < lines.length) {
+            const nextLine = lines[i];
+            const trimmed = nextLine.trim();
+            const upperNext = trimmed.toUpperCase();
+            
+            if (upperNext.startsWith('FROM')) {
+              break;
+            }
+            
+            if (!trimmed) {
+              i++;
+              continue;
+            }
+            
+            // Handle first field - check if last line is just "SELECT"
+            const lastResultLine = result[result.length - 1].trim();
+            if (isFirstField && lastResultLine.toUpperCase() === 'SELECT') {
+              // First field goes on same line as SELECT
+              result[result.length - 1] = 'SELECT ' + trimmed;
+              isFirstField = false;
+            } else if (trimmed.startsWith(',')) {
+              // Subsequent fields with comma at start - format with tab (matching image style)
+              result.push('\t' + trimmed);
+              isFirstField = false;
+            } else if (!isFirstField) {
+              // Field without comma prefix - add comma with tab
+              result.push('\t, ' + trimmed);
+            } else {
+              // First field without comma - add to SELECT line
+              if (lastResultLine.toUpperCase() === 'SELECT') {
+                result[result.length - 1] = 'SELECT ' + trimmed;
+              } else {
+                // SELECT already has content, this shouldn't happen but handle it
+                result.push(nextLine);
+              }
+              isFirstField = false;
+            }
+            i++;
+          }
+          continue;
+        }
+      }
+      
+      // Handle FROM clause
+      if (line.toUpperCase().startsWith('FROM')) {
+        // For simple queries, keep FROM and table on same line
+        if (isSimpleQuery) {
+          let fromLine = line;
+          i++;
+          
+          while (i < lines.length) {
+            const nextLine = lines[i].trim();
+            const upperNext = nextLine.toUpperCase();
+            
+            if (upperNext.startsWith('WHERE') || 
+                upperNext.startsWith('GROUP BY') || 
+                upperNext.startsWith('ORDER BY') || 
+                upperNext.startsWith('HAVING') || 
+                upperNext.startsWith('UNION')) {
+              break;
+            }
+            
+            if (!nextLine) {
+              i++;
+              continue;
+            }
+            
+            // Skip JOIN clauses for simple queries (they shouldn't exist)
+            if (upperNext.match(/^(LEFT|RIGHT|INNER|FULL|CROSS)\s+JOIN|^JOIN/)) {
+              break;
+            }
+            
+            fromLine += ' ' + nextLine;
+            i++;
+          }
+          
+          result.push(fromLine);
+          continue;
+        } else {
+          // For complex queries, preserve sql-formatter's formatting
+          result.push(line);
+          i++;
+          
+          // Process FROM clause content (table names, JOINs, ON clauses)
+          while (i < lines.length) {
+            const nextLine = lines[i];
+            const trimmed = nextLine.trim();
+            const upperNext = trimmed.toUpperCase();
+            
+            if (upperNext.startsWith('WHERE') || 
+                upperNext.startsWith('GROUP BY') || 
+                upperNext.startsWith('ORDER BY') || 
+                upperNext.startsWith('HAVING') || 
+                upperNext.startsWith('UNION')) {
+              break;
+            }
+            
+            if (!trimmed) {
+              i++;
+              continue;
+            }
+            
+            // Preserve original formatting (sql-formatter handles JOINs and ON clauses well)
+            result.push(nextLine);
+            i++;
+          }
+          continue;
+        }
+      }
+      
+      // Handle WHERE clause
+      if (line.toUpperCase().startsWith('WHERE')) {
+        // For simple queries, keep WHERE and condition on same line
+        if (isSimpleQuery) {
+          let whereLine = line;
+          i++;
+          
+          while (i < lines.length) {
+            const nextLine = lines[i].trim();
+            const upperNext = nextLine.toUpperCase();
+            
+            if (upperNext.startsWith('GROUP BY') || 
+                upperNext.startsWith('ORDER BY') || 
+                upperNext.startsWith('HAVING') || 
+                upperNext.startsWith('UNION')) {
+              break;
+            }
+            
+            if (!nextLine) {
+              i++;
+              continue;
+            }
+            
+            whereLine += ' ' + nextLine;
+            i++;
+          }
+          
+          result.push(whereLine);
+          continue;
+        } else {
+          // For complex queries, preserve sql-formatter's formatting
+          // It already handles indentation for AND/OR, EXISTS, subqueries correctly
+          result.push(line);
+          i++;
+          
+          while (i < lines.length) {
+            const nextLine = lines[i];
+            const trimmed = nextLine.trim();
+            const upperNext = trimmed.toUpperCase();
+            
+            if (upperNext.startsWith('GROUP BY') || 
+                upperNext.startsWith('ORDER BY') || 
+                upperNext.startsWith('HAVING') || 
+                upperNext.startsWith('UNION')) {
+              break;
+            }
+            
+            if (!trimmed) {
+              i++;
+              continue;
+            }
+            
+            // Preserve original formatting (sql-formatter handles complex WHERE clauses well)
+            result.push(nextLine);
+            i++;
+          }
+          continue;
+        }
+      }
+      
+      // Handle GROUP BY, ORDER BY, HAVING - keep keyword and content together
+      if (line.toUpperCase().match(/^(GROUP BY|ORDER BY|HAVING)/)) {
+        let clauseLine = line;
+        i++;
+        
+        while (i < lines.length) {
+          const nextLine = lines[i].trim();
+          const upperNext = nextLine.toUpperCase();
+          
+          // Stop if we hit another major clause
+          if (upperNext.startsWith('ORDER BY') || 
+              upperNext.startsWith('HAVING') || 
+              upperNext.startsWith('UNION') ||
+              upperNext.startsWith('EXCEPT') ||
+              upperNext.startsWith('INTERSECT')) {
+            break;
+          }
+          
+          if (!nextLine) {
+            i++;
+            continue;
+          }
+          
+          clauseLine += ' ' + nextLine;
+          i++;
+        }
+        
+        result.push(clauseLine);
+        continue;
+      }
+      
+      // Handle JOIN clauses - keep them as is but ensure proper formatting
+      if (line.toUpperCase().match(/^(LEFT|RIGHT|INNER|FULL|CROSS)\s+JOIN|^JOIN/)) {
+        result.push(line);
+        i++;
+        continue;
+      }
+      
+      // Handle ON clauses - keep with proper indentation
+      if (line.toUpperCase().startsWith('ON ')) {
+        result.push('    ' + line);
+        i++;
+        continue;
+      }
+      
+      // Default: keep the line as is
+      result.push(line);
+      i++;
+    }
+    
+    return result.join('\n');
+  }
+
+  /**
+   * Split SELECT fields by comma, respecting parentheses and brackets
+   */
+  private splitSelectFields(selectClause: string): string[] {
+    const fields: string[] = [];
+    let current = '';
+    let depth = 0;
+    let inBrackets = false;
+    let inQuotes = false;
+    let quoteChar = '';
+    
+    for (let i = 0; i < selectClause.length; i++) {
+      const char = selectClause[i];
+      const prevChar = i > 0 ? selectClause[i - 1] : '';
+      
+      if ((char === '"' || char === "'") && prevChar !== '\\') {
+        if (!inQuotes) {
+          inQuotes = true;
+          quoteChar = char;
+        } else if (char === quoteChar) {
+          inQuotes = false;
+        }
+        current += char;
+      } else if (!inQuotes) {
+        if (char === '[') {
+          inBrackets = true;
+          current += char;
+        } else if (char === ']') {
+          inBrackets = false;
+          current += char;
+        } else if (char === '(') {
+          depth++;
+          current += char;
+        } else if (char === ')') {
+          depth--;
+          current += char;
+        } else if (char === ',' && depth === 0 && !inBrackets) {
+          if (current.trim()) {
+            fields.push(current.trim());
+          }
+          current = '';
+        } else {
+          current += char;
+        }
+      } else {
+        current += char;
+      }
+    }
+    
+    if (current.trim()) {
+      fields.push(current.trim());
+    }
+    
+    return fields;
+  }
+
 
   executeQuery(): void {
     // Immediate validation check - run validation synchronously first
@@ -1678,10 +2283,22 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
+    // Clear all grid filters, sorts, and groups when executing a new query
+    // This ensures that previous grid modifications don't persist when executing a new query
+    this.currentGridFilters = [];
+    this.currentGridSorts = [];
+    this.currentGridGroups = [];
+    
     // Update original query when executing (to capture user's base query)
-    this.originalQuery = this.sqlQuery;
+    // Only update if originalQuery is empty or if current query has no grid modifications
+    // This prevents overwriting the original query when executing a query that already has grid filters
+    if (!this.originalQuery || this.originalQuery === '' || 
+        (this.currentGridFilters.length === 0 && this.currentGridSorts.length === 0 && this.currentGridGroups.length === 0)) {
+      this.originalQuery = this.sqlQuery;
+    }
     
     this.isExecuting = true;
+    this.isExecutingQuery = true; // Set flag to prevent grid updates during execution
     this.queryResults = null;
     this.showResults = false;
     
@@ -1704,6 +2321,16 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isExecuting = false;
         this.queryResults = response;
         this.showResults = true;
+        
+        // Clear grid filters, sorts, and groups by emitting empty arrays
+        // This ensures the grid component resets its filter/sort/group state
+        // Use setTimeout to ensure the grid component is ready to receive the clear signals
+        setTimeout(() => {
+          this.isExecutingQuery = false; // Allow grid updates after query execution completes
+          this.onGridFilterChange([]);
+          this.onGridSortChange([]);
+          this.onGridGroupChange([]);
+        }, 100);
         
         const executionTime = (Date.now() - startTime) / 1000;
         
@@ -1774,6 +2401,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       error: (error) => {
         this.isExecuting = false;
+        this.isExecutingQuery = false; // Clear flag on error
         const errorMessage = error.message || 'Unknown error occurred';
         const executionTime = (Date.now() - startTime) / 1000;
         
@@ -1845,6 +2473,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   private currentGridSorts: GridSort[] = [];
   private currentGridGroups: GridGroup[] = [];
   private isUpdatingFromGrid: boolean = false; // Prevent circular updates
+  private isExecutingQuery: boolean = false; // Prevent grid updates during query execution
   private originalQuery: string = ''; // Store original query without grid modifications
   private parsedOriginalQuery: any = null; // Cache parsed original query structure
   private parsedOriginalQueryBase: string = ''; // Track base query string used for cache
@@ -1875,7 +2504,7 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private updateSQLFromGrid(): void {
-    if (this.isUpdatingFromGrid || !this.sqlQuery.trim()) {
+    if (this.isUpdatingFromGrid || !this.sqlQuery.trim() || this.isExecutingQuery) {
       return;
     }
 
@@ -1928,9 +2557,9 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
         this.queryChangeSubject.next(this.sqlQuery);
         
         // Format query asynchronously to avoid blocking immediate update
-        setTimeout(() => {
-          this.formatQuery();
-        }, 0);
+        // setTimeout(() => {
+        //   this.formatQuery();
+        // }, 0);
         
         console.log('SQL updated from grid filters/sorts/groups');
       }
@@ -1950,30 +2579,103 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     
     // SELECT clause
-    sql += 'SELECT\n';
+    sql += 'SELECT ';
     if (parsedQuery.SelectedFields && parsedQuery.SelectedFields.length > 0) {
-      sql += '    ' + parsedQuery.SelectedFields.join(',\n    ') + '\n';
+      sql += ' ' + parsedQuery.SelectedFields.join(', ') + '';
     } else {
-      sql += '    *\n';
+      sql += '*  ';
     }
     
     // FROM clause (extract from base query)
-    const fromMatch = baseQuery.match(/FROM\s+([^\s]+(?:\s+(?:AS\s+)?\w+)?)/i);
-    if (fromMatch) {
-      sql += 'FROM ' + fromMatch[1] + '\n';
+    // Improved extraction to handle:
+    // - Schema-qualified table names (e.g., dbo.TableName, schema.table)
+    // - Quoted identifiers (e.g., [TableName], "TableName")
+    // - Table aliases (e.g., FROM Table AS Alias, FROM Table Alias)
+    let fromClause = '';
+    
+    // Find the FROM keyword position
+    const fromIndex = baseQuery.search(/\bFROM\s+/i);
+    if (fromIndex !== -1) {
+      // Extract everything after FROM
+      let afterFrom = baseQuery.substring(fromIndex + 4).trim();
+      
+      // Find where the FROM clause ends (before WHERE, JOIN, GROUP BY, ORDER BY, HAVING, LIMIT)
+      // Use a more flexible approach that handles multi-word keywords
+      const stopKeywords = ['WHERE', 'JOIN', 'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT'];
+      let stopPosition = afterFrom.length;
+      
+      for (const keyword of stopKeywords) {
+        const keywordPattern = new RegExp(`\\s+${keyword.replace(/\s+/g, '\\s+')}\\b`, 'i');
+        const match = afterFrom.match(keywordPattern);
+        if (match && match.index !== undefined && match.index < stopPosition) {
+          stopPosition = match.index;
+        }
+      }
+      
+      // Extract the FROM clause content
+      fromClause = afterFrom.substring(0, stopPosition).trim();
+      
+      // Clean up any trailing whitespace or commas
+      fromClause = fromClause.replace(/[,\s]+$/, '').trim();
+    }
+    
+    // If we successfully extracted a FROM clause, use it
+    if (fromClause) {
+      sql += ' FROM ' + fromClause;
+    } else {
+      // Fallback: Try simple regex pattern as last resort
+      const fallbackMatch = baseQuery.match(/\bFROM\s+([^\s]+(?:\s+(?:AS\s+)?\w+)?)/i);
+      if (fallbackMatch) {
+        sql += ' FROM ' + fallbackMatch[1].trim();
+      } else {
+        // Last resort: Log warning if we couldn't extract FROM clause
+        console.warn('Warning: Could not extract FROM clause from base query:', baseQuery.substring(0, 200));
+        // Try to preserve any existing FROM clause from the current query
+        const currentFromMatch = this.sqlQuery.match(/\bFROM\s+(.+?)(?=\s+(?:WHERE|JOIN|GROUP|ORDER|HAVING|LIMIT)|$)/i);
+        if (currentFromMatch) {
+          sql += ' FROM ' + currentFromMatch[1].trim();
+        }
+      }
     }
     
     // JOIN clauses (preserve from base query)
     const joinMatches = baseQuery.match(/((?:INNER|LEFT|RIGHT|FULL)?\s+JOIN\s+[^\s]+(?:\s+(?:AS\s+)?\w+)?\s+ON\s+[^\s]+\s*=\s*[^\s]+)/gi);
     if (joinMatches) {
       joinMatches.forEach(join => {
-        sql += join + '\n';
+        sql += join + ' ';
+      });
+    }
+    
+    // Detect aggregate fields from SELECT clause for HAVING clause support
+    const aggregateFields = new Set<string>();
+    const aggregateAliases = new Map<string, string>(); // alias -> original expression
+    
+    if (parsedQuery.SelectedFields && parsedQuery.SelectedFields.length > 0) {
+      parsedQuery.SelectedFields.forEach((field: string) => {
+        const fieldUpper = field.toUpperCase().trim();
+        // Check if field is an aggregate function (COUNT, SUM, AVG, MAX, MIN)
+        const aggregatePattern = /\b(COUNT|SUM|AVG|MAX|MIN)\s*\(/i;
+        if (aggregatePattern.test(field)) {
+          // Extract alias if present: COUNT(*) AS TotalWorkItems
+          const aliasMatch = field.match(/\bAS\s+(\w+)/i);
+          if (aliasMatch) {
+            const alias = aliasMatch[1].toLowerCase().trim();
+            aggregateFields.add(alias);
+            aggregateAliases.set(alias, field.trim());
+          } else {
+            // No alias, use the full expression
+            aggregateFields.add(field.toLowerCase().trim());
+          }
+        }
       });
     }
     
     // WHERE clause - combine original filters with grid filters (avoid duplicates)
+    // Separate WHERE and HAVING filters (aggregate fields use HAVING)
     const whereConditions: string[] = [];
+    const havingConditions: string[] = [];
     const addedFields = new Map<string, string>(); // Track fields and their conditions to avoid duplicates
+    const addedHavingFields = new Map<string, string>(); // Track HAVING fields
     
     // First, add original WHERE filters (from base query, not grid-applied)
     // Only add fields that are NOT in grid filters (grid filters will override)
@@ -1989,11 +2691,20 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
           if (!hasGridFilter) {
             const condition = this.buildFilterCondition(filter);
             if (condition) {
-              // Normalize field name for comparison
-              const normalizedField = fieldName;
-              if (!addedFields.has(normalizedField)) {
-                whereConditions.push(condition);
-                addedFields.set(normalizedField, condition);
+              // Check if this is an aggregate field - use HAVING instead of WHERE
+              if (aggregateFields.has(fieldName)) {
+                const normalizedField = fieldName;
+                if (!addedHavingFields.has(normalizedField)) {
+                  havingConditions.push(condition);
+                  addedHavingFields.set(normalizedField, condition);
+                }
+              } else {
+                // Normalize field name for comparison
+                const normalizedField = fieldName;
+                if (!addedFields.has(normalizedField)) {
+                  whereConditions.push(condition);
+                  addedFields.set(normalizedField, condition);
+                }
               }
             }
           }
@@ -2011,26 +2722,51 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
     
-    // Add grid filter conditions
+    // Add grid filter conditions - separate WHERE and HAVING
     gridFiltersByField.forEach(filter => {
       const condition = this.buildGridFilterCondition(filter);
       if (condition) {
         const normalizedField = filter.field.toLowerCase().trim();
-        // Remove any existing condition for this field
-        const existingIndex = whereConditions.findIndex(cond => 
-          cond.toLowerCase().startsWith(normalizedField + ' ')
-        );
-        if (existingIndex >= 0) {
-          whereConditions.splice(existingIndex, 1);
+        
+        // Check if this is an aggregate field - use HAVING instead of WHERE
+        if (aggregateFields.has(normalizedField)) {
+          // Remove any existing HAVING condition for this field
+          const existingIndex = havingConditions.findIndex(cond => 
+            cond.toLowerCase().startsWith(normalizedField + ' ') ||
+            cond.toLowerCase().includes(aggregateAliases.get(normalizedField)?.toLowerCase() || '')
+          );
+          if (existingIndex >= 0) {
+            havingConditions.splice(existingIndex, 1);
+          }
+          havingConditions.push(condition);
+          addedHavingFields.set(normalizedField, condition);
+        } else {
+          // Regular field - use WHERE
+          // Remove any existing condition for this field
+          const existingIndex = whereConditions.findIndex(cond => 
+            cond.toLowerCase().startsWith(normalizedField + ' ')
+          );
+          if (existingIndex >= 0) {
+            whereConditions.splice(existingIndex, 1);
+          }
+          whereConditions.push(condition);
+          addedFields.set(normalizedField, condition);
         }
-        whereConditions.push(condition);
-        addedFields.set(normalizedField, condition);
       }
     });
     
     // Only add WHERE clause if there are conditions
+    // Ensure we don't already have WHERE in the SQL string (safety check)
     if (whereConditions.length > 0) {
-      sql += 'WHERE ' + whereConditions.join(' AND ') + '\n';
+      // Remove any trailing WHERE keyword that might have been accidentally included
+      // Also check if WHERE already exists in the SQL (shouldn't happen, but safety check)
+      if (sql.toUpperCase().includes('WHERE')) {
+        console.warn('Warning: WHERE clause already exists in SQL, removing duplicate');
+        // Remove any existing WHERE clause from the SQL string
+        sql = sql.replace(/\s+WHERE\s+.*$/i, '').trim();
+      }
+      // Add newline before WHERE (creates blank line), but no newline after
+      sql = sql.trim() + '\nWHERE ' + whereConditions.join(' AND ');
     }
     
     // GROUP BY clause - use only grid groups (grid grouping overrides original query GROUP BY)
@@ -2056,20 +2792,40 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
     } else {
-      // No grid groups - check if we should include original query GROUP BY
-      // For now, we'll only use grid groups, so if grid groups are empty, no GROUP BY
-      console.log('No grid groups - GROUP BY will be omitted');
+      // No grid groups - preserve original query GROUP BY if it exists
+      if (parsedQuery.GroupBy && parsedQuery.GroupBy.length > 0) {
+        parsedQuery.GroupBy.forEach((groupField: string) => {
+          if (groupField) {
+            const normalized = groupField.trim().toLowerCase();
+            if (!addedGroupFields.has(normalized)) {
+              groupByFields.push(groupField.trim());
+              addedGroupFields.add(normalized);
+              console.log('Preserved original GROUP BY field:', groupField.trim());
+            }
+          }
+        });
+      } else {
+        console.log('No grid groups and no original GROUP BY - GROUP BY will be omitted');
+      }
     }
     
     console.log('Final groupByFields:', groupByFields);
     
     // Only add GROUP BY clause if there are fields to group by
     if (groupByFields.length > 0) {
-      sql += 'GROUP BY ' + groupByFields.join(', ') + '\n';
+      // Add newline before GROUP BY (creates blank line), but no newline after
+      sql = sql.trim() + '\nGROUP BY ' + groupByFields.join(', ');
       console.log('GROUP BY clause added to SQL:', groupByFields.join(', '));
       console.log('SQL so far:', sql);
     } else {
       console.log('No GROUP BY fields - GROUP BY clause omitted');
+    }
+    
+    // HAVING clause - for filters on aggregate fields
+    if (havingConditions.length > 0) {
+      // Add newline before HAVING (creates blank line), but no newline after
+      sql = sql.trim() + '\nHAVING ' + havingConditions.join(' AND ');
+      console.log('HAVING clause added to SQL:', havingConditions.join(' AND '));
     }
     
     // ORDER BY clause - use grid sorts if available, otherwise use existing
@@ -2095,7 +2851,8 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     
     if (orderByFields.length > 0) {
-      sql += 'ORDER BY ' + orderByFields.join(', ') + '\n';
+      // Add newline before ORDER BY (creates blank line), but no newline after
+      sql = sql.trim() + '\nORDER BY ' + orderByFields.join(', ');
     }
     
     // LIMIT clause (preserve from base query)
@@ -2108,98 +2865,318 @@ export class SqlEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private buildFilterCondition(filter: any): string {
-    if (!filter.FieldName) return '';
+    if (!filter || !filter.FieldName) return '';
     
-    const fieldName = filter.FieldName;
-    const operator = this.getSQLOperator(filter.Operator);
-    let value = filter.Value;
+    const gridCompatibleFilter: GridFilter = {
+      field: filter.FieldName,
+      operator: filter.Operator !== undefined && filter.Operator !== null ? String(filter.Operator) : '',
+      value: filter.Value
+    };
     
-    // Handle parameter values
-    if (filter.ValueType === 2 && value.startsWith('@')) {
-      return `${fieldName} ${operator} ${value}`;
-    }
-    
-    // Handle NULL checks
-    if (filter.Operator === 10) {
-      return `${fieldName} IS NULL`;
-    }
-    if (filter.Operator === 11) {
-      return `${fieldName} IS NOT NULL`;
-    }
-    
-    // Handle string values - add quotes if needed
-    if (typeof value === 'string' && !value.startsWith("'") && !value.startsWith('"') && !value.startsWith('@')) {
-      value = `'${value}'`;
-    }
-    
-    return `${fieldName} ${operator} ${value}`;
+    return this.buildGridFilterCondition(gridCompatibleFilter);
   }
 
   private buildGridFilterCondition(filter: GridFilter): string {
-    if (!filter.field || !filter.value) return '';
+    // Check for field and value - allow 0 as a valid value
+    // For NULL checks, value can be empty
+    const operator = filter.operator || '11'; // Default to Contains (11)
+    const isNullCheck = operator === '6' || operator === '7' || 
+                       operator === 'IsNULL' || operator === 'IsNotNULL' ||
+                       operator.toLowerCase() === 'isnull' || operator.toLowerCase() === 'isnotnull';
+    
+    if (!filter.field) return '';
+    if (!isNullCheck && (filter.value === null || filter.value === undefined || filter.value === '')) return '';
     
     const fieldName = filter.field;
-    const operator = filter.operator || 'contains';
     let value = filter.value;
     
-    // Map grid operators to SQL operators
-    let sqlOperator = '=';
-    switch (operator.toLowerCase()) {
-      case 'contains':
-      case 'startswith':
-      case 'endswith':
-        sqlOperator = 'LIKE';
-        if (operator === 'contains') {
-          value = `'%${value}%'`;
-        } else if (operator === 'startswith') {
-          value = `'${value}%'`;
-        } else if (operator === 'endswith') {
-          value = `'%${value}'`;
+    // Helper function to format numeric/string values
+    const formatValue = (val: any): string => {
+      if (typeof val === 'number') {
+        return String(val);
+      } else if (typeof val === 'string') {
+        const trimmedValue = val.trim();
+        // Preserve SQL parameters without quotes (e.g., @ParamName)
+        if (trimmedValue.startsWith('@')) {
+          return trimmedValue;
         }
-        break;
-      case 'equal':
-        sqlOperator = '=';
-        value = typeof value === 'string' ? `'${value}'` : value;
-        break;
-      case 'notequal':
-        sqlOperator = '!=';
-        value = typeof value === 'string' ? `'${value}'` : value;
-        break;
-      case 'greaterthan':
-        sqlOperator = '>';
-        break;
-      case 'lessthan':
-        sqlOperator = '<';
-        break;
-      case 'greaterthanorequal':
-        sqlOperator = '>=';
-        break;
-      case 'lessthanorequal':
-        sqlOperator = '<=';
-        break;
-      default:
-        sqlOperator = 'LIKE';
-        value = `'%${value}%'`;
+        const isNumeric = /^-?\d+(\.\d+)?$/.test(trimmedValue);
+        if (isNumeric) {
+          return trimmedValue;
+        }
+        // Preserve existing quotes
+        if (trimmedValue.startsWith("'") || trimmedValue.startsWith('"')) {
+          return trimmedValue;
+        }
+        // Escape single quotes inside the value
+        const escapedValue = trimmedValue.replace(/'/g, "''");
+        return `'${escapedValue}'`;
+      }
+      return `'${String(val)}'`;
+    };
+    
+    // Map RelationalOperator enum values to SQL operators
+    // Supports both numeric enum values (1-20) and string operator names for backward compatibility
+    let sqlOperator = '=';
+    const operatorStr = String(operator).toLowerCase().trim();
+    const operatorNum = isNaN(parseInt(operatorStr, 10)) ? null : parseInt(operatorStr, 10);
+    
+    // Determine operator type - check numeric first, then string
+    if (operatorNum !== null && operatorNum >= 1 && operatorNum <= 20) {
+      // Handle numeric enum values (1-20)
+      switch (operatorNum) {
+        case 1: // GreaterThan
+          sqlOperator = '>';
+          value = formatValue(value);
+          break;
+        case 2: // LessThan
+          sqlOperator = '<';
+          value = formatValue(value);
+          break;
+        case 3: // EqualTo
+          sqlOperator = '=';
+          value = formatValue(value);
+          break;
+        case 4: // IN
+          sqlOperator = 'IN';
+          if (Array.isArray(value)) {
+            value = '(' + value.map(v => formatValue(v)).join(', ') + ')';
+          } else if (typeof value === 'string') {
+            const values = value.split(',').map(v => formatValue(v.trim())).join(', ');
+            value = `(${values})`;
+          } else {
+            value = `(${formatValue(value)})`;
+          }
+          break;
+        case 5: // NOTIN
+          sqlOperator = 'NOT IN';
+          if (Array.isArray(value)) {
+            value = '(' + value.map(v => formatValue(v)).join(', ') + ')';
+          } else if (typeof value === 'string') {
+            const values = value.split(',').map(v => formatValue(v.trim())).join(', ');
+            value = `(${values})`;
+          } else {
+            value = `(${formatValue(value)})`;
+          }
+          break;
+        case 6: // IsNULL
+          return `${fieldName} IS NULL`;
+        case 7: // IsNotNULL
+          return `${fieldName} IS NOT NULL`;
+        case 8: // NotEqualTo
+          sqlOperator = '!=';
+          value = formatValue(value);
+          break;
+        case 9: // GreaterThanOREqualTo
+          sqlOperator = '>=';
+          value = formatValue(value);
+          break;
+        case 10: // LessThanOREqualTo
+          sqlOperator = '<=';
+          value = formatValue(value);
+          break;
+        case 11: // Contains
+          sqlOperator = 'LIKE';
+          value = `'%${value}%'`;
+          break;
+        case 12: // NotContains
+          sqlOperator = 'NOT LIKE';
+          value = `'%${value}%'`;
+          break;
+        case 13: // StartsWith
+          sqlOperator = 'LIKE';
+          value = `'${value}%'`;
+          break;
+        case 14: // NotStartsWith
+          sqlOperator = 'NOT LIKE';
+          value = `'${value}%'`;
+          break;
+        case 15: // EndsWith
+          sqlOperator = 'LIKE';
+          value = `'%${value}'`;
+          break;
+        case 16: // NotEndsWith
+          sqlOperator = 'NOT LIKE';
+          value = `'%${value}'`;
+          break;
+        case 17: // Between
+          sqlOperator = 'BETWEEN';
+          if (Array.isArray(value) && value.length >= 2) {
+            value = `${formatValue(value[0])} AND ${formatValue(value[1])}`;
+          } else if (typeof value === 'string') {
+            const parts = value.split(',').map(v => v.trim());
+            if (parts.length >= 2) {
+              value = `${formatValue(parts[0])} AND ${formatValue(parts[1])}`;
+            } else {
+              value = formatValue(value);
+            }
+          } else {
+            value = formatValue(value);
+          }
+          break;
+        case 18: // NotBetween
+          sqlOperator = 'NOT BETWEEN';
+          if (Array.isArray(value) && value.length >= 2) {
+            value = `${formatValue(value[0])} AND ${formatValue(value[1])}`;
+          } else if (typeof value === 'string') {
+            const parts = value.split(',').map(v => v.trim());
+            if (parts.length >= 2) {
+              value = `${formatValue(parts[0])} AND ${formatValue(parts[1])}`;
+            } else {
+              value = formatValue(value);
+            }
+          } else {
+            value = formatValue(value);
+          }
+          break;
+        case 19: // SplitContains
+          sqlOperator = 'LIKE';
+          value = `'%${value}%'`;
+          break;
+        case 20: // NotSplitContains
+          sqlOperator = 'NOT LIKE';
+          value = `'%${value}%'`;
+          break;
+        default:
+          sqlOperator = 'LIKE';
+          value = `'%${value}%'`;
+      }
+    } else {
+      // Handle string operator names for backward compatibility
+      switch (operatorStr) {
+        case 'greaterthan':
+        case '>':
+          sqlOperator = '>';
+          value = formatValue(value);
+          break;
+        case 'lessthan':
+        case '<':
+          sqlOperator = '<';
+          value = formatValue(value);
+          break;
+        case 'equal':
+        case 'equalto':
+        case '=':
+          sqlOperator = '=';
+          value = formatValue(value);
+          break;
+        case 'in':
+          sqlOperator = 'IN';
+          if (Array.isArray(value)) {
+            value = '(' + value.map(v => formatValue(v)).join(', ') + ')';
+          } else if (typeof value === 'string') {
+            const values = value.split(',').map(v => formatValue(v.trim())).join(', ');
+            value = `(${values})`;
+          } else {
+            value = `(${formatValue(value)})`;
+          }
+          break;
+        case 'notin':
+        case 'not in':
+          sqlOperator = 'NOT IN';
+          if (Array.isArray(value)) {
+            value = '(' + value.map(v => formatValue(v)).join(', ') + ')';
+          } else if (typeof value === 'string') {
+            const values = value.split(',').map(v => formatValue(v.trim())).join(', ');
+            value = `(${values})`;
+          } else {
+            value = `(${formatValue(value)})`;
+          }
+          break;
+        case 'isnull':
+        case 'is null':
+          return `${fieldName} IS NULL`;
+        case 'isnotnull':
+        case 'is not null':
+          return `${fieldName} IS NOT NULL`;
+        case 'notequal':
+        case 'notequalto':
+        case '!=':
+        case '<>':
+          sqlOperator = '!=';
+          value = formatValue(value);
+          break;
+        case 'greaterthanorequal':
+        case 'greaterthanorequalto':
+        case '>=':
+          sqlOperator = '>=';
+          value = formatValue(value);
+          break;
+        case 'lessthanorequal':
+        case 'lessthanorequalto':
+        case '<=':
+          sqlOperator = '<=';
+          value = formatValue(value);
+          break;
+        case 'contains':
+          sqlOperator = 'LIKE';
+          value = `'%${value}%'`;
+          break;
+        case 'notcontains':
+          sqlOperator = 'NOT LIKE';
+          value = `'%${value}%'`;
+          break;
+        case 'startswith':
+          sqlOperator = 'LIKE';
+          value = `'${value}%'`;
+          break;
+        case 'notstartswith':
+          sqlOperator = 'NOT LIKE';
+          value = `'${value}%'`;
+          break;
+        case 'endswith':
+          sqlOperator = 'LIKE';
+          value = `'%${value}'`;
+          break;
+        case 'notendswith':
+          sqlOperator = 'NOT LIKE';
+          value = `'%${value}'`;
+          break;
+        case 'between':
+          sqlOperator = 'BETWEEN';
+          if (Array.isArray(value) && value.length >= 2) {
+            value = `${formatValue(value[0])} AND ${formatValue(value[1])}`;
+          } else if (typeof value === 'string') {
+            const parts = value.split(',').map(v => v.trim());
+            if (parts.length >= 2) {
+              value = `${formatValue(parts[0])} AND ${formatValue(parts[1])}`;
+            } else {
+              value = formatValue(value);
+            }
+          } else {
+            value = formatValue(value);
+          }
+          break;
+        case 'notbetween':
+          sqlOperator = 'NOT BETWEEN';
+          if (Array.isArray(value) && value.length >= 2) {
+            value = `${formatValue(value[0])} AND ${formatValue(value[1])}`;
+          } else if (typeof value === 'string') {
+            const parts = value.split(',').map(v => v.trim());
+            if (parts.length >= 2) {
+              value = `${formatValue(parts[0])} AND ${formatValue(parts[1])}`;
+            } else {
+              value = formatValue(value);
+            }
+          } else {
+            value = formatValue(value);
+          }
+          break;
+        case 'splitcontains':
+          sqlOperator = 'LIKE';
+          value = `'%${value}%'`;
+          break;
+        case 'notsplitcontains':
+          sqlOperator = 'NOT LIKE';
+          value = `'%${value}%'`;
+          break;
+        default:
+          sqlOperator = 'LIKE';
+          value = `'%${value}%'`;
+      }
     }
     
     return `${fieldName} ${sqlOperator} ${value}`;
-  }
-
-  private getSQLOperator(operatorNumber: number): string {
-    const operatorMap: { [key: number]: string } = {
-      1: '=',
-      2: '!=',
-      3: '>',
-      4: '>=',
-      5: '<',
-      6: '<=',
-      7: 'LIKE',
-      8: 'IN',
-      9: 'NOT IN',
-      10: 'IS NULL',
-      11: 'IS NOT NULL'
-    };
-    return operatorMap[operatorNumber] || '=';
   }
 
   validateParameters(): boolean {

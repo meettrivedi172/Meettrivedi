@@ -1,5 +1,6 @@
 <div class="results-grid-container">
   <!-- Results Toolbar -->
+  @if (syncfusionGridData && syncfusionGridData.length > 0) {
   <div class="results-toolbar">
     <div class="toolbar-left">
       <div class="metadata">
@@ -60,7 +61,7 @@
       </button>
     </div>
   </div>
-
+  }
   <!-- Grid -->
   <!-- <div class="grid-container">
     <table class="results-grid-table">
@@ -193,7 +194,8 @@
           #syncfusionGrid
           [dataSource]="syncfusionGridData" 
           [columns]="syncfusionGridColumns"
-          [allowPaging]="false"
+          [allowPaging]="true"
+          [pageSettings]="gridPageSettings"
           [allowSorting]="true"
           [sortSettings]="gridSortSettings"
           [allowFiltering]="true"
@@ -204,9 +206,11 @@
           [allowResizing]="true"
           [resizeSettings]="gridResizeSettings"
           [toolbar]="gridToolbar"
-          height="600"
+          height="200px"
           style="width: 100%;"
           (actionComplete)="onGridActionComplete($event)"
+          (actionBegin)="onGridActionBegin($event)"
+          (dataBound)="onGridDataBound($event)"
           (filtering)="onGridFiltering($event)"
           (sorted)="onGridSorted($event)"
           (grouping)="onGridGrouping($event)"

@@ -109,6 +109,7 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
   private gridInitialized: boolean = false;
   private isUpdatingGrid: boolean = false; // Prevent infinite loops
   private lastDataLength: number = 0; // Track last processed data length
+  private lastDataReference: any = null; // Track last data reference for performance
   private lastColumnsString: string = ''; // Track last processed columns
 
   constructor(
@@ -126,17 +127,50 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
   ngAfterViewInit(): void {
     console.log('ResultsGridComponent ngAfterViewInit - Grid view initialized');
     this.gridInitialized = true;
-    // Delay initialization slightly to ensure view is fully ready
-    setTimeout(() => {
+    // Use requestAnimationFrame for immediate initialization - more efficient than setTimeout
+    requestAnimationFrame(() => {
       if (this.data && this.data.length > 0) {
         console.log('Initializing grid in ngAfterViewInit with', this.data.length, 'rows');
         this.initializeSyncfusionGrid();
       }
-    }, 100);
+      
+      // Set up global observer to watch for filter dialogs
+      this.setupFilterDialogObserver();
+    });
+  }
+
+  private setupFilterDialogObserver(): void {
+    // Use MutationObserver to watch for filter dialogs appearing in the DOM
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) { // Element node
+            const element = node as Element;
+            // Check if the added node is a filter popup or contains one
+            if (element.classList.contains('e-filter-popup') || 
+                element.classList.contains('e-filterdialog') ||
+                element.querySelector('.e-filter-popup') ||
+                element.querySelector('.e-filterdialog')) {
+              // Filter dialog appeared, set up validation
+              setTimeout(() => {
+                this.setupFilterButtonValidation();
+              }, 100);
+            }
+          }
+        });
+      });
+    });
+
+    // Start observing the document body for filter dialogs
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
   }
 
   /**
    * Initialize Syncfusion Grid with dynamic columns and data
+   * Optimized for performance - no unnecessary delays
    */
   initializeSyncfusionGrid(): void {
     if (!this.data || this.data.length === 0) {
@@ -148,36 +182,34 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
     // Update columns first, then data
     this.updateSyncfusionGridColumns();
     
-    // Small delay to ensure columns are set before data
-    setTimeout(() => {
+    // Update data immediately - Syncfusion Grid handles the binding efficiently
+    // Use requestAnimationFrame for smooth rendering
+    requestAnimationFrame(() => {
       this.updateSyncfusionGridData();
-    }, 50);
+      this.cdr.detectChanges();
+    });
   }
 
          /**
-     * Update Syncfusion Grid data from input data
-     */
+    * Update Syncfusion Grid data from input data
+    * Optimized for performance - uses efficient shallow copy for better binding speed
+    */
       updateSyncfusionGridData(): void {
       // Use actual query results data, or empty array if no data
       if (this.data && this.data.length > 0) {
-        // Check if data length changed - simple and fast check
-        if (this.data.length === this.lastDataLength && this.syncfusionGridData.length > 0) {
-          return; // No change in data length, skip update
+        // Quick check: if data reference is the same and length matches, skip update
+        if (this.data === this.lastDataReference && this.data.length === this.lastDataLength && this.syncfusionGridData.length > 0) {
+          return; // Same data reference, skip update
         }
 
-        // Update last processed length
+        // Update tracking references
         this.lastDataLength = this.data.length;
+        this.lastDataReference = this.data;
 
-        // Create a deep copy to ensure all nested objects are new references
-        // This ensures Angular change detection works properly
-        try {
-          // Deep copy creates new array and object references
-          this.syncfusionGridData = JSON.parse(JSON.stringify(this.data));
-        } catch (e) {
-          // Fallback to shallow copy if JSON parsing fails
-          console.warn('Failed to deep copy data, using shallow copy:', e);
-          this.syncfusionGridData = this.data.map(row => ({ ...row }));
-        }
+        // Use efficient shallow copy - much faster than deep copy
+        // For most SQL query results, shallow copy is sufficient
+        // This creates new array references which triggers Angular change detection
+        this.syncfusionGridData = this.data.map(row => ({ ...row }));
         
         // Verify data structure matches columns (only log errors)
         if (this.syncfusionGridData.length > 0 && this.syncfusionGridColumns.length > 0) {
@@ -194,6 +226,7 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
         if (this.syncfusionGridData.length > 0) {
           this.syncfusionGridData = [];
           this.lastDataLength = 0;
+          this.lastDataReference = null;
         }
       }
    }
@@ -271,8 +304,9 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
           columnConfig.format = 'C2';
         }
       } else if (columnType === 'date') {
-        columnConfig.type = 'date';
-        columnConfig.format = 'yMd';
+        // Keep dates as string type to display as-is from API (e.g., "2025-09-29")
+        // This preserves the original format and allows proper filtering
+        columnConfig.type = 'string';
       } else if (columnType === 'boolean') {
         columnConfig.type = 'boolean';
         columnConfig.textAlign = 'Center';
@@ -299,7 +333,7 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
           headerText: this.formatHeaderText(key),
           width: this.calculateColumnWidth(key, sampleValue),
           type: this.detectSyncfusionColumnType(key, sampleValue) === 'number' ? 'number' : 
-                this.detectSyncfusionColumnType(key, sampleValue) === 'date' ? 'date' :
+                this.detectSyncfusionColumnType(key, sampleValue) === 'date' ? 'string' : // Display dates as-is from API
                 this.detectSyncfusionColumnType(key, sampleValue) === 'boolean' ? 'boolean' : 'string',
           allowFiltering: true,
           allowSorting: true,
@@ -442,31 +476,31 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
       this.initializeColumns();
       this.processData();
       
-             // Update Syncfusion Grid when data or columns change
-       // Only proceed if view is initialized and we have data
-       if (this.gridInitialized && this.data && this.data.length > 0) {
-         // Use a single timeout to update both columns and data
-         // Syncfusion Grid will automatically update when properties change
-         setTimeout(() => {
-           this.isUpdatingGrid = true;
-           
-           // Update columns first (needed for proper data binding)
-           this.updateSyncfusionGridColumns();
-           
-           // Then update data (columns must be ready first)
-           // Small delay ensures columns are processed before data
-           setTimeout(() => {
-             this.updateSyncfusionGridData();
-             
-             // Reset flag after update completes
-             setTimeout(() => {
-               this.isUpdatingGrid = false;
-             }, 0);
-           }, 50);
-         }, 0);
-       } else if (!this.gridInitialized) {
-         // Grid not initialized yet, will update after view init
-       }
+      // Update Syncfusion Grid when data or columns change
+      // Only proceed if view is initialized and we have data
+      if (this.gridInitialized && this.data && this.data.length > 0) {
+        // Use requestAnimationFrame for better performance - runs before next repaint
+        requestAnimationFrame(() => {
+          this.isUpdatingGrid = true;
+          
+          // Update columns first (needed for proper data binding)
+          this.updateSyncfusionGridColumns();
+          
+          // Update data immediately after columns (no delay needed)
+          // Syncfusion Grid handles updates efficiently
+          this.updateSyncfusionGridData();
+          
+          // Trigger change detection manually for immediate update
+          this.cdr.detectChanges();
+          
+          // Reset flag after update completes
+          requestAnimationFrame(() => {
+            this.isUpdatingGrid = false;
+          });
+        });
+      } else if (!this.gridInitialized) {
+        // Grid not initialized yet, will update after view init
+      }
     }
   }
 
@@ -773,15 +807,7 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
 
     switch (type) {
       case 'date':
-        if (value instanceof Date) {
-          return value.toLocaleDateString();
-        }
-        if (typeof value === 'string') {
-          const date = new Date(value);
-          if (!isNaN(date.getTime())) {
-            return date.toLocaleDateString();
-          }
-        }
+        // Display dates as-is from API (e.g., "2025-09-29")
         return String(value);
       
       case 'number':
@@ -885,8 +911,173 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
+  onGridActionBegin(event: any): void {
+    // Intercept filter actions to prevent applying empty filters
+    if (event.requestType === 'filtering') {
+      // Set up filter button validation when filter dialog opens
+      if (event.action === 'openFilterDialog' || event.action === 'filter') {
+        setTimeout(() => {
+          this.setupFilterButtonValidation();
+        }, 200);
+      }
+      
+      // Check filter model if it exists
+      if (event.filterModel) {
+        const filterModel = event.filterModel;
+        
+        // Check if filter value is empty (except for NULL operators)
+        if (filterModel && filterModel.value !== null && filterModel.value !== undefined) {
+          const filterValue = filterModel.value.toString().trim();
+          const operator = filterModel.operator || '';
+          const operatorStr = operator.toString().toLowerCase();
+          
+          // Check if operator is NULL/IS NULL (these don't need values)
+          const isNullOperator = operatorStr.includes('null') || 
+                                operatorStr === 'isnull' || 
+                                operatorStr === 'is not null' || 
+                                operatorStr === 'isnotnull';
+          
+          // Cancel filter if value is empty and not a NULL operator
+          if (filterValue === '' && !isNullOperator) {
+            event.cancel = true;
+            return;
+          }
+        } else if (filterModel && (filterModel.value === null || filterModel.value === undefined || filterModel.value === '')) {
+          const operator = filterModel.operator || '';
+          const operatorStr = operator.toString().toLowerCase();
+          const isNullOperator = operatorStr.includes('null') || 
+                                operatorStr === 'isnull' || 
+                                operatorStr === 'is not null' || 
+                                operatorStr === 'isnotnull';
+          
+          // Cancel filter if value is empty and not a NULL operator
+          if (!isNullOperator) {
+            event.cancel = true;
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  onGridDataBound(event: any): void {
+    // Customize filter UI to disable filter button when value is empty
+    if (!this.syncfusionGrid) return;
+
+    try {
+      // Use setTimeout to ensure DOM is ready
+      setTimeout(() => {
+        this.setupFilterButtonValidation();
+      }, 100);
+    } catch (error) {
+      console.error('Error in onGridDataBound:', error);
+    }
+  }
+
+  private setupFilterButtonValidation(): void {
+    if (!this.syncfusionGrid) return;
+
+    try {
+      // Find filter popup/dialog
+      const filterPopup = document.querySelector('.e-filter-popup') || 
+                         document.querySelector('.e-filterdialog') ||
+                         document.querySelector('.e-popup-open');
+      
+      if (filterPopup) {
+        const inputs = filterPopup.querySelectorAll('input[type="text"], input.e-input, input:not([type="hidden"])');
+        const operatorSelects = filterPopup.querySelectorAll('select, .e-dropdownlist, [role="combobox"]');
+        const filterButtons = filterPopup.querySelectorAll('.e-primary, button.e-btn-primary, .e-filter-apply, button[type="button"]');
+        
+        // Function to validate and enable/disable filter button
+        const validateFilterButton = () => {
+          let hasValidValue = false;
+          
+          // Check all inputs
+          inputs.forEach((input: any) => {
+            const value = input.value ? input.value.toString().trim() : '';
+            if (value !== '') {
+              hasValidValue = true;
+            }
+          });
+          
+          // Check if any operator is NULL/IS NULL
+          let isNullOperator = false;
+          operatorSelects.forEach((select: any) => {
+            const operatorValue = select.value || select.textContent || '';
+            const operatorStr = operatorValue.toString().toLowerCase();
+            if (operatorStr.includes('null') || 
+                operatorStr === 'isnull' || 
+                operatorStr === 'is not null' || 
+                operatorStr === 'isnotnull') {
+              isNullOperator = true;
+            }
+          });
+          
+          // Enable/disable filter buttons
+          filterButtons.forEach((button: any) => {
+            if (hasValidValue || isNullOperator) {
+              button.disabled = false;
+              button.classList.remove('e-disabled');
+            } else {
+              button.disabled = true;
+              button.classList.add('e-disabled');
+            }
+          });
+        };
+        
+        // Add event listeners to inputs
+        inputs.forEach((input: any) => {
+          input.addEventListener('input', validateFilterButton);
+          input.addEventListener('change', validateFilterButton);
+        });
+        
+        // Add event listeners to operator selects
+        operatorSelects.forEach((select: any) => {
+          select.addEventListener('change', validateFilterButton);
+          // Also handle Syncfusion dropdown components
+          if ((select as any).ej2_instances && (select as any).ej2_instances[0]) {
+            const dropdownInstance = (select as any).ej2_instances[0];
+            if (dropdownInstance.change) {
+              const originalChange = dropdownInstance.change;
+              dropdownInstance.change = (args: any) => {
+                if (originalChange) originalChange.call(dropdownInstance, args);
+                validateFilterButton();
+              };
+            } else {
+              dropdownInstance.change = validateFilterButton;
+            }
+          }
+        });
+        
+        // Initial validation
+        validateFilterButton();
+        
+        // Use MutationObserver to watch for filter dialog changes
+        const observer = new MutationObserver(() => {
+          validateFilterButton();
+        });
+        
+        observer.observe(filterPopup, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['value', 'disabled']
+        });
+      }
+    } catch (error) {
+      console.error('Error setting up filter button validation:', error);
+    }
+  }
+
   onGridFiltering(event: any): void {
     // Filter event is being triggered
+    // Set up filter button validation when filter dialog opens
+    if (event && event.type === 'filtering') {
+      // Use setTimeout to ensure filter dialog is rendered
+      setTimeout(() => {
+        this.setupFilterButtonValidation();
+      }, 200);
+    }
     // We'll handle it in actionComplete to get final state
   }
 
@@ -913,7 +1104,8 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
       if (groups.length > 0) {
         console.log('Groups from event:', groups.map(g => g.field).join(', '));
         this.groupChange.emit(groups);
-        this.updateSQL();
+        // Note: Don't call updateSQL() here - groupChange.emit() already triggers onGridGroupChange() 
+        // in parent component which calls updateSQLFromGrid()
       }
     }
   }
@@ -929,19 +1121,51 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
       // Syncfusion Grid filter settings structure: { columns: [{ field, operator, value, ... }] }
       if (filterSettings && filterSettings.columns && Array.isArray(filterSettings.columns)) {
         filterSettings.columns.forEach((filterCol: any) => {
-          if (filterCol.field && filterCol.value !== null && filterCol.value !== undefined && filterCol.value !== '') {
-            filters.push({
-              field: filterCol.field,
-              operator: filterCol.operator || 'contains',
-              value: filterCol.value
-            });
+          if (filterCol.field) {
+            const operator = filterCol.operator || '';
+            const operatorStr = String(operator).toLowerCase().trim();
+            
+            // Check if operator is NULL/IS NULL (these don't need values)
+            const isNullOperator = operatorStr.includes('null') || 
+                                  operatorStr === 'isnull' || 
+                                  operatorStr === 'is not null' || 
+                                  operatorStr === 'isnotnull' ||
+                                  operatorStr === '6' || // IsNULL enum value
+                                  operatorStr === '7';   // IsNotNULL enum value
+            
+            // Include filter if:
+            // 1. It has a value (not null, undefined, or empty), OR
+            // 2. It's a NULL operator (which doesn't need a value)
+            const hasValue = filterCol.value !== null && 
+                           filterCol.value !== undefined && 
+                           filterCol.value !== '';
+            
+            if (hasValue || isNullOperator) {
+              // Map Syncfusion NULL operator strings to enum values
+              let mappedOperator = filterCol.operator;
+              if (isNullOperator) {
+                // Map to enum values: IsNULL = 6, IsNotNULL = 7
+                if (operatorStr.includes('not')) {
+                  mappedOperator = '7'; // IsNotNULL
+                } else {
+                  mappedOperator = '6'; // IsNULL
+                }
+              }
+              
+              filters.push({
+                field: filterCol.field,
+                operator: mappedOperator || (isNullOperator ? '6' : 'contains'),
+                value: filterCol.value
+              });
+            }
           }
         });
       }
 
       // Always emit, even if filters are cleared (empty array)
       this.filterChange.emit(filters);
-      this.updateSQL();
+      // Note: Don't call updateSQL() here - filterChange.emit() already triggers onGridFilterChange() 
+      // in parent component which calls updateSQLFromGrid()
     } catch (error) {
       console.error('Error handling grid filters:', error);
     }
@@ -981,7 +1205,8 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
 
       // Always emit, even if sorts are cleared (empty array)
       this.sortChange.emit(sorts);
-      this.updateSQL();
+      // Note: Don't call updateSQL() here - sortChange.emit() already triggers onGridSortChange() 
+      // in parent component which calls updateSQLFromGrid()
     } catch (error) {
       console.error('Error handling grid sorts:', error);
     }
@@ -1180,7 +1405,8 @@ export class ResultsGridComponent implements OnInit, OnChanges, AfterViewInit {
       console.log('Emitting groups:', groups.length > 0 ? groups.map(g => g.field).join(', ') : 'none');
       console.log('Groups array to emit:', groups);
       this.groupChange.emit(groups);
-      this.updateSQL();
+      // Note: Don't call updateSQL() here - groupChange.emit() already triggers onGridGroupChange() 
+      // in parent component which calls updateSQLFromGrid()
     } catch (error) {
       console.error('Error handling grid groups:', error);
     }

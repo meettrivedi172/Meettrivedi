@@ -329,7 +329,7 @@
   background: #6b7280;
 }
 
-/* Syncfusion Grid Container - Hide Scrollbars */
+/* Syncfusion Grid Container */
 .syncfusion-grid-container {
   flex: 1;
   overflow: hidden;
@@ -346,33 +346,15 @@
   flex-direction: column;
 }
 
-/* Ensure grid content is scrollable but scrollbars are hidden */
+/* Ensure grid content is scrollable - use default scrollbars */
 .syncfusion-grid-container ::ng-deep .e-grid .e-content {
   overflow-y: auto !important;
   overflow-x: auto !important;
-  scrollbar-width: none !important; /* Firefox */
-  -ms-overflow-style: none !important; /* IE and Edge */
-  -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
-}
-
-.syncfusion-grid-container ::ng-deep .e-grid .e-content::-webkit-scrollbar {
-  display: none !important; /* Chrome, Safari, Opera */
-  width: 0 !important;
-  height: 0 !important;
 }
 
 .syncfusion-grid-container ::ng-deep .e-grid .e-gridcontent {
   overflow-y: auto !important;
   overflow-x: auto !important;
-  scrollbar-width: none !important; /* Firefox */
-  -ms-overflow-style: none !important; /* IE and Edge */
-  -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
-}
-
-.syncfusion-grid-container ::ng-deep .e-grid .e-gridcontent::-webkit-scrollbar {
-  display: none !important; /* Chrome, Safari, Opera */
-  width: 0 !important;
-  height: 0 !important;
 }
 
 /* Ensure grid content wrapper allows scrolling */
@@ -380,34 +362,6 @@
   overflow: visible !important;
 }
 
-.syncfusion-grid-container ::ng-deep .e-grid .e-gridcontent .e-content {
-  overflow-y: auto !important;
-  overflow-x: auto !important;
-}
-
-/* Hide scrollbars on grid body scroll areas */
-.syncfusion-grid-container ::ng-deep .e-grid .e-gridbody {
-  scrollbar-width: none !important; /* Firefox */
-  -ms-overflow-style: none !important; /* IE and Edge */
-}
-
-.syncfusion-grid-container ::ng-deep .e-grid .e-gridbody::-webkit-scrollbar {
-  display: none !important; /* Chrome, Safari, Opera */
-  width: 0 !important;
-  height: 0 !important;
-}
-
-/* Hide scrollbars on content area */
-.syncfusion-grid-container ::ng-deep .e-grid .e-content-area {
-  scrollbar-width: none !important; /* Firefox */
-  -ms-overflow-style: none !important; /* IE and Edge */
-}
-
-.syncfusion-grid-container ::ng-deep .e-grid .e-content-area::-webkit-scrollbar {
-  display: none !important; /* Chrome, Safari, Opera */
-  width: 0 !important;
-  height: 0 !important;
-}
 
 /* Column Reordering Styles */
 .syncfusion-grid-container ::ng-deep .e-grid .e-headercelldiv {
